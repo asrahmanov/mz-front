@@ -23,8 +23,7 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /.idea
-/docker
-/docker-compose.yaml
+
 /public/*
 !/public/.htaccess
 !/public/index.php
