@@ -1,0 +1,59 @@
+{% extends 'admin/layout/layout1.html.twig' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{# 'plural_name' | trans | capitalize #}</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm">
+                                <a href="{{ path('admin.' ~ slug ~ '.create') }}"
+                                   class="btn btn-success float-right"><i class="fas fa-plus pr-1"></i> Создать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        {% if entities | length %}
+                            <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td>{{ entity.id }}</td>
+                                    <td>{{ entity }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ path('admin.' ~ slug ~ '.edit', { id: entity.id }) }}"
+                                           class="btn btn-sm btn-outline-info">Редактировать</a>
+                                        <form class="d-inline-block" action="{{ path('admin.' ~ slug ~ '.delete', { id: entity.id }) }}" method="post">
+                                            <input type="submit" value="Удалить" class="btn btn-sm btn-outline-danger ml-2">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                            <div class="container-fluid">
+                                <div class="alert my-2">
+                                    <h5><i class="icon fas fa-info"></i>Список пуст.</h5>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ knp_pagination_render(entities) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

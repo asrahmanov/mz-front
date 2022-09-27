@@ -1,0 +1,346 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{% set label = label|trans|capitalize %}
+
+
+{% block cropper_widget %}
+    <div class="cropper-field mb-2">
+        <div class="row">
+            <div class="col-sm-4 mb-1">
+                <img class="w-100 cropper-field__preview rounded{% if value is empty %} d-none{% endif %}"
+                     src="{{ value | default('') }}" alt="preview"/>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-primary modal-opener" data-toggle="modal"
+                data-target="#{{ id }}__modal">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="btn btn-outline-danger delete">
+            <i class="fas fa-trash"></i>
+        </button>
+        <div class="modal fade" id="{{ id }}__modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+             aria-labelledby="{{ id }}__modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <img class="cropper-field__cropper w-100 rounded{% if value is empty %} d-none{% endif %}"
+                                 src="{{ value | default('') }}" alt="preview"/>
+                        </div>
+                        <div class="input-group">
+                            <input type="file" class="custom-file-input cropper d-none" accept="image/*"
+                                   data-preview=".{{ id }}__preview">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary save">Применить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input value="{{ value }}" type="hidden" id="{{ id }}" {{ block('widget_attributes') }}>
+    </div>
+{% endblock %}
+
+{% block page_block_widget %}
+    {% for item in value %}
+        <div class="card" style="max-width: 350px">
+            <div class="card-body">
+                <h5 class="card-title">{{ item }}</h5>
+                <div class="text-right">
+                    <a class="btn btn-outline-info" href="#">Редактировать</a>
+                    <a class="btn btn-outline-danger action-delete" href="#">Удалить</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="input-group">
+        <select class="custom-select form-control" id="inputGroupSelect04" aria-label="">
+            {% for key, block_type in page_block_types %}
+                <option value="">{{ key | trans }}</option>
+            {% endfor %}
+        </select>
+        <div class="input-group-append">
+            <button class="btn btn-secondary" onclick="handleBlockCreate(this)" type="button">Добавить</button>
+        </div>
+    </div>
+    <script>
+        function handleBlockCreate(t) {
+            document.location.href = $('option:selected', $(t).parent().parent()).val();
+        }
+    </script>
+    <script>
+        $('.action-delete').on('click', function (e) {
+            e.preventDefault();
+            const formAction = $(this).attr('formaction');
+            let deleteForm = $('#delete-form');
+            deleteForm.attr('action', formAction);
+        });
+    </script>
+{% endblock %}
+
+{% block chips_widget %}
+    <select multiple="multiple" {{ block('widget_attributes') }} class="form-control chips">
+        {% for item in value %}
+            <option selected value="{{ item }}">{{ item }}</option>
+        {% endfor %}
+    </select>
+{% endblock %}
+
+{% block form_label -%}
+    {% if label is not same as(false) -%}
+        {%- if compound is defined and compound -%}
+            {%- set element = 'label' -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' col-form-label')|trim}) -%}
+        {%- else -%}
+            {%- set label_attr = label_attr|merge({for: id}) -%}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% if name|trans != name %}
+                    {% set label = name|trans %}
+                {% else %}
+                    {% set label = name|humanize %}
+                {% endif %}
+            {%- endif -%}
+        {%- endif -%}
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+        {%- if translation_domain is same as(false) -%}
+            {%- if label_html is same as(false) -%}
+                {{- label|capitalize -}}
+            {%- else -%}
+                {{- label|raw -}}
+            {%- endif -%}
+        {%- else -%}
+            {%- if label_html is same as(false) -%}
+                {{- label|trans(label_translation_parameters, translation_domain)|capitalize -}}
+            {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+            {%- endif -%}
+        {%- endif -%}
+        {% block form_label_errors %}{{- form_errors(form) -}}{% endblock form_label_errors %}</{{ element|default('label') }}>
+    {%- else -%}
+        {%- if errors|length > 0 -%}
+            <div id="{{ id }}_errors" class="mb-2">
+                {{- form_errors(form) -}}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+{%- endblock form_label %}
+
+{% block checkbox_radio_label -%}
+    {#- Do not display the label if widget is not defined in order to prevent double label rendering -#}
+    {%- if widget is defined -%}
+        {% set is_parent_custom = parent_label_class is defined and ('checkbox-custom' in parent_label_class or 'radio-custom' in parent_label_class or 'switch-custom' in parent_label_class) %}
+        {% set is_custom = label_attr.class is defined and ('checkbox-custom' in label_attr.class or 'radio-custom' in label_attr.class or 'switch-custom' in label_attr.class) %}
+        {%- if is_parent_custom or is_custom -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control-label')|trim}) -%}
+        {%- else %}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
+        {%- endif %}
+        {%- if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {%- if required -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
+        {%- endif -%}
+        {%- if parent_label_class is defined -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|replace({'checkbox-inline': '', 'radio-inline': '', 'checkbox-custom': '', 'radio-custom': ''})|trim}) -%}
+        {%- endif -%}
+        {%- if label is not same as(false) and label is empty -%}
+            {%- if label_format is not empty -%}
+                {%- set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) -%}
+            {%- else -%}
+                {%- set label = name|trans|humanize|capitalize -%}
+            {%- endif -%}
+        {%- endif -%}
+
+        {{ widget|raw }}
+        <label{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}>
+            {%- if label is not same as(false) -%}
+                {%- if translation_domain is same as(false) -%}
+                    {%- if label_html is same as(false) -%}
+                        {{- label -}}
+                    {%- else -%}
+                        {{- label|raw -}}
+                    {%- endif -%}
+                {%- else -%}
+                    {%- if label_html is same as(false) -%}
+                        {{- label|trans(label_translation_parameters, translation_domain) -}}
+                    {%- else -%}
+                        {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endif -%}
+            {{- form_errors(form) -}}
+        </label>
+    {%- endif -%}
+{%- endblock checkbox_radio_label %}
+
+{% block test_widget %}
+    <div data-controller="js-table" data-target="#{{ id }}" data-value="{{ value }}">
+        <input type="hidden" value="{{ value }}" id="{{ id }}" {{ block('widget_attributes') }}>
+    </div>
+{% endblock %}
+
+{% block drop_zone_widget %}
+    <div class="dropzone" data-controller="dropzone"></div>
+    <input type="hidden" value="value" {{ block('widget_attributes') }}>
+{% endblock %}
+
+{% block doctor_achievements_widget %}
+    <div class="row">
+        <div class="col-1">
+            {{ form_widget(form['image'], {required: false}) }}
+        </div>
+        <div class="col-11">
+            {{ form_widget(form['text'], {required: false, attr: {placeholder: 'Текст'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block hardware_advantages_widget %}
+    <div class="row">
+        <div class="col-1">
+            {{ form_widget(form['icon'], {required: false}) }}
+        </div>
+        <div class="col-11">
+            {{ form_widget(form['text'], {required: false, attr: {placeholder: 'Текст'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block service_advantages_widget %}
+    <div class="row">
+        <div class="col-1">
+            {{ form_widget(form['image'], {required: false}) }}
+        </div>
+        <div class="col-11">
+            {{ form_widget(form['text'], {required: false, attr: {placeholder: 'Текст'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block collection_row %}
+    <div class="form-group" data-controller="collection">
+        <div class="text-bold mb-2">{{ form.vars.name|trans|capitalize }}</div>
+        <div id="collapse-container_{{ name }}" class="collapse">
+            {{ form_start(form) }}
+            <div class="row" data-collection-target="container">
+                {% for r in form %}
+                    <div class="col-{{ form.vars.col }}" data-row-id="{{ loop.index }}">
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{ form_widget(r) }}
+                                <a type="button"
+                                   data-target-row-id="{{ loop.index }}"
+                                   data-action="collection#deleteRow"
+                                   class="close"
+                                   aria-label="Close"
+                                >
+                                    <span aria-hidden="true">×</span>
+                                </a>
+                            </div>
+                            <div class="col-auto {# align-self-center #}">
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-{{ form.vars.col }} d-none prototype" data-row-id="__name__">
+                <div class="row mb-2">
+                    <div class="col">
+                        {{ form_widget(form.vars.prototype) }}
+                        <button type="button"
+                                data-target-row-id="__name__"
+                                data-action="collection#deleteRow"
+                                class="close"
+                                aria-label="Close"
+                        >
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="col-auto align-self-center">
+
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline-success" data-action="collection#addRow"><i class="fa fa-plus"></i></button>
+        </div>
+        <button class="btn btn-link btn-collapse collapsed" type="button" data-toggle="collapse"
+                data-target="#collapse-container_{{ name }}" aria-expanded="false">({{ value|length }})
+        </button>
+    </div>
+{% endblock %}
+
+{% block image_row %}
+    <div class="form-group">
+        {#
+        <label for="{{ id }}">{{ form.vars.name|trans|humanize|capitalize }}</label>
+        #}
+        {{ form_label(form) }}
+        {% block image_widget %}
+            <div data-controller="image" style="width: {{ width }}; height: {{ height }}"
+                 data-action="click->image#openDialog" class="image-widget">
+                {{ form_widget(form['url'], {attr: {'data-image-target': 'input'}}) }}
+                {{ form_widget(form['name'], {attr: {'data-action': 'click->image#noop', class: 'image-name'}}) }}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block menu_widget %}
+    <div data-controller="menu">
+        <div class="app">
+             <menu-editor :data="{{ value }}" name="{{ full_name }}"></menu-editor>
+        </div>
+    </div>
+{% endblock %}
+
+{% block geo_coords_widget %}
+    <div class="geo-coords">
+        <geo-coords {% if value %}value="{{ value }}"{% endif%} name="{{ full_name }}"></geo-coords>
+    </div>
+{% endblock %}
+
+{% block form_row -%}
+    {%- if compound is defined and compound -%}
+        {%- set element = 'fieldset' -%}
+    {%- endif -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    {%- if compound is defined and compound -%}
+        <{{ element|default('div') }}{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim})} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
+        </{{ element|default('div') }}>
+    {%- else -%}
+        <{{ element|default('div') }}{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim})} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
+        </{{ element|default('div') }}>
+    {%- endif -%}
+{%- endblock form_row %}

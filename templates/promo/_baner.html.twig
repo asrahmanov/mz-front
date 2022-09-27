@@ -1,0 +1,17 @@
+<li class="actions-block__col">
+    <div class="ad-block _ibg">
+        <div class="ad-block__labels">
+            {% if promo.promo %}
+                <span class="label">акция</span>
+            {% endif %}
+            {% if promo.new %}
+                <span class="label label_spec">новинки</span>
+            {% endif %}
+            {% if promo.specialPrice %}
+                <span class="label label_price">специальная цена</span>
+            {% endif %}
+        </div>
+        <div class="ad-block__title">{{ promo.name }}</div>
+        <a href="{{ path('promo.show', {slug: promo.slug}) }}" class="ad-block__btn btn btn_m btn_inv">подробнее</a>
+    </div>
+</li>

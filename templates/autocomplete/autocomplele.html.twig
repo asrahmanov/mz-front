@@ -1,0 +1,7 @@
+<div class="dropdown-menu notHidden">
+    {% for item in result %}
+        {% include item.template %}
+    {% else %}
+        <p>Совпадений не найдено</p>
+    {% endfor %}
+</div>

@@ -1,0 +1,22 @@
+{% from 'macroses.html.twig' import image %}
+<div class="ad-block _ibg">
+    {% if banner.image.url %}
+        {{ image(banner.image, {classes: ['ad-block__poster']}) }}
+    {% endif %}
+    <div class="ad-block__content">
+        <header class="ad-block__labels">
+            {% if banner.promo.promo|default(false) %}
+                <span class="label">акция</span>
+            {% endif %}
+            {% if banner.promo.special_price|default(false) %}
+                <span class="label label_price">специальная цена</span>
+            {% endif %}
+            {% if banner.promo.new|default(false) %}
+                <span class="label label_spec">новинки</span>
+            {% endif %}
+        </header>
+        <div class="ad-block__title">{{ banner.promo.name }}</div>
+        <a href="{{ path('promo.show', {slug: banner.promo.slug}) }}"
+           class="ad-block__btn btn btn_m btn_inv">подробнее</a>
+    </div>
+</div>

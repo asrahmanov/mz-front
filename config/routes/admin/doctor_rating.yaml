@@ -1,0 +1,16 @@
+doctor_rating:
+    path: /doctor_rating
+    controller: '\App\Controller\Admin\DoctorRatingController::index'
+    methods: GET
+doctor_rating.create:
+    path: /doctor_rating/create
+    controller: '\App\Controller\Admin\DoctorRatingController::create'
+    methods: GET|POST
+doctor_rating.edit:
+    path: '/doctor_rating/edit/{id}'
+    controller: '\App\Controller\Admin\DoctorRatingController::edit'
+    methods: GET|POST
+doctor_rating.delete:
+    path: '/doctor_rating/delete/{id}'
+    controller: '\App\Controller\Admin\DoctorRatingController::delete'
+    methods: POST

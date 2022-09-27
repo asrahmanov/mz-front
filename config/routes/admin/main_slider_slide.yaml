@@ -1,0 +1,16 @@
+main_slider_slide:
+    path: /main_slider_slide
+    controller: '\App\Controller\Admin\MainSliderSlideController::index'
+    methods: GET
+main_slider_slide.create:
+    path: /main_slider_slide/create
+    controller: '\App\Controller\Admin\MainSliderSlideController::create'
+    methods: GET|POST
+main_slider_slide.edit:
+    path: '/main_slider_slide/edit/{id}'
+    controller: '\App\Controller\Admin\MainSliderSlideController::edit'
+    methods: GET|POST
+main_slider_slide.delete:
+    path: '/main_slider_slide/delete/{id}'
+    controller: '\App\Controller\Admin\MainSliderSlideController::delete'
+    methods: POST

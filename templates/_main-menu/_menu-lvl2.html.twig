@@ -1,0 +1,17 @@
+<button class="header-menu__arrow"></button>
+<ul class="header-menu__submenu">
+    {% for item in menu %}
+        <li class="header-menu__item">
+            <a href="{{ item.link|default('#') }}" class="header-menu__link">{{ item.name|default }}</a>
+            <button class="header-menu__arrow"></button>
+            <ul class="header-menu__submenu">
+                {% for item in item.children|default([]) %}
+                    <li class="header-menu__item">
+                        <a href="{{ item.link|default('#') }}" class="header-menu__link">{{ item.name|default }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    <li class="_icon-swipe"></li>
+</ul>

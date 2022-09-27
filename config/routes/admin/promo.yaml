@@ -1,0 +1,16 @@
+promo:
+    path: /promo
+    controller: '\App\Controller\Admin\PromoController::index'
+    methods: GET
+promo.create:
+    path: /promo/create
+    controller: '\App\Controller\Admin\PromoController::create'
+    methods: GET|POST
+promo.edit:
+    path: '/promo/edit/{id}'
+    controller: '\App\Controller\Admin\PromoController::edit'
+    methods: GET|POST
+promo.delete:
+    path: '/promo/delete/{id}'
+    controller: '\App\Controller\Admin\PromoController::delete'
+    methods: POST

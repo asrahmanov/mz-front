@@ -1,0 +1,19 @@
+<div class="card-doctor">
+    <div class="card-doctor__header _ibg">
+        <img src="{{ doctor.photo['url'] }}" alt="{{ doctor.photo['name'] }}">
+        <div class="card-doctor__labels card-doctor__labels_left">
+            {% if doctor.promo %}
+                <span class="label label_action">акция</span>
+            {% endif %}
+            {% if doctor.onlineConsultation %}
+                <span class="label label_consult">онлайн-консультация</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-doctor__body">
+        <a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="card-doctor__name">{{ doctor }}</a>
+        <div class="card-doctor__position">{{ doctor.post|default }}</div>
+        <div class="card-doctor__experience">Стаж: {{ 'years'|trans({years: doctor.experience}) }}</div>
+        <a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="card-doctor__more">Подробнее</a>
+    </div>
+</div>

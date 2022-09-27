@@ -1,0 +1,61 @@
+{% from 'macroses.html.twig' import get_youtube_preview_url, image %}
+
+<li class="reviews__item review-card{{ review.video ? ' reviews__item_big review-card_big' }}">
+    <div class="review-card__body">
+        <div class="review-card__header">
+            <div class="review-card__from from-review">
+                <div class="from-review__ava _ibg" data-initials="{% for word in review.authorName|split(' ') %}{{ word|first }}{% endfor %}"></div>
+                <div class="from-review__body">
+                    <div class="from-review__date">{{ review.createdAt|date }}</div>
+                    <div class="from-review__name">{{ review.authorName }}</div>
+                </div>
+            </div>
+            {% if review.rating and review.source %}
+                <div class="review-card__rating">
+                    <div class="rating-link">
+                        <div class="rating-link__top">{{ review.rating }}</div>
+                        <div class="rating-link__bottom">
+                            <img class="rating-link__logo" src="{{ review.source.logo.url }}" alt="logo">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="review-card__text">{{ review.text }}</div>
+        {% if review.answerText %}
+            <div class="review-card__answer answer-review">
+                <div class="answer-review__row">
+                    <div class="answer-review__ava"><img src="/img/reviews/ava-answer.svg" alt=""></div>
+                    <div class="answer-review__text">{{ review.answerText }}</div>
+                </div>
+            </div>
+        {% endif %}
+        {% if review.doctors|length %}
+            <div class="review-card__about about-review">
+                <div class="about-review__title">Отзыв о:</div>
+                {% for doctor in review.doctors %}
+                    <div class="about-review__item">
+                        <div class="about-review__ava _ibg">{{ image(doctor.photo) }}</div>
+                        <div class="about-review__body">
+                            <a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="about-review__name">{{ doctor.fullName }}</a>
+                            <div class="about-review__position">{{ doctor.specialties|join(' / ') }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if review.clinic %}
+            <div class="review-card__direction direction-link">
+                <a href="{{ path('contacts', {slug: review.clinic.slug}) }}" class="direction-link__metro direction-link__metro_{{ review.clinic.color }}">{{ review.clinic }}</a>
+                <span class="direction-link__distance">{{ review.clinic.distance }}</span>
+            </div>
+        {% endif %}
+    </div>
+    {% if review.video %}
+        <div class="review-card__video">
+            <a href="#video" data-video="{{ review.video }}" class="_popup-link link-youtube link-youtube_m _icon-youtube _ibg">
+                <img src="{{ get_youtube_preview_url(review.video)  }}" alt="">
+            </a>
+        </div>
+    {% endif %}
+</li>

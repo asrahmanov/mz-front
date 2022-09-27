@@ -1,0 +1,12 @@
+<nav class="footer__nav footer-nav">
+    <ul class="footer-nav__list">
+    {% for item in menu %}
+        <li>
+            <a href="{{ item.link }}" class="footer-nav__link">{{ item.name }}</a>
+            {% if item.children|default is not empty %}
+                {% include '_bottom_menu/_submenu.html.twig' with {menu: item.children} %}
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+</nav>

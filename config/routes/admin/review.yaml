@@ -1,0 +1,16 @@
+review:
+    path: /review
+    controller: '\App\Controller\Admin\ReviewController::index'
+    methods: GET
+review.create:
+    path: /review/create
+    controller: '\App\Controller\Admin\ReviewController::create'
+    methods: GET|POST
+review.edit:
+    path: '/review/edit/{id}'
+    controller: '\App\Controller\Admin\ReviewController::edit'
+    methods: GET|POST
+review.delete:
+    path: '/review/delete/{id}'
+    controller: '\App\Controller\Admin\ReviewController::delete'
+    methods: POST

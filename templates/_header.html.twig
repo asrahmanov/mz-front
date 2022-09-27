@@ -1,0 +1,43 @@
+<header class="header _container">
+    <button class="header__burger icon-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="header__mobile"></div>
+    <a href="/" class="header__logo"><img src="/img/header/logo.svg" alt=""></a>
+    <div class="header__geo header-info" data-da=".header__mobile,768">
+        <div class="header-info__title">
+            <a href="#footer" class="header-info__link header-info__link_geo link link_icon _icon-geo _goto-block">3
+                клиники</a>
+        </div>
+        <div class="header-info__text">в Санкт-Петербурге</div>
+    </div>
+    <div class="header__phone header-info" data-da=".header__mobile,768">
+        <div class="header-info__title">
+            <a href="tel:+78124217036" class="header-info__link link link_icon _icon-tel">+7 (812) 421-70-36</a>
+        </div>
+        <div class="header-info__text">Ежедневно с 9:00 до 20:00</div>
+    </div>
+    <button data-form="request-call" class="header__btn btn btn_prim btn_l btn_icon _icon-whatsapp _popup-link"><span>Заказать звонок</span></button>
+    {{ render(path('main-menu')) }}
+    <form action="#" class="header__search header-search" data-da=".header__mobile,768">
+        <input autocomplete="off" type="text" name="form[]"
+               class="header-search__input input input_m input_search _req">
+        <ul class="header-search__suggestions">
+            <li class="header-search__suggestion">Список подсказок будет подгружаться с сервера и обновляться при вводе
+                текста
+            </li>
+            <li class="header-search__suggestion">Ортопеды</li>
+            <li class="header-search__suggestion">Рефлексотерапевты</li>
+            <li class="header-search__suggestion">Рентгенологи</li>
+            <li class="header-search__suggestion">Ревматологи</li>
+            <li class="header-search__suggestion">Ортопеды</li>
+            <li class="header-search__suggestion">Рефлексотерапевты</li>
+            <li class="header-search__suggestion">Рентгенологи</li>
+            <li class="header-search__suggestion">Ревматологи</li>
+        </ul>
+    </form>
+    <button class="header__find"></button>
+    <button class="header__eye" data-da=".header__mobile,768"></button>
+</header>

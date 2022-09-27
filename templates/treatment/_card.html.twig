@@ -1,0 +1,32 @@
+{% from 'macroses.html.twig' import image %}
+<div class="branches__col">
+    <div class="branch">
+        <div class="branch__img _ibg">{{ image(treatment.image) }}</div>
+        <div class="branch__content">
+            <div class="branch__labels">
+                {#
+                <span class="label">акция</span>
+                <span class="label label_price">специальная цена</span>
+                #}
+            </div>
+            <a href="{{ path('treatment.show', {slug: treatment.slug}) }}"
+               class="branch__title">{{ treatment }}</a>
+            <div class="branch__items">
+                <div class="branch__text" data-simplebar data-simplebar-auto-hide="false">
+                    <p>{{ treatment.excerpt|raw }}</p>
+                </div>
+                <a href="{{ path('treatment.show', {slug: treatment.slug}) }}" class="branch__show-all">Подробнее</a>
+            </div>
+            <div class="branch__locations">
+                <span>Доступно в клинике:</span>
+                {% if treatment.clinics.count == totalClinics %}
+                    <a href="javascript:void(0);" class="branch__location branch__location_all">Все клиники</a>
+                {% else %}
+                    {% for clinic in treatment.clinics %}
+                        <a href="javascript:void(0);" class="branch__location branch__location_{{ clinic.color }}">{{ clinic }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

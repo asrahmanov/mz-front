@@ -1,0 +1,16 @@
+banner:
+    path: /banner
+    controller: '\App\Controller\Admin\BannerController::index'
+    methods: GET
+banner.create:
+    path: /banner/create
+    controller: '\App\Controller\Admin\BannerController::create'
+    methods: GET|POST
+banner.edit:
+    path: '/banner/edit/{id}'
+    controller: '\App\Controller\Admin\BannerController::edit'
+    methods: GET|POST
+banner.delete:
+    path: '/banner/delete/{id}'
+    controller: '\App\Controller\Admin\BannerController::delete'
+    methods: POST

@@ -1,0 +1,87 @@
+<div class="pricelist__group _active">
+    <div class="pricelist__title _spoller  {{ loop.first ? '_active' }}">
+        <div class="pricelist__col">{{ category }}</div>
+        <div class="pricelist__col pricelist__col_labels">
+            <span class="pricelist__label pricelist__label_action">{{ category.hasPromo ? 'Акция' }}</span>
+            <span class="pricelist__label pricelist__label_new">{{ category.hasNew ? 'Новинка' }}</span>
+        </div>
+    </div>
+    <div class="pricelist__body">
+        <div class="pricelist__items" data-simplebar data-simplebar-auto-hide="false"
+             data-simplebar-scrollbar-max-size="128">
+            <div class="price-main__links price-main__links_small">
+                <a href="" class="link _icon-download"><span>Скачать прайс-лист «{{ category }}»</span></a>
+            </div>
+            {% for priceItem in category.priceItems %}
+                {% include 'price/_price_item.html.twig' %}
+            {% endfor %}
+            {% for category in category.categories %}
+                <div class="pricelist__subtitle _spoller _active"><span>{{ category }}</span></div>
+                <div class="pricelist__subbody _active">
+                    {% for priceItem in category.priceItems %}
+                        {% include 'price/_price_item.html.twig' %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% block popups %}
+    {% for category in category.categories %}
+        {% for priceItem in category.priceItems %}
+            {% if priceItem.additionalServices %}
+                <div class="tooltip-include" id="item_{{ priceItem.id }}">
+                    <div class="tooltip-include__content">
+                        <div class="tooltip-include__caption">В стоимость входит:</div>
+                        <ul class="tooltip-include__list">
+                            {% for service in priceItem.additionalServices %}
+                            <li><span class="tooltip-include__service">{{service.name}}</span>
+                                {% if service.time is defined %}
+                                <span class="tooltip-include__time _icon-time">{{service.time}}</span>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <div class="popup popup_docpopup docpopup">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="docpopup__title h2">Приём ведут</div>
+                <div class="docpopup__slider _swiper swiper-bild">
+                    <div class="swiper-wrapper">
+                        {% for category in category.categories %}
+                            {% for doctor in category.doctors|sort %}
+                                <div class="docpopup__card swiper-slide" id="docpopup{{ doctor.id}}">
+                                    {% include 'price/_doctor.html.twig' with { doctor } %}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+                <div class="docpopup__pagination swiper-pagination"></div>
+                <div class="docpopup__btn docpopup__btn_prev swiper-button swiper-button_prev swiper-button_m"></div>
+                <div class="docpopup__btn docpopup__btn_next swiper-button swiper-button_next swiper-button_m"></div>
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tooltip-bank tooltip-bank_promo">
+        <div class="tooltip-bank__content">
+            <div class="tooltip-bank__head" style="display: none">
+                <span class="tooltip-bank__oldPrice">1 500 ₽</span> – cтоимость услуги без скидок и акций
+            </div>
+            <div class="tooltip-bank__body">
+                <div class="tooltip-bank__credit" style="background-image: none">Рассрочка</div>
+                <div class="tooltip-bank__text">На эту услугу действует рассрочка, чтобы не откладывать лечение на потом</div>
+                <a href="" class="tooltip-bank__link link">Подробнее</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

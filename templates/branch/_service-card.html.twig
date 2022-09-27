@@ -1,0 +1,12 @@
+{% from 'macroses.html.twig' import image %}
+
+<div class="item-diagnostic">
+    <div class="item-diagnostic__img _ibg">{{ image(service.image1) }}</div>
+    <div class="item-diagnostic__body">
+        <div class="item-diagnostic__title">{{ service }}</div>
+        <div class="item-diagnostic__subtitle">{{ service.excerpt }}</div>
+        <div class="item-diagnostic__btn">
+            <a href="{{ path('service.show', {path: service.path}) }}" class="btn btn_inv btn_s">от {{ service.priceFrom }}</a>
+        </div>
+    </div>
+</div>

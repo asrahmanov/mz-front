@@ -1,0 +1,16 @@
+symptom:
+    path: /symptom
+    controller: '\App\Controller\Admin\SymptomController::index'
+    methods: GET
+symptom.create:
+    path: /symptom/create
+    controller: '\App\Controller\Admin\SymptomController::create'
+    methods: GET|POST
+symptom.edit:
+    path: '/symptom/edit/{id}'
+    controller: '\App\Controller\Admin\SymptomController::edit'
+    methods: GET|POST
+symptom.delete:
+    path: '/symptom/delete/{id}'
+    controller: '\App\Controller\Admin\SymptomController::delete'
+    methods: POST

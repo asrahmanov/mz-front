@@ -1,0 +1,16 @@
+specialty:
+    path: /specialty
+    controller: '\App\Controller\Admin\SpecialtyController::index'
+    methods: GET
+specialty.create:
+    path: /specialty/create
+    controller: '\App\Controller\Admin\SpecialtyController::create'
+    methods: GET|POST
+specialty.edit:
+    path: '/specialty/edit/{id}'
+    controller: '\App\Controller\Admin\SpecialtyController::edit'
+    methods: GET|POST
+specialty.delete:
+    path: '/specialty/delete/{id}'
+    controller: '\App\Controller\Admin\SpecialtyController::delete'
+    methods: POST

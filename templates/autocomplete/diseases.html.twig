@@ -1,0 +1,20 @@
+{% from 'macroses.html.twig' import image %}
+<a href="{{ asset(item.url) }}">
+    <div class="header-search__suggestion">
+        <div class="search-wrapper">
+            <div>
+                <div>{{ item.name }}</div>
+                <div class="second-dropdown"><strong>Заболевание</strong></div>
+            </div>
+        </div>
+        <div>
+            {# <img width="50" src="{{ image(item.photo) }}" alt="as"> #}
+        </div>
+        <div class="g0n1">
+            <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
+                <path d="M5.293 12.293a1 1 0 101.414 1.414l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L9.586 8l-4.293 4.293z"
+                      fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+</a>

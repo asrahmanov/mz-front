@@ -1,0 +1,6 @@
+<li class="nav-item">
+    <a href="{{ path(route, params|default({})) }}" class="nav-link{% if app.request.get('_route') matches '/^' ~ route ~ '($|\\.create|\\.edit)/' %} active {% endif %}">
+        <i class="nav-icon {{ icon|default('fas fa-file') }}"></i>
+        <p>{{ label }}</p>
+    </a>
+</li>

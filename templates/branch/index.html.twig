@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default('Отделения') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_branches">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Отделения</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Отделения клиники «Мастерской Здоровья»") }}</h1>
+        </div>
+        <div class="branches _container">
+            <div class="branches__row">
+                {% for branch in branches %}
+                    <div class="branches__col">
+                        {% include 'branch/_card.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="_container">
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request2.html.twig'})) }}
+        </div>
+    </main>
+{% endblock %}

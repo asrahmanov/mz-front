@@ -1,0 +1,16 @@
+branches_main_block:
+    path: /branches_main_block
+    controller: '\App\Controller\Admin\BranchesMainBlockController::index'
+    methods: GET
+branches_main_block.create:
+    path: /branches_main_block/create
+    controller: '\App\Controller\Admin\BranchesMainBlockController::create'
+    methods: GET|POST
+branches_main_block.edit:
+    path: '/branches_main_block/edit/{id}'
+    controller: '\App\Controller\Admin\BranchesMainBlockController::edit'
+    methods: GET|POST
+branches_main_block.delete:
+    path: '/branches_main_block/delete/{id}'
+    controller: '\App\Controller\Admin\BranchesMainBlockController::delete'
+    methods: POST

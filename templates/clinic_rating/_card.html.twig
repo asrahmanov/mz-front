@@ -1,0 +1,7 @@
+{% from 'macroses.html.twig' import image %}
+<li class="rating-clinic__item item-rating-clinic swiper-slide">
+    <div class="item-rating-clinic__top">
+        <span class="item-rating-clinic__score _icon-star">{{ rating.score }}</span>
+    </div>
+    <a href="" class="item-rating-clinic__logo">{{ image(rating.source.logo) }}</a>
+</li>

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default('Врачи') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ path('main') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Отзывы</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Отзывы «Мастерской Здоровья»") }}</h1>
+        </div>
+        <section class="doctors-main _container">
+            {% include 'review/_review-filter.html.twig' %}
+            {% include 'review/_list.html.twig' %}
+        </section>
+    </main>
+{% endblock %}
+{% block popups %}
+    {{ parent() }}
+    {% include '_popups/_review.html.twig' %}
+{% endblock %}

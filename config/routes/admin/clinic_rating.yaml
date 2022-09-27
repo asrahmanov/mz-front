@@ -1,0 +1,16 @@
+clinic_rating:
+    path: /clinic_rating
+    controller: '\App\Controller\Admin\ClinicRatingController::index'
+    methods: GET
+clinic_rating.create:
+    path: /clinic_rating/create
+    controller: '\App\Controller\Admin\ClinicRatingController::create'
+    methods: GET|POST
+clinic_rating.edit:
+    path: '/clinic_rating/edit/{id}'
+    controller: '\App\Controller\Admin\ClinicRatingController::edit'
+    methods: GET|POST
+clinic_rating.delete:
+    path: '/clinic_rating/delete/{id}'
+    controller: '\App\Controller\Admin\ClinicRatingController::delete'
+    methods: POST

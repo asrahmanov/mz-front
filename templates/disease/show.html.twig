@@ -1,0 +1,395 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import image %}
+
+{% block title %}{{ seo.title|default(disease) }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_diseases">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item"><a href="{{ path('diseases') }}" class="breadcrumbs__link">Заболевания</a>
+                </li>
+                <li class="breadcrumbs__item">{{ disease }}</li>
+            </ul>
+            <article class="blog-article _container">
+                <h1 class="blog-article__header h1">{{ seo.h1|default(disease) }}</h1>
+                <div class="blog-article__row _row">
+                    <div class="blog-article__main _col_8">
+                        <div class="blog-article__intro intro-article">
+                            <div class="intro-article__top">
+                                <div class="item-main-blog item-main-blog_intro">
+                                    <div class="item-main-blog__meta">
+                                        {% if disease.createdAt %}
+                                            <span class="item-main-blog__date">{{ disease.createdAt|date }}</span>
+                                        {% endif %}
+                                        <span class="item-main-blog__read  _icon-glasses">{{ (disease.readingSeconds / 60)|round }} мин.</span>
+                                        <span class="item-main-blog__comments _icon-comment">{{ disease.comments.count }}</span>
+                                        <span class="item-main-blog__views _icon-eye">{{ disease.viewsNum }}</span>
+                                        <span class="item-main-blog__rating rating-output" data-stars="4.5">4.6</span>
+                                    </div>
+                                    <div class="item-main-blog__title">{{ disease.excerpt }}</div>
+                                    <div class="item-main-blog__footer">
+                                        <div class="item-main-blog__timing">Дата
+                                            проверки: {{ disease.checkedAt|date }}</div>
+                                        <div class="item-main-blog__timing">Дата
+                                            обновления: {{ disease.updatedAt|date }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="intro-article__bottom">
+                                <div class="intro-article__staff">
+                                    {% if disease.author %}
+                                        {% include 'disease/_doctor.html.twig' with {doctor: disease.author} %}
+                                    {% endif %}
+                                    {% if disease.editor %}
+                                        {% include 'disease/_doctor.html.twig' with {doctor: disease.editor} %}
+                                    {% endif %}
+                                    {% if disease.expert %}
+                                        <div class="intro-article__doctor">
+                                            <div class="intro-article__ava">
+                                                <div class="blog-ava blog-ava_l blog-ava_expert">
+                                                    <img src="{{ disease.expert.photo['url'] }}"
+                                                         alt="{{ disease.expert.photo['name'] }}">
+                                                </div>
+                                            </div>
+                                            <div class="intro-article__expert">Проверено экспертом</div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-article__content _wysiwyg">
+                            {{ disease.content|raw }}
+                        </div>
+                    </div>
+                    <div class="blog-article__aside _col_4">
+                        <div class="blog-article__links">
+                            {#
+                            TODO: Пока не понятно как привязывать группу
+                        <div class="blog-article__title">Группа заболеваний:</div>
+                        <div class="links-blog links-blog_simple">
+                            <a href="" class="link link_inv">Заболевания позвоночника</a>
+                        </div>
+                            #}
+                        </div>
+                        <div class="blog-article__contents"><!-- Заполнится автоматически -->
+                        </div>
+                        <div class="blog-article__ad">
+                            {{ render(controller('App\\Controller\\BannerController::show', {
+                                location: 'disease_page_1',
+                                template: '_banner/_banner1.html.twig'
+                            })) }}
+                        </div>
+                        <div class="blog-article__reward">
+                            <div class="reward">
+                                <div class="reward__img">
+                                    <img src="/img/reward/01.png" alt="">
+                                </div>
+                                <div class="reward__text">
+                                    <span class="reward__mark">Лучшая<br> частная клиника</span> <br>по специальности
+                                    «Неврология»
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-article__appointment">
+                            <div class="form-appointment form-appointment_bg-green">
+                                <div class="form-appointment__header">Заметили у себя данные симтомы? Запишитесь на
+                                    бесплатный приём!
+                                </div>
+                                <div class="form-appointment__text">Первый приём врача в клинике неврологии «Мастерская
+                                    Здоровья» стоит 0 руб.
+                                </div>
+                                {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request_fields_only.html.twig'})) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if disease.symptoms|length %}
+                    <section class="symptoms _container">
+                        <h2 class="symptoms__header h2">Проверьте свои симптомы</h2>
+                        <p class="symptoms__subheader">Перед визитом к врачу проверьте ваши симптомы и получите информацию о
+                            возможном состоянии или заболевании.</p>
+                        <p class="symptoms__title _icon-arrow-right">Выберите, что у вас болит</p>
+                        <div class="symptoms__skeleton skeleton">
+                            <ul class="skeleton__bubles">
+                                {% for symptom in disease.symptoms %}
+                                    <li data-filter="{{ symptom.location }}"
+                                        class="skeleton__item skeleton__item_{{ symptom.location }}"></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="symptoms__scale scale">
+                            <p class="scale__title">Шкала опасности симптомов</p>
+                            <div class="scale__map"></div>
+                            <ul class="scale__legend">
+                                <li class="scale__green">Не опасный симптом</li>
+                                <li class="scale__red">Опасный симптом</li>
+                            </ul>
+                        </div>
+                        <div class="symptoms__slider _swiper swiper-bild">
+                            <ul class="swiper-wrapper">
+                                {% for symptom in disease.symptoms %}
+                                    <li class="symptoms__card swiper-slide _f-symptom-{{ symptom.location }} _active">
+                                        <div class="symptoms__info symptom-info symptom-info_{{ symptom.color }} _icon-info">
+                                            {{ symptom.name }}
+                                        </div>
+                                        <div class="symptoms__text">
+                                            {{ symptom.description }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="symptoms__nav">
+                            <button class="symptoms__btn symptoms__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                            <div class="symptoms__fraction"></div>
+                            <button class="symptoms__btn symptoms__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                        </div>
+                    </section>
+                {% endif %}
+                <section class="diagnostics _container">
+                    <h2 class="diagnostics__header h2" id="_title4">Диагностика</h2>
+                    <div class="diagnostics__text _wysiwyg">
+                        <p>{{ disease.textBeforeServices|raw }}</p>
+                        {% if disease.services|length %}
+                            <div class="h3">Мы используем разные методы диагностики:</div>
+                        {% endif %}
+                    </div>
+                    {% if disease.services|length %}
+                        <ul class="diagnostics__list">
+                            {% for service in disease.services %}
+                                <li class="diagnostics__item">
+                                    <div class="item-diagnostic">
+                                        <div class="item-diagnostic__img _ibg">{{ image(service.image1) }}</div>
+                                        <div class="item-diagnostic__body">
+                                            <div class="item-diagnostic__title">{{ service.name }}</div>
+                                            <div class="item-diagnostic__subtitle"></div>
+                                            <div class="item-diagnostic__btn">
+                                                <a href="" class="btn btn_inv btn_s">От {{ service.priceFrom }} руб.</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </section>
+                {% if disease.treatments|length %}
+                    <section class="methods _container">
+                        <div class="methods__row">
+                            <div class="methods__col">
+                                <div class="methods__text _wysiwyg">
+                                    {{ disease.treatmentText|raw }}
+                                </div>
+                            </div>
+                            <div class="methods__col">
+                                <ul class="methods__items">
+                                    {% for treatment in disease.treatments %}
+                                        <li class="method">
+                                            <a href="{{ path('treatment.show', {slug: treatment.slug}) }}"
+                                               class="method__title">{{ treatment.name }} </a>
+                                            <div class="method__row">
+                                                {% if treatment.proceduresCount is not null %}
+                                                    <div class="method__col">
+                                                        <div class="method__property">Курс лечения</div>
+                                                        <div class="method__value _icon-therapy">{{ treatment.proceduresCount }}
+                                                            процедур
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if treatment.duration is not null %}
+                                                    <div class="method__col">
+                                                        <div class="method__property">Продолжительность</div>
+                                                        <div class="method__value _icon-time">{{ treatment.duration }}</div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if treatment.cost is not null %}
+                                                    <div class="method__col">
+                                                        <div class="method__property">Стоимость</div>
+                                                        <div class="method__value _icon-money">{{ treatment.cost }}₽
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                    <a href="{{ path('treatments') }}" class="methods__all link link_all">Смотреть все
+                                        методы лечения</a>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+                {% if disease.expert %}
+                    <section class="expert">
+                        <div class="expert__h2 h2" id="_title6">Мнение эксперта</div>
+                        <div class="expert__header">
+                            <div class="expert__ava blog-ava blog-ava_green blog-ava_xxl">{{ image(disease.expert.photo) }}</div>
+                            <div class="expert__info">
+                                <a href="{{ path('doctor.show', {slug: disease.expert.slug}) }}"
+                                   class="expert__name">{{ disease.expert.lastname }}
+                                    <br> {{ disease.expert.firstname }} {{ disease.expert.middlename }}</a>
+                                {% if disease.expert.post %}
+                                    <div class="expert__position">{{ disease.expert.post }}</div>
+                                {% endif %}
+                                <div class="expert__text">
+                                    {{ disease.expert.specialties|join(', ') }}<br>
+                                    Стаж: {{ 'years'|trans({years: disease.expert.experience}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expert__about">
+                            {{ disease.expert.excerpt|nl2br }}
+                        </div>
+                        <div class="expert__words">
+                            {{ disease.expertComment|raw }}
+                        </div>
+                    </section>
+                {% endif %}
+                {% if disease.author %}
+                    <div class="blog-article__author">
+                        <div class="author-blog">
+                            <div class="author-blog__title">Автор статьи:</div>
+                            <div class="author-blog__row">
+                                <div class="author-blog__col">
+                                    <div class="author-blog__badge">
+                                        <div class="author-blog__header">
+                                            <div class="author-blog__ava blog-ava blog-ava_xl">
+                                                {{ image(disease.author.photo) }}
+                                            </div>
+                                            <div class="author-blog__info">
+                                                <a href="{{ path('doctor.show', {slug: disease.author.slug}) }}"
+                                                   class="author-blog__name">{{ disease.author.lastname }}<br>
+                                                    {{ disease.author.firstname }} {{ disease.author.middlename }}</a>
+                                                <div class="author-blog__text">
+                                                    {{ disease.author.specialties|join(' / ') }} <br>
+                                                    Стаж: {{ 'years'|trans({years: disease.author.experience}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="author-blog__rating">
+                                            <div class="rating-link">
+                                                <div class="rating-link__top">{{ disease.author.rating2.value }}</div>
+                                                <div class="rating-link__bottom">
+                                                    <img class="rating-link__logo"
+                                                         src="{{ disease.author.rating2.source.logo.url }}" alt="logo">
+                                                </div>
+                                            </div>
+                                            <div class="author-blog__reviews"> {{ 'reviews'|trans({reviews: disease.author.reviews.count}) }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="author-blog__col">
+                                    {% if disease.author.clinics.count %}
+                                        <div class="author-blog__reception">
+                                            <div class="author-blog__caption">Врач ведет прием в клинике:</div>
+                                            <div class="direction-popup">
+                                                <div class="direction-popup__spoller direction-popup__spoller_blue">
+                                                    <div class="direction-link direction-link_{{ disease.author.clinics.first.color }}">
+                                                        <span class="direction-link__metro">{{ disease.author.clinics.first.name }}</span>
+                                                        <span class="direction-link__distance">{{ disease.author.clinics.first.distance }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="direction-popup__body">
+                                                    {% for clinic in disease.author.clinics %}
+                                                        <div class="direction-popup__item direction-link">
+                                                            <a href="javascript:void(0)"
+                                                               class="direction-link__metro direction-link__metro_{{ clinic.color }}">{{ clinic.name }}</a>
+                                                            <span class="direction-link__distance">{{ clinic.distance }}</span>
+                                                            <address class="direction-link__address">
+                                                                {{ clinic.address }}
+                                                            </address>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {#
+                                    TODO: Как должна привязываться стоимость приёма?
+                                <div class="author-blog__caption">
+                                    <span class="price-value showInclude" data-tpl="example-tooltip02"
+                                          aria-expanded="false">Бесплатно</span>
+                                </div>
+                                    #}
+                                    {% set receptionDate = doctor_schedule.getNearestDate(disease.author) %}
+                                    {% if receptionDate %}
+                                        <div class="author-blog__date">Ближайший прием: {{ receptionDate|date }}</div>
+                                    {% endif %}
+                                    <div class="author-blog__buttons">
+                                        <a href="{{ path('doctor.show', {slug: disease.author.slug}) }}"
+                                           class="btn btn_m btn_prim">записаться</a>
+                                        <button data-form="ask-question" class="btn btn_m btn_sec _popup-link">задать
+                                            вопрос
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if disease.sources|length %}
+                    <div class="blog-article__footer">
+                        <div class="h2" id="_title8">Источники</div>
+                        <div class="_row">
+                            <div class="_col_8">
+                                <div class="blog-article__sources">
+                                    <ol>
+                                        {% for source in disease.sources %}
+                                            {% if source.link|default(null) is same as null %}
+                                                <li>{{ source.name }}</li>
+                                            {% else %}
+                                                <li><a href="{{ source.link }}" target="_blank">{{ source.name }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ol>
+                                    <div class="uncover"><span>Смотреть все источники</span></div>
+                                </div>
+                            </div>
+                            <div class="_col_4">
+                                <div class="blog-article__caption">Оцените статью</div>
+                                <div class="blog-article__rate">
+                                    <div class="star-rating">
+                                        <div class="star-rating__stars">
+                                            <fieldset class="rate">
+                                                <input type="radio" id="rating10" name="rating" value="10"><label
+                                                        for="rating10" title="5 из 5"></label>
+                                                <input type="radio" id="rating8" name="rating" value="8"><label
+                                                        for="rating8" title="4 из 5"></label>
+                                                <input type="radio" id="rating6" name="rating" value="6"><label
+                                                        for="rating6" title="3 из 5"></label>
+                                                <input type="radio" id="rating4" name="rating" value="4"><label
+                                                        for="rating4" title="2 из 5"></label>
+                                                <input type="radio" id="rating2" name="rating" value="2"><label
+                                                        for="rating2" title="1 из 5"></label>
+                                            </fieldset>
+                                        </div>
+                                        <div class="star-rating__results">
+                                            <div class="star-rating__votes">Голосов: <span class="b">13</span></div>
+                                            <div class="star-rating__score">Рейтинг: <span class="b">4,6 из 5</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="blog-article__caption">Поделиться статьей</div>
+                                <ul class="blog-article__share">
+                                    <li><a href="" class="_icon-share"></a></li>
+                                    <li><a href="" class="_icon-telegram"></a></li>
+                                    <li><a href="" class="_icon-facebook"></a></li>
+                                    <li><a href="" class="_icon-instagram"></a></li>
+                                    <li><a href="" class="_icon-vk"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </article>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,11 @@
+.el-button:focus {
+    outline: none;
+}
+.menu-open > ul {
+    background-color: rgba(255,255,255,0.1) !important;
+    border-radius: 0.25rem;
+}
+
+.table tbody > tr:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}

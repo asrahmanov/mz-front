@@ -1,0 +1,5 @@
+<ul class="footer-nav__sublist">
+    {% for item in menu %}
+        <li><a href="{{ item.link }}" class="footer-nav__link">{{ item.name }}</a></li>
+    {% endfor %}
+</ul>

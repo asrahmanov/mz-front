@@ -1,0 +1,23 @@
+{% from 'macroses.html.twig' import image %}
+
+<div class="branch">
+    <div class="branch__img _ibg">{{ image(branch.image1) }}</div>
+    <div class="branch__content">
+        <a href="{{ path('branch.show', {slug: branch.slug}) }}" class="branch__title">{{ branch.name }}</a>
+        <div class="branch__items">
+            <ul class="branch__list" data-simplebar data-simplebar-auto-hide="false">
+                {% for disease in branch.diseases %}
+                    <li class="branch__item">
+                        <a href="{{ path('disease.show', {slug: disease.slug}) }}" class="branch__link">{{ disease.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <a href="{{ path('diseases') }}" class="branch__show-all">Смотреть все</a>
+        </div>
+        <div class="branch__locations">
+            <span>Находится в клинике:</span>
+            {% for clinic in branch.clinics %}
+                <a href="{{ path('contacts', {slug: clinic.slug}) }}" class="branch__location branch__location_{{ clinic.color }}">{{ clinic.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

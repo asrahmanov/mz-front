@@ -1,0 +1,28 @@
+{% from 'macroses.html.twig' import image %}
+
+<div class="pricelist__item{{ priceItem.promo ? ' pricelist__item_action' }}{{ priceItem.new ? ' pricelist__item_new' }}{% for tag in priceItem.tags %} _f-price-{{ tag.id }} {% endfor %}">
+    <div class="pricelist__row">
+        <div class="pricelist__col">{{ priceItem }}
+            {% if priceItem.additionalServices %}<span class="pricelist__info _icon-info showInclude" aria-expanded="false"  data-tpl="item_{{ priceItem.id }}"></span>{% endif %}
+        </div>
+        <div class="pricelist__col pricelist__col_info">
+            <div class="pricelist__price-wrap">
+                {% if priceItem.promo %}
+                    <span class="pricelist__label pricelist__label_action">Акция</span>
+                {% endif %}
+                <div class="pricelist__price{{ priceItem.installment ? ' showPromo' }}" data-priceold="{{ priceItem.value|number_format(0, ',', ' ') }}"  aria-expanded="false">
+                    {{ priceItem.value|number_format(0, ',', ' ') }} ₽
+                </div>
+            </div>
+            <div class="call-popup">
+                {% for doctor in priceItem.doctors %}
+                    <a href="#docpopup" class="call-popup__link _popup-link _ibg" data-doctor="docpopup{{ doctor.id }}">
+                        {{ image(doctor.photo) }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+

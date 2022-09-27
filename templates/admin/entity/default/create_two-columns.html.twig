@@ -1,0 +1,25 @@
+{% extends 'admin/layout/layout1.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-12">
+                        <div class="text-right">
+                            {{ form_row(form.save) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

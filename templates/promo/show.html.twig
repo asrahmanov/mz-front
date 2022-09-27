@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default(promo) }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_actions-card">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item"><a href="{{ path('promos') }}" class="breadcrumbs__link">Акции</a></li>
+                <li class="breadcrumbs__item">{{ promo.name }}</li>
+            </ul>
+        </div>
+        <section class="actions-card _container">
+            <div class="actions-card__meta">
+                <div class="actions-card__labels">
+                    {% if promo.promo %}
+                        <span class="label label_action">акция</span>
+                    {% endif %}
+                    {% if promo.specialPrice %}
+                        <span class="label label_price">специальная цена</span>
+                    {% endif %}
+                    {% if promo.onlineConsultation %}
+                        <span class="label label_consult">Онлайн-консультация</span>
+                    {% endif %}
+                </div>
+                {% if promo.activeUntil %}
+                    <div class="actions-card__expire">Действует: <span class="actions-card__date">до {{ promo.activeUntil|date('d.m.Y') }}</span></div>
+                {% endif %}
+            </div>
+            <h1 class="actions-card__header h1">{{ seo.h1|default(promo.name) }}</h1>
+            <div class="actions-card__content _wysiwyg">
+                {{ promo.content|raw }}
+            </div>
+            <div class="actions-card__bottom">
+                {% if promo.clinics.count %}
+                    <div class="actions-card__caption">Действует в клиниках: </div>
+                    <div class="actions-card__directions">
+                        {% for clinic in promo.clinics %}
+                            <div class="direction-link">
+                                <a href="" class="direction-link__metro direction-link__metro_{{ clinic.color }}">{{ clinic }}</a>
+                                <span class="direction-link__distance">{{ clinic.distance }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="actions-card__footer">
+                *Условия акции уточняйте у консультантов клиник или по тел.: <a href="tel:+78123333073" class="link">+7 (812) 333-30-73</a>
+            </div>
+        </section>
+        {% if promo.other %}
+            <section class="actions-block _container">
+                <h2 class="actions-block__header h2 _scroll-icon _scr-item">Другие акции</h2>
+                <ul class="actions-block__row">
+                    {% for promo in promo.other %}
+                        {% include 'promo/_baner.html.twig' %}
+                    {% endfor %}
+                </ul>
+                <a href="{{ path('promos') }}" class="actions-block__all link link_all">Смотреть все акции</a>
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}

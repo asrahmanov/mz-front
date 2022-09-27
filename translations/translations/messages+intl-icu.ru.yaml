@@ -1,0 +1,116 @@
+years: >-
+  {years, plural,
+      one   {# год}
+      few   {# года}
+      many   {# лет}
+      other {# года}
+  }
+reviews: >-
+  {reviews, plural,
+      one   {# отзыв}
+      few   {# отзыва}
+      many   {# отзывов}
+      other {# отзыва}
+  }
+articles4: >-
+  {articles, plural,
+      one   {# статью}
+      few   {# статьи}
+      many   {# статей}
+      other {# статьи}
+  }
+
+doctors: врачи
+doctor: врач
+schedule: расписание
+qa: вопросы и ответы
+branches: отделения
+branch: отделение
+clinic: клиники
+symptoms: симптомы
+symptom: симптом
+specialty: специальность
+specialties: специальности
+disease: заболевание
+diseases: заболевания
+disease_comment: комментарий
+treatment: метод лечения
+treatments: методы лечения
+treatment_q_a: вопросы и ответы
+service: услуга
+services: услуги
+service_q_a: вопросы и ответы
+price_item: цена
+price_items: цены
+price_category: категория
+price_tag: тег
+review: отзыв
+review_source: источник
+clinic_rating: рейтинг
+hardware: оборудование
+article: статья
+articles: статьи
+article_comment: комментарий
+article_tag: тег
+menu: меню
+promo: акция
+promos: акции
+user: пользователь
+users: пользователи
+firstname: имя
+lastname: фамилия
+middlename: отчество
+slug: идентификатор
+photo: фотография
+gallery: галерея
+post: должность
+experience: опыт
+video: видео
+ducation: продолжительность
+category: категория
+education: образование
+additionalEducation: дополнительное образование
+excerpt: краткое описание
+onlineConsultation: он-лайн консультация
+achievements: достижение
+schedules: расписания
+qAs: вопросы и ответы
+leadingSpecialist: ведущий специалист
+clinics: клиники
+priceItems: цены
+certs: сертификаты
+value: значение
+source: источник
+name: название
+namePlural: название во мн. числе
+dates: даты
+questionText: текст вопроса
+answerText: текст ответа
+answerAuthor: автор ответа
+createdAt: дата создания
+authorName: имя автора
+tags: теги
+oldValue: старое значение
+new: новинка
+priceIsFrom: цена от
+parrentCategory: родительская категория
+priceFrom: цена от
+content: контент
+indications: показания
+contraindications: противопоказания
+advantages: преимущества
+children: дочерние
+hardwares: оборудование
+address: Адрес
+geoCoords: гео-координаты
+image: изображение
+legalName: юридическое имя
+isPublished: опубликовано
+isPublicationAllowed: публикация разрешена
+authorEmail: email автора
+location: расположение
+showInMainPage: показывать на главной странице
+isEnabled: опубликовано
+duration: продолжительность
+cost: стоимость
+installment: Рассрочка

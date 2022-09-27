@@ -1,0 +1,62 @@
+{% from 'macroses.html.twig' import image %}
+
+<form action="{{ form.vars.action }}" name="{{ form.vars.name }}" class="form-appointment form-appointment_bg-clear ajax">
+    <input type="hidden" name="doctor_appointment2[_token]" value="{{ csrf_token('doctor_appointment2') }}">
+    <div class="form-appointment__header">Запись на консультацию </div>
+    <div class="form-appointment__order">
+        <div class="form-appointment__doctor answer-q-and-a__head">
+            <div class="answer-q-and-a__ava _ibg">{{ image(doctor.photo) }}</div>
+            <div class="answer-q-and-a__doctor">
+                <div class="answer-q-and-a__name">{{ doctor }}</div>
+                <div class="answer-q-and-a__position">
+                    <span>{{ doctor.specialties|join(' / ') }}</span>
+                    <span>Стаж: {{ 'years'|trans({years: doctor.experience}) }}</span>
+                </div>
+                <input type="hidden" name="doctor_appointment2[doctor]" value="{{ doctor.id }}">
+            </div>
+        </div>
+        <table class="form-appointment__details">
+            <tr>
+                <td>Дата:</td>
+                <td>
+                    <input type="text" name="doctor_appointment2[date]" id="r-appointment-date" hidden>
+                    <span class="form-appointment__date">03.12.2020</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Клиника:</td>
+                <td>
+                    <ul class="form-appointment__clinics">
+                        {% for clinic in doctor.clinics %}
+                            <li>
+                                <input type="radio" name="doctor_appointment2[clinic]" id="{{ clinic.slug }}-clinic" value="{{ clinic.id }}" hidden checked>
+                                <div class="form-appointment__clinic">
+                                    <address>{{ clinic.address }}</address>
+                                    <div class="direction-link direction-link_{{ clinic.color }}">
+                                        <span class="direction-link__metro">{{ clinic.name }}</span>
+                                        <span class="direction-link__distance">{{ clinic.distance }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="r-appointment-name">Имя</label></div>
+        <input autocomplete="off" type="text" name="doctor_appointment2[patientName]" id="r-appointment-name" data-value="Иванов Иван" class="input input_m _req">
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="r-appointment-phone">Телефон</label></div>
+        <input autocomplete="off" type="text" name="doctor_appointment2[patientTel]" id="r-appointment-phone" data-value="+7(___) ___ __ __" class="input input_m _req _phone">
+    </div>
+    <div class="form-appointment__input">
+        <button type="submit" class="form-appointment__btn btn btn_m btn_prim">Записаться</button>
+    </div>
+    <div class="form-appointment__checkbox checkbox">
+        <input type="checkbox" class="checkbox__input _req" name="form[]" id="r-appointment-agreement" checked>
+        <label for="r-appointment-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих <a href="">персональных данных</a>.</label>
+    </div>
+</form>

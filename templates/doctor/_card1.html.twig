@@ -1,0 +1,53 @@
+<div class="card-doctor">
+    <div class="card-doctor__header _ibg">
+        <a href="{{ path('doctor.show', {slug: doctor.slug}) }}">
+            <img src="{{ doctor.photo.url|default(asset('/img/no_photo.png')) }}" alt="{{ doctor.photo.name }}">
+        </a>
+        <div class="card-doctor__labels card-doctor__labels_top">
+            {% if doctor.leadingSpecialist %}
+                <span class="label label_spec">ведущий специалист</span>
+            {% endif %}
+        </div>
+        <div class="card-doctor__labels card-doctor__labels_left">
+            {% if doctor.promo %}
+                <span class="label label_action">акция</span>
+            {% endif %}
+            {% if doctor.onlineConsultation %}
+                <span class="label label_consult">онлайн-консультация</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-doctor__body">
+        {% include 'doctor/_clinics.html.twig' %}
+        <a href="{{ path('doctor.show', { slug: doctor.slug }) }}" class="card-doctor__name">{{ doctor }}</a>
+        <div class="card-doctor__position">{{ doctor.post|default }}</div>
+        <div class="card-doctor__type">{{ doctor.specialties|join(', ') }}</div>
+        {% if doctor.experience %}
+            <div class="card-doctor__experience">Стаж: <span
+                        class="b">{{ 'years'|trans({years: doctor.experience}) }}</span></div>
+        {% endif %}
+        {% set receptionDate = doctor_schedule.getNearestDate(doctor) %}
+        {% if receptionDate %}
+            <div class="card-doctor__date">Ближайший прием: {{ receptionDate|date }}</div>
+        {% endif %}
+        {% if doctor.rating1 %}
+            <div class="card-doctor__rating">
+            <div class="rating-link">
+                <div class="rating-link__top">{{ doctor.rating1.value }}</div>
+                <div class="rating-link__bottom">
+                    <img class="rating-link__logo" src="{{ doctor.rating1.source.logo.url }}" alt="logo">
+                </div>
+            </div>
+            <div class="card-doctor__reviews">{{ 'reviews'|trans({reviews: doctor.reviews.count}) }}</div>
+        </div>
+        {% endif %}
+        <div class="card-doctor__appointment">
+            {% if doctor.appointment %}
+                <div class="card-doctor__price">Стоимость приема: от {{ doctor.appointment.value|number_format(0, '.', ' ')  }} ₽</div>
+            {% endif %}
+            <a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="card-doctor__btn btn btn_l btn_prim">записаться</a>
+            <button data-form="ask-question" class="card-doctor__btn btn btn_l btn_sec _popup-link">задать вопрос</button>
+        </div>
+    </div>
+</div>
+

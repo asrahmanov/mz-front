@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import image %}
+
+{% block title %}{{ seo.title|default("Контакты") }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_contacts">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Контакты</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default('Контакты') }}</h1>
+        </div>
+        <section class="placement _container">
+            <h2 class="placement__header h2 _scroll-icon _scr-item">Выберите удобное расположение клиники</h2>
+            <ul class="placement__tabs tabs-placement _row">
+                {% for item in clinics %}
+                    <li class="_col_4">
+                        {% if clinic.slug == item.slug %}
+                            <div class="tabs-placement__item _active" href="{{ path('contacts', {slug: item.slug}) }}">
+                                <div class="tabs-placement__img _ibg">{{ image(item.photo) }}</div>
+                                <div class="tabs-placement__title">{{ item.name }}</div>
+                            </div>
+                        {% else %}
+                            <a class="tabs-placement__item" href="{{ path('contacts', {slug: item.slug}) }}">
+                                <div class="tabs-placement__img _ibg">{{ image(item.photo) }}</div>
+                                <div class="tabs-placement__title">{{ item.name }}</div>
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="placement__content">
+                <h2 class="placement__header h2">Клиника {{ clinic.name }}</h2>
+                <div class="placement__row">
+                    <div class="placement__anchors anchors">
+                        <ul class="anchors__list">
+                            {% if clinic.coords %}
+                                <li class="anchors__link _active" data-filter="map">Карта</li>
+                            {% endif %}
+                            {% if clinic.parkingCoords %}
+                                <li class="anchors__link" data-filter="car">Где припарковаться?</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% if clinic.coords is not empty %}
+                        <div class="placement__ymap" id="mapContacts" data-zoom="17" data-coords="{{ clinic.coords[0] }},{{ clinic.coords[1] }}"></div>
+                    {% endif %}
+                    <div class="placement__info">
+                        <div class="placement__filter">
+                            <div class="placement__img _ibg _f-item _f-map-map _f-map-transport _active">
+                                {{ image(clinic.photo) }}
+                            </div>
+                            <address class="_f-item _f-map-map _active">
+                                <p class="map-footer__title">Адрес</p>
+                                <p class="map-footer__text">{{ clinic.address }}</p>
+                                <div class="_wysiwyg">
+                                    {{ clinic.contactInfo|raw }}
+                                </div>
+                            </address>
+                            <div class="map-footer__text _f-item _f-map-car">
+                                {{ clinic.parkingInfo|raw }}
+                            </div>
+                        </div>
+                        <ul class="map-footer__links">
+                            <li><a href="https://yandex.ru/maps/-/CVbhbKkS" class="map-footer__link" target="blank">Яндекс.Карты</a></li>
+                            <li><a href="https://goo.gl/maps/VXKBI" class="map-footer__link" target="blank">Google.Maps</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="tour _container">
+            <h2 class="tour__header h2">3D тур по клинике</h2>
+            <div class="_row">
+                <div class="_col_8">
+                    <div class="tour__video">
+                        <a href="#video" data-video="_78iF6_EK6I" class="_popup-link videopresentation videopresentation_tour">
+                            <div class="videopresentation__poster _ibg">
+                                <img src="/img/tour/video.png" alt="">
+                            </div>
+                            <div class="videopresentation__play">
+                                <span class="videopresentation__icon videopresentation__icon_l"></span>
+                                <span class="videopresentation__text">Совершите виртуальную прогулку по нашей клинике</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="_col_4">
+                    <div class="tour__title">Мы в соцсетях:</div>
+                    <div class="socials">
+                        <div class="socials__links">
+                            {% if clinic.socVk %}
+                                <a href="{{ clinic.socVk }}" class="socials__link _icon-vk"></a>
+                            {% endif %}
+                            {% if clinic.socFb %}
+                                <a href="{{ clinic.socFb }}" class="socials__link _icon-facebook"></a>
+                            {% endif %}
+                            {% if clinic.socYoutube %}
+                                <a href="{{ clinic.socYoutube }}" class="socials__link _icon-youtube"></a>
+                            {% endif %}
+                            {% if clinic.socInsta %}
+                                <a href="{{ clinic.socInsta }}" class="socials__link"><img src="/img/icons/instagram.png" alt=""></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if clinic.socTelegram %}
+                        <div class="tour__title">Наш телеграм-бот:</div>
+                        <a href="{{ clinic.socTelegram }}" class="tour__link _icon-telegram">mz-clinic_bot</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        {% if clinic.gallery|length %}
+            <section class="gallery _container">
+                <h2 class="gallery__header h2">Галерея</h2>
+                <div class="gallery__items _gallery _scr-item _scroll-icon">
+                    {% for image in clinic.gallery %}
+                        <a href="{{ image.url|default('#') }}" class="gallery__item _ibg">{{ image(image) }}</a>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+        {% if clinic.certs|length %}
+            <section class="license _container">
+            <div class="license__content">
+                <h2 class="license__title h2">Лицензии клиники на Академической</h2>
+                <div class="license__wrap">
+                    <div class="license__slider _swiper swiper-bild _gallery">
+                        <ul class="swiper-wrapper">
+                            {% for cert in clinic.certs %}
+                                <li class="license__item swiper-slide">
+                                <a href="{{ cert.image.url }}" class="license__img _icon-zoom _ibg">{{ image(cert.image) }}</a>
+                                <div class="license__caption">{{ cert.name }}</div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <button class="license__btn license__btn_prev swiper-button swiper-button_l swiper-button_prev"></button>
+                    <button class="license__btn license__btn_next swiper-button swiper-button_l swiper-button_next"></button>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        <section class="requisites _container">
+            <div class="requisites__header h2">Реквизиты клиники {{ clinic.name }}</div>
+            <div class="_row">
+                <div class="_col_8">
+                    <div class="requisites__head">
+                        <div class="_row">
+                            <div class="_col_9">
+                                <div class="requisites__title">{{ clinic.legalName }}</div>
+                            </div>
+                            <div class="_col_3">
+                                <a href="" class="requisites__link _icon-download">Скачать реквизиты</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="requisites__body _wysiwyg">
+                        {{ clinic.legalInfo|raw }}
+                    </div>
+                </div>
+                <div class="_col_4">
+                    <div class="requisites__title">Мы принимаем карты:</div>
+                    <div class="requisites__cards">
+                        <img src="/img/pay-online/visa.png" alt="">
+                        <img src="/img/pay-online/mastercard.png" alt="">
+                        <img src="/img/pay-online/paypal.png" alt="">
+                        <img src="/img/pay-online/americanexpress.png" alt="">
+                    </div>
+                    <div class="requisites__title">Вы можете оплатить услуги на сайте с помощью онлайн-оплаты</div>
+                    <div class="requisites__btn">
+                        <button class="btn btn_prim btn_l btn_icon _icon-online-payments">Оплатить онлайн</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="feedback _container">
+            <div class="feedback__header h2">Нам важно ваше мнение!</div>
+            <div class="feedback__box">
+                <div class="_row">
+                    <div class="_col_5">
+                        <div class="feedback__top">
+                            <div class="feedback__img _ibg"><img src="/img/feedback/ava.png" alt=""></div>
+                            <div class="feedback__person">
+                                <div class="feedback__name">Медведева Александра Викторовна</div>
+                                <div class="feedback__position">Генеральный директор клиники</div>
+                            </div>
+                        </div>
+                        <div class="feedback__bottom">
+                            <div class="feedback__title">Напишите письмо директору</div>
+                            <div class="feedback__text">Мы открыты для общения!<br>
+                                Директор лично читает все письма и принимает решения по ним.</div>
+                        </div>
+                    </div>
+                    <div class="_col_7">
+                        {{ render(controller('App\\Controller\\FormController::letterToDirector', {
+                            template: '_form/_letter_to_director.html.twig',
+                        })) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

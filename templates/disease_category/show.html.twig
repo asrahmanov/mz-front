@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import image %}
+
+{% block title %}{{ seo.title|default(category) }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_diseases">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ path('main') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item"><a href="{{ path('diseases') }}" class="breadcrumbs__link">Заболевания</a>
+                </li>
+                <li class="breadcrumbs__item">{{ category }}</li>
+            </ul>
+            <article class="blog-article _container">
+                <h1 class="blog-article__header h1">{{ seo.h1|default(category) }}</h1>
+            </article>
+        </div>
+        <section class="about-service _container">
+            <div class="about-service__content _wysiwyg">
+                {{ category.content|raw }}
+            </div>
+            <ul>
+                {% for disease in category.diseases %}
+                    <li>
+                        <a href="{{ path('disease.show', {slug: disease.slug}) }}" class="link">{{ disease }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% if category.doctors.count %}
+            <section class="doctors _container">
+                <h2 class="doctors__header h2"></h2>
+                <div class="doctors__row">
+                    <div class="doctors__col doctors__col_3x">
+                        <div class="doctors__slider_4 _swiper swiper-bild">
+                            <ul class="swiper-wrapper">
+                                {% for doctor in category.doctors %}
+                                    <li class="doctors__item swiper-slide _active">
+                                        {% include 'doctor/_card1.html.twig' with { doctor } %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="doctors__nav nav-doctor">
+                            <button class="nav-doctor__btn nav-doctor__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                            <div class="nav-doctor__fraction"></div>
+                            <button class="nav-doctor__btn nav-doctor__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        <div class="_container" style="margin-bottom: 40px">
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request2.html.twig'})) }}
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% from 'macroses.html.twig' import image %}
+<div class="footer__header h2">Контакты</div>
+<div class="footer__map map-footer _tabs">
+    <div class="map-footer__tabs">
+        <ul class="main-tabs">
+            {% for clinic in clinics %}
+                <li class="main-tabs__item _tabs-item{{ loop.first ? ' _active' }}" data-coords="{{ clinic.coords|join(',') }}">{{ clinic.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="map-footer__ymap" id="mapFooter"></div>
+    <div class="map-footer__body">
+        {% for clinic in clinics %}
+            <div class="map-footer__description _tabs-block {{ loop.first ? ' _active' }}">
+            <div class="map-footer__row">
+                <address class="map-footer__info">
+                    <div class="map-footer__col">
+                        <p class="map-footer__title">Адрес</p>
+                        <p class="map-footer__text">{{ clinic.address }}</p>
+                        <div class="_wysiwyg">
+                            {{ clinic.contactInfo|raw }}
+                        </div>
+                    </div>
+                    <div class="map-footer__col">
+                        <p class="map-footer__title">Как проехать</p>
+                        <ul>
+                            <li class="map-footer__text">На метро до м. Лесная и 1,5 км пешком.</li>
+                            <li class="map-footer__text">Наземный транспорт:
+                                <ul>
+                                    <li>автобус <span class="b">№33</span><br>
+                                        до ост. «Новолитовская улица»,
+                                    </li>
+                                    <li>Маршрутные такси: <span class="b">К-17, К-95</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="map-footer__links">
+                            <li><a href="https://yandex.ru/maps/-/CVb-iSoj" class="map-footer__link"
+                                   target="blank">Яндекс.Карты</a></li>
+                            <li><a href="https://goo.gl/maps/vaQb7" class="map-footer__link" target="blank">Google.Maps</a>
+                            </li>
+                        </ul>
+                    </div>
+                </address>
+                <div class="map-footer__img _ibg">
+                    {{ image(clinic.photo) }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

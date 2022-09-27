@@ -1,0 +1,334 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import image %}
+
+{% block title %}{{ seo.title|default(service) }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_services-card">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">{{ service }}</li>
+            </ul>
+        </div>
+        <div class="_container">
+            <div class="service-banner _ibg">
+                {% if service.image2.url %}
+                    <img src="{{ asset(service.image2.url) }}" alt="{{ service.image2.name }}">
+                {% endif %}
+                <div class="service-banner__content">
+                    <div class="service-banner__labels">
+                        {#
+                            TODO: В описании сущности услуги нет соответствующих полей
+                        <span class="label">акция</span>
+                        <span class="label label_price">специальная цена</span>
+                        #}
+                    </div>
+                    <h1 class="service-banner__header h1">{{ seo.h1|default(service) }}<span
+                                class="service-banner__price">от {{ service.priceFrom|number_format(0, '.', ' ') }} ₽</span>
+                    </h1>
+                    <ul class="service-banner__list">
+                        {% for item in service.advantages %}
+                            <li class="">{{ item['text'] }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="service-banner__btn">
+                        <!-- Также может выводиться: <a href="" class="btn btn_action btn_l">акция</a> -->
+                        <button data-form="make-appointment" class="btn btn_prim btn_l _popup-link">записаться</button>
+                        <button data-form="ask-question" class="btn btn_sec btn_l _popup-link">задать вопрос</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="anchors _container">
+            <ul class="anchors__list">
+                {% if service.content %}
+                    <li><a href="#about-service" class="anchors__link _active _goto">описание</a></li>
+                {% endif %}
+                {% if service.indications or service.contraindications %}
+                    <li><a href="#about-service__indications" class="anchors__link _goto">показания и противопоказания</a></li>
+                {% endif %}
+                {% if service.children.count %}
+                    <li><a href="#branches" class="anchors__link _goto">исследования</a></li>
+                {% endif %}
+                {% if price %}
+                    <li><a href="#price-branch" class="anchors__link _goto">цены</a></li>
+                {% endif %}
+                {% if service.doctors.count %}
+                    <li><a href="#doctors" class="anchors__link _goto">врачи</a></li>
+                {% endif %}
+                {% if service.qAs.count %}
+                    <li><a href="#faq" class="anchors__link _goto">вопросы</a></li>
+                {% endif %}
+                <li><a href="#reviews" class="anchors__link _goto">отзывы</a></li>
+                <li><a href="#other-services" class="anchors__link _goto">акции</a></li>
+                {% if service.articles|length %}
+                    <li><a href="#blog" class="anchors__link _goto">статьи</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <section class="about-service _container">
+            <div class="about-service__content _wysiwyg">
+                {{ service.content|raw }}
+            </div>
+            {% if service.indications or service.contraindications %}
+                <div class="about-service__indications indications _tabs">
+                    <ul class="indications__tabs main-tabs">
+                        {% set activeIsShown = false %}
+                        {% if service.indications %}
+                            <li class="indications__tab indications__tab_green main-tabs__item _tabs-item _active">
+                                Показания к МРТ диагностике
+                            </li>
+                            {% set activeIsShown = true %}
+                        {% endif %}
+                        {% if service.contraindications %}
+                            <li class="indications__tab indications__tab_red main-tabs__item _tabs-item {{ activeIsShown ? '' : '_active' }}">
+                                Противопоказания к МРТ диагностике
+                            </li>
+                            {% set activeIsShown = true %}
+                        {% endif %}
+                    </ul>
+                    {% set activeIsShown = false %}
+                    {% if service.indications %}
+                        <div class="indications__body _tabs-block _active _wysiwyg">
+                            {{ service.indications|raw }}
+                            {% set activeIsShown = true %}
+                        </div>
+                    {% endif %}
+                    {% if service.contraindications %}
+                        <div class="indications__body indications__body_red _tabs-block _wysiwyg  {{ activeIsShown ? '' : '_active' }}">
+                            {{ service.contraindications|raw }}
+                            {% set activeIsShown = true %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </section>
+        {% if service.children.count %}
+            <section class="branches _container">
+                <div class="branches__header h2">Виды исследований</div>
+                <div class="branches__row">
+                    {% for service in service.children %}
+                        {% include 'service/_card.html.twig' %}
+                    {% endfor %}
+                    {% if service.promos %}
+                        <div class="branches__col">
+                        <div class="branch-ad">
+                            <div class="branch-ad__header">Акции на услугу</div>
+                            <div class="branch-ad__body">
+                                <ul class="branch-ad__items">
+                                    {% for promo in service.promos %}
+                                        <li class="branch-ad__item">
+                                        <a href="" class="branch-ad__link">{{ promo.name }}</a>
+                                        {% if promo.activeUntil %}
+                                            <span class="branch-ad__date">до {{ promo.activeUntil|date('d.m.Y') }}</span>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ path('promos') }}" class="branch-ad__more link link_all">Смотреть все акции</a>
+                            </div>
+                            <div class="branch-ad__footer">
+                                <span>Подробнее об акциях и скидках по телефону:</span>
+                                <a href="tel:+78124217032" class="link">+7 (812) 421-70-32</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+        {% endif %}
+        {% if price %}
+            <section class="price-branch _container">
+                <h2 class="price-branch__header h2">Стоимость услуг</h2>
+                <ul class="price-branch__spollers pricelist _spollers">
+                    {% include 'price/_price.html.twig' %}
+                </ul>
+            </section>
+        {% endif %}
+        <div class="_container mb-5">
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request2.html.twig'})) }}
+        </div>
+        {% if service.doctors.count %}
+            <section class="doctors _container">
+                <h2 class="doctors__header h2">Врачи, которые проводят МРТ-диагностику</h2>
+                <div class="doctors__row">
+                    <div class="doctors__col doctors__col_3x">
+                        <div class="doctors__slider_4 _swiper swiper-bild">
+                            <ul class="swiper-wrapper">
+                                {% for doctor in service.doctors %}
+                                    <li class="doctors__item swiper-slide _active">
+                                        {% include 'doctor/_card1.html.twig' with { doctor } %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="doctors__nav nav-doctor">
+                            <button class="nav-doctor__btn nav-doctor__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                            <div class="nav-doctor__fraction"></div>
+                            <button class="nav-doctor__btn nav-doctor__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if service.qAs.count %}
+            <section class="faq _container">
+                <h2 class="faq__header h2">Часто задаваемые вопросы</h2>
+                <div class="faq__spollers _spollers">
+                    {% for qa in service.qAs %}
+                        <div class="faq__group">
+                            <div class="faq__title _spoller{{ loop.first ? ' _active' }}">
+                                <span>{{ qa.questionText }}</span>
+                            </div>
+                            <div class="faq__body">
+                                <div class="faq__row">
+                                    {% if qa.answerAuthor %}
+                                        <div class="faq__ava _ibg"><img
+                                                src="{{ qa.answerAuthor.photo.url|default(asset('/img/no_photo.png')) }}"
+                                                alt="{{ qa.answerAuthor.photo.name }}"></div>
+                                    {% endif %}
+                                    <div class="faq__answer">
+                                        <div class="faq__text">{{ qa.answerText }}</div>
+                                        {% if qa.answerAuthor %}
+                                            <div class="faq__doctor">
+                                                {{ qa.answerAuthor.lastname }} {{ qa.answerAuthor.firstname|first }}
+                                                . {{ qa.answerAuthor.middlename|first }}
+                                                .{% if qa.answerAuthor.specialties.count %} ({{ qa.answerAuthor.specialties|join(' / ') }}){% endif %}{% if qa.answerAuthor.experience %}, стаж {{ 'years'|trans({years: qa.answerAuthor.experience}) }}{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="faq__ask ask-faq">
+                    <div class="ask-faq__row">
+                        <div class="ask-faq__img"><img src="/img/ask-faq/img.svg" alt=""></div>
+                        <div class="ask-faq__body">
+                            <div class="ask-faq__title">Не нашли ответа на свой вопрос?</div>
+                            <div class="ask-faq__text">Свяжитесь с нами, и мы предоставим необходимую информацию.</div>
+                        </div>
+                        <div class="ask-faq__btn">
+                            <button data-form="ask-question" class="btn btn_prim btn_m _popup-link">задать вопрос</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        <!--Тоже что и reviews-item4  только показано как без одного-->
+        <section class="reviews _container">
+            <h2 class="reviews__header h2 _scroll-icon _scr-item">Отзывы</h2>
+            <ul class="reviews__row">
+                {%  for review in service.reviews %}
+                    {% include 'review/_card.html.twig' %}
+                {% endfor %}
+                <li class="reviews__action ad-block">
+                    <div class="ad-block__content">
+                        <div class="ad-block__title ad-block__title_big">Оцените работу доктора</div>
+                        <div class="ad-block__subtitle">Мы всегда готовы развиваться
+                            и с нетерпением ждём ваших комментариев.
+                        </div>
+                        <div class="ad-block__text">Уделите несколько минут тому, чтобы оставить отзыв о лечении у
+                            доктора. Рассказав о своих впечатлениях, вы поможете нам стать лучше.
+                        </div>
+                        <button data-form="give-feedback" class="ad-block__btn btn btn_m btn_inv _popup-link">оставить
+                            отзыв
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <a href="#" class="reviews__all link link_all">Читать все отзывы</a>
+        </section>
+        {% if ratings|length %}
+            {% include 'clinic_rating/_section.html.twig' %}
+        {% endif %}
+        {% if service.hardwares.count %}
+            <section class="equipment _container">
+                <h2 class="equipment__header h2">Оборудование отделения «{{ service.name }}»</h2>
+                {#
+                <div class="equipment__subheader">Врачи отделения неврологии «Мастерская Здоровья» специализируются на
+                    лечении<br> болезней позвоночного столба, суставов и нервной системы.
+                </div>
+                #}
+                <div class="equipment__box">
+                    <div class="equipment__items _swiper swiper-bild">
+                        <div class="swiper-wrapper">
+                            {% for hardware in service.hardwares %}
+                                <div class="swiper-slide">
+                                    {% include 'hardware/_card.html.twig' %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="equipment__nav nav-equipment">
+                        <button class="nav-equipment__btn nav-equipment__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                        <div class="nav-equipment__fraction"></div>
+                        <button class="nav-equipment__btn nav-equipment__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if otherServices|length %}
+        <section class="other-services _container">
+            <h2 class="other-services__header h2">Вам также могут подойти:</h2>
+            <div class="other-services__slider _swiper swiper-bild">
+                <div class="swiper-wrapper">
+                    {% for service in otherServices %}
+                        <div class="other-services__item swiper-slide _active">
+                        <div class="item-diagnostic">
+                            <div class="item-diagnostic__img _ibg">{{ image(service.image1) }}</div>
+                            <div class="item-diagnostic__body">
+                                <div class="item-diagnostic__title">{{ service.name }}</div>
+                                {#
+                                    TODO: Неоткуда подтягивать
+                                <div class="item-diagnostic__subtitle">{{ service.excerpt }}</div>
+                                #}
+                                <div class="item-diagnostic__btn">
+                                    <a href="{{ path('service.show', {path: service.path}) }}" class="btn btn_inv btn_s">от {{ service.priceFrom}} ₽</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="other-services__nav">
+                <button class="other-services__btn other-services__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                <div class="other-services__fraction"></div>
+                <button class="other-services__btn other-services__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+            </div>
+        </section>
+        {% endif %}
+        {% if service.articles|length %}
+            <section class="blog _container">
+            <div class="blog__row">
+                <div class="blog__col blog__col_main">
+                    <h2 class="blog__header h2">Статьи на тему «{{ service.name }}»</h2>
+                    <div class="blog__main main-blog">
+                        <div class="main-blog__items">
+                            {% for article in service.articles %}
+                                {% include 'article/_card.html.twig' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="blog__col blog__col_aside pop-blog">
+                    <div class="pop-blog__title pop-blog__title_h2">Популярные статьи</div>
+                    <div class="pop-blog__items">
+                        {% for article in popularArticles %}
+                            {% include 'article/_popular-card.html.twig' %}
+                        {% endfor %}
+                    </div>
+                    <a href="{{ path('articles') }}" class="pop-blog__all link link_all">Посмотреть ещё</a>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </main>
+{% endblock %}

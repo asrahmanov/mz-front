@@ -1,0 +1,16 @@
+clinic:
+    path: /clinic
+    controller: '\App\Controller\Admin\ClinicController::index'
+    methods: GET
+clinic.create:
+    path: /clinic/create
+    controller: '\App\Controller\Admin\ClinicController::create'
+    methods: GET|POST
+clinic.edit:
+    path: '/clinic/edit/{id}'
+    controller: '\App\Controller\Admin\ClinicController::edit'
+    methods: GET|POST
+clinic.delete:
+    path: '/clinic/delete/{id}'
+    controller: '\App\Controller\Admin\ClinicController::delete'
+    methods: POST

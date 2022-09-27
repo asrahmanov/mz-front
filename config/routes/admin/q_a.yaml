@@ -1,0 +1,16 @@
+q_a:
+    path: /q_a
+    controller: '\App\Controller\Admin\QAController::index'
+    methods: GET
+q_a.create:
+    path: /q_a/create
+    controller: '\App\Controller\Admin\QAController::create'
+    methods: GET|POST
+q_a.edit:
+    path: /q_a/edit/{id}
+    controller: '\App\Controller\Admin\QAController::edit'
+    methods: GET|POST
+q_a.delete:
+    path: /q_a/delete/{id}
+    controller: '\App\Controller\Admin\QAController::delete'
+    methods: POST

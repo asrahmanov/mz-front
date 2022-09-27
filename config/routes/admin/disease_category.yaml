@@ -1,0 +1,16 @@
+disease_category:
+    path: /disease_category
+    controller: '\App\Controller\Admin\DiseaseCategoryController::index'
+    methods: GET
+disease_category.create:
+    path: /disease_category/create
+    controller: '\App\Controller\Admin\DiseaseCategoryController::create'
+    methods: GET|POST
+disease_category.edit:
+    path: '/disease_category/edit/{id}'
+    controller: '\App\Controller\Admin\DiseaseCategoryController::edit'
+    methods: GET|POST
+disease_category.delete:
+    path: '/disease_category/delete/{id}'
+    controller: '\App\Controller\Admin\DiseaseCategoryController::delete'
+    methods: POST

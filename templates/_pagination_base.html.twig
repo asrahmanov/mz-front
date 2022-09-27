@@ -1,0 +1,15 @@
+{% block item %}
+
+{% endblock %}
+
+{% block prev %}
+    <li class="pagination__item"><a class="pagination__link" href="{{ path(paginationPath, currentFilters|merge({page: currentPage-1})) }}">Предыдущая</a></li>
+{% endblock %}
+
+{% block next %}
+
+{% endblock %}
+
+{% block dots %}
+
+{% endblock %}

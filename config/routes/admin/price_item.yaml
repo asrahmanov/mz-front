@@ -1,0 +1,16 @@
+price_item:
+    path: /price_item
+    controller: '\App\Controller\Admin\PriceItemController::index'
+    methods: GET
+price_item.create:
+    path: /price_item/create
+    controller: '\App\Controller\Admin\PriceItemController::create'
+    methods: GET|POST
+price_item.edit:
+    path: '/price_item/edit/{id}'
+    controller: '\App\Controller\Admin\PriceItemController::edit'
+    methods: GET|POST
+price_item.delete:
+    path: '/price_item/delete/{id}'
+    controller: '\App\Controller\Admin\PriceItemController::delete'
+    methods: POST

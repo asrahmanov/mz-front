@@ -1,0 +1,16 @@
+doctor:
+  path: /doctor
+  controller: \App\Controller\Admin\DoctorController::index
+  methods: GET
+doctor.create:
+  path: /doctor/create
+  controller: \App\Controller\Admin\DoctorController::create
+  methods: GET|POST
+doctor.edit:
+  path: /doctor/edit/{id}
+  controller: \App\Controller\Admin\DoctorController::edit
+  methods: GET|POST
+doctor.delete:
+  path: /doctor/delete/{id}
+  controller: \App\Controller\Admin\DoctorController::delete
+  methods: POST

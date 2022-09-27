@@ -1,0 +1,16 @@
+branch:
+    path: /branch
+    controller: '\App\Controller\Admin\BranchController::index'
+    methods: GET
+branch.create:
+    path: /branch/create
+    controller: '\App\Controller\Admin\BranchController::create'
+    methods: GET|POST
+branch.edit:
+    path: '/branch/edit/{id}'
+    controller: '\App\Controller\Admin\BranchController::edit'
+    methods: GET|POST
+branch.delete:
+    path: '/branch/delete/{id}'
+    controller: '\App\Controller\Admin\BranchController::delete'
+    methods: POST

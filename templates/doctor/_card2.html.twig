@@ -1,0 +1,74 @@
+{% from 'macroses.html.twig' import image %}
+
+<div class="card-doctor card-doctor_big">
+    <div class="card-doctor__header _ibg">
+        <a href="{{ path('doctor.show', {slug: doctor.slug}) }}">
+            <img src="{{ doctor.photo.url|default(asset('/img/no_photo.png')) }}" alt="{{ doctor.photo.name }}">
+        </a>
+        <div class="card-doctor__labels card-doctor__labels_left">
+            {% if doctor.onlineConsultation %}
+                <span class="label label_consult">онлайн-консультация</span>
+            {% endif %}
+            {% if doctor.promo %}
+                <span class="label label_action">акция</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card-doctor__body">
+        {% include 'doctor/_clinics.html.twig' %}
+        <a href="{{ path('doctor.show', { slug: doctor.slug }) }}" class="card-doctor__name">{{ doctor }}</a>
+        <p class="card-doctor__position">{{ doctor.post }}</p>
+        <p class="card-doctor__type">{{ doctor.specialties|join(', ') }}</p>
+        <p class="card-doctor__experience">Стаж: <span
+                    class="b">{{ 'years'|trans({years: doctor.experience}) }}</span></p>
+        {% set receptionDate = doctor_schedule.getNearestDate(doctor) %}
+        {% if receptionDate %}
+            <p class="card-doctor__date">Ближайший прием: {{ receptionDate|date }}</p>
+        {% endif %}
+        {% if doctor.rating1 %}
+            <div class="card-doctor__rating">
+            <div class="rating-link">
+                <div class="rating-link__top">{{ doctor.rating1.value }}</div>
+                <div class="rating-link__bottom">
+                    <img class="rating-link__logo" src="{{ doctor.rating1.source.logo.url }}" alt="logo">
+                </div>
+            </div>
+            <div class="card-doctor__reviews">{{ 'reviews'|trans({reviews: doctor.reviews.count}) }}</div>
+        </div>
+        {% endif %}
+        <div class="card-doctor__appointment">
+            {% if doctor.appointment %}
+                <div class="card-doctor__price">Стоимость приема: от {{ doctor.appointment.value|number_format(0, '.', ' ')  }} ₽</div>
+            {% endif %}
+            <a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="card-doctor__btn btn btn_l btn_prim">записаться</a>
+            <button data-form="ask-question" class="card-doctor__btn btn btn_l btn_sec _popup-link">задать вопрос</button>
+        </div>
+    </div>
+    {% if doctor.video %}
+        <div class="card-doctor__description">
+            <a href="#video" data-video="{{ doctor.video }}"
+               class="_popup-link card-doctor__video videopresentation">
+                <div class="videopresentation__poster _ibg">
+                    <img src="https://img.youtube.com/vi/{{ doctor.video }}/hqdefault.jpg" alt="">
+                </div>
+                <div class="videopresentation__play">
+                    <span class="videopresentation__icon"></span>
+                    <span class="videopresentation__text">Смотреть видеопрезентацию</span>
+                </div>
+            </a>
+        </div>
+    {% elseif doctor.certs|length %}
+        <div class="card-doctor__description card-doctor__description--licenses  _gallery" lg-uid="lg0">
+            {% for cert in doctor.certs %}
+                <a href="{{ asset(cert.image.url) }}" class="card-doctor__license _ibg">{{ image(cert.image) }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="card-doctor__description">
+        {% if doctor.leadingSpecialist %}
+            <div class="card-doctor__subtitle subtitle">ведущий специалист</div>
+        {% endif %}
+        <div class="card-doctor__text">{{ doctor.excerpt }}</div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_4_layout.html.twig', 'admin/custom_types.html.twig']
+    globals:
+        doctor_schedule: '@App\Service\DoctorSchedule'
+        seo: '@App\Service\SeoService'
+    date:
+        format: d.m.y

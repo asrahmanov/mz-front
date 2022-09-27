@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default('Специализации') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_services">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item">
+                    <a href="/" class="breadcrumbs__link">Главная</a>
+                </li>
+                <li class="breadcrumbs__item">Специализации</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Специализации") }}</h1>
+        </div>
+        <div class="_container">
+            <div class="">
+                {% for speciality in specialities %}
+                    <a href="{{ path('specialty.show', {slug: speciality.slug}) }}">{{ speciality.name }}</a><br />
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

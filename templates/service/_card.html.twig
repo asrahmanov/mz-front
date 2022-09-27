@@ -1,0 +1,46 @@
+<div class="branches__col">
+    <div class="branch">
+        {% if service.image1.url %}
+            <div class="branch__img _ibg"><img src="{{ service.image1.url }}"
+                                               alt="{{ service.image1.name }}"></div>
+        {% endif %}
+        <div class="branch__content">
+            <div class="branch__labels">
+                {#
+                TODO: В описании сущности услуги нет соответствующих полей
+                <span class="label">акция</span>
+                <span class="label label_price">специальная цена</span>
+                #}
+            </div>
+            <a href="{{ path('service.show', {path: service.path}) }}"
+               class="branch__title">{{ service }}</a>
+            <div class="branch__items">
+                {% if service.children.count %}
+                    <ul class="branch__list branch__list_services" data-simplebar
+                        data-simplebar-auto-hide="false">
+                        {% for service in service.children %}
+                            <li class="branch__item"><a href="{{ path('service.show', {path: service.path}) }}" class="branch__link">{{ service }}</a>
+                                <ul>
+                                    {% for service in service.children %}
+                                        <li><a href="{{ path('service.show', {path: service.path}) }}" class="branch__link">{{ service }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <a href="{{ path('service.show', {path: service.path}) }}" class="branch__show-all">Подробнее</a>
+            </div>
+            <div class="branch__locations">
+                <span>Находится в клинике:</span>
+                {% if service.clinics.count == totalClinics %}
+                    <a href="{{ path('contacts') }}" class="branch__location branch__location_all">Все клиники</a>
+                {% else %}
+                    {% for clinic in service.clinics %}
+                        <a href="{{ path('contacts', {slug: clinic.slug}) }}" class="branch__location branch__location_{{ clinic.color }}">{{ clinic }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

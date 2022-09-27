@@ -1,0 +1,14 @@
+<nav class="header__nav header-menu" data-da=".header__mobile,768">
+    <ul class="header-menu__topmenu">
+        {% for item in menu.data %}
+            <li class="header-menu__item">
+                <a href="{{ asset(item.link|default('/')) }}" class="header-menu__link {{ baseRequest.pathInfo starts with item.link ? '_active' }} ">
+                    {{ item.name|default }}
+                </a>
+                {% if item.children|default is not empty %}
+                    {% include '_main-menu/_menu-lvl2.html.twig' with {menu: item.children} only %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

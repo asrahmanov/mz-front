@@ -1,0 +1,18 @@
+<form action="{{ form.vars.action }}" name="{{ form.vars.full_name }}" class="ajax">
+    {{ form_widget(form._token) }}
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="rc-appointment-name">Имя</label></div>
+        <input autocomplete="off" type="text" name="{{ form.clientName.vars.full_name }}" id="rc-appointment-name" data-value="Иванов Иван" class="input input_m _req">
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="rc-appointment-phone">Телефон</label></div>
+        <input autocomplete="off" type="text" name="{{ form.clientTel.vars.full_name }}" id="rc-appointment-phone" data-value="+7(___) ___ __ __" class="input input_m _req _phone">
+    </div>
+    <div class="form-appointment__checkbox checkbox">
+        <input type="checkbox" class="checkbox__input _req" id="rc-appointment-agreement" checked>
+        <label for="rc-appointment-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих <a href="">персональных данных</a>.</label>
+    </div>
+    <div class="form-appointment__input">
+        <button type="submit" class="form-appointment__btn btn btn_m btn_prim">Отправить</button>
+    </div>
+</form>

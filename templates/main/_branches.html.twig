@@ -1,0 +1,33 @@
+{% if branches|length %}
+<section class="departments _container">
+    <h2 class="departments__header h2">Отделения</h2>
+    <div class="departments__row">
+        <div class="departments__col departments__col_2x">
+            <div class="departments__items _scr-item _scroll-icon">
+                {% for branch in branches %}
+                    <div class="departments__item department">
+                        <div class="department__body">
+                            <a href="{{ path('branch.show', {slug: branch.slug}) }}" class="department__title">{{ branch.name }}</a>
+                            <ul class="department__list">
+                                {% for service in branch.services %}
+                                    <li><a href="{{ path('service.show', {path: service.path}) }}" class="department__link">{{ service.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="departments__col">
+            <button data-form="make-appointment" class="departments__btn btn btn_sec btn_l _popup-link">
+                Записаться
+            </button>
+            <div class="departments__form">
+                {{ render(controller('App\\Controller\\FormController::callbackRequest', {
+                    template: '_form/_callback_request3.html.twig',
+                })) }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

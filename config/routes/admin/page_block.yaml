@@ -1,0 +1,16 @@
+page_block:
+    path: /page_block
+    controller: '\App\Controller\Admin\PageBlockController::index'
+    methods: GET
+page_block.create:
+    path: /page_block/create
+    controller: '\App\Controller\Admin\PageBlockController::create'
+    methods: GET|POST
+page_block.edit:
+    path: '/page_block/edit/{id}'
+    controller: '\App\Controller\Admin\PageBlockController::edit'
+    methods: GET|POST
+page_block.delete:
+    path: '/page_block/delete/{id}'
+    controller: '\App\Controller\Admin\PageBlockController::delete'
+    methods: POST

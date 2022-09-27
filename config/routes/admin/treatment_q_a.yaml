@@ -1,0 +1,16 @@
+treatment_q_a:
+    path: /treatment_q_a
+    controller: '\App\Controller\Admin\TreatmentQAController::index'
+    methods: GET
+treatment_q_a.create:
+    path: /treatment_q_a/create
+    controller: '\App\Controller\Admin\TreatmentQAController::create'
+    methods: GET|POST
+treatment_q_a.edit:
+    path: '/treatment_q_a/edit/{id}'
+    controller: '\App\Controller\Admin\TreatmentQAController::edit'
+    methods: GET|POST
+treatment_q_a.delete:
+    path: '/treatment_q_a/delete/{id}'
+    controller: '\App\Controller\Admin\TreatmentQAController::delete'
+    methods: POST

@@ -1,0 +1,16 @@
+menu:
+    path: /menu
+    controller: '\App\Controller\Admin\MenuController::index'
+    methods: GET
+menu.create:
+    path: /menu/create
+    controller: '\App\Controller\Admin\MenuController::create'
+    methods: GET|POST
+menu.edit:
+    path: '/menu/edit/{id}'
+    controller: '\App\Controller\Admin\MenuController::edit'
+    methods: GET|POST
+menu.delete:
+    path: '/menu/delete/{id}'
+    controller: '\App\Controller\Admin\MenuController::delete'
+    methods: POST

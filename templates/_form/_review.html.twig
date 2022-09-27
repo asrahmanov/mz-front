@@ -1,0 +1,28 @@
+<form action="{{ form.vars.action }}" name="{{ form.vars.full_name }}" class="form-appointment form-appointment_bg-clear ajax">
+    {{ form_widget(form._token) }}
+    <div class="form-appointment__header">Спаcибо, Доктор!</div>
+    <div class="form-appointment__text form-appointment__text_small">Помогите нам становиться лучше, а другим пациентам найти своего врача.</div>
+    <div class="form-signup__input">
+        <div class="form-signup__label"><label for="signup-name">Ваше имя</label></div>
+        <input autocomplete="off" type="text" name="{{ form.authorName.vars.full_name }}" id="signup-name" data-value="Иванов Иван" class="input input_l _req">
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label">Имя врача</div>
+        {{ form_widget(form.doctors, {multiple: false, attr: {'class': 'l', 'data-placeholder': 'Выберите врача', 'data-type': 'input' }}) }}
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label">Клиника</div>
+        {{ form_widget(form.clinic, {multiple: false, attr: {'class': 'l', 'data-placeholder': 'Выберите клинику', 'data-type': 'input' }}) }}
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="gf-ask-question-text">Что вам понравилось/не понравилось?</label></div>
+        <textarea name="{{ form.text.vars.full_name }}" id="gf-ask-question-text" data-value="..." class="input _req"></textarea>
+    </div>
+    <div class="form-appointment__input">
+        <button type="submit" class="form-appointment__btn btn btn_m btn_prim">Отправить</button>
+    </div>
+    <div class="form-appointment__checkbox checkbox">
+        <input type="checkbox" class="checkbox__input _req" id="gf-appointment-agreement" checked>
+        <label for="gf-appointment-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих <a href="">персональных данных</a>.</label>
+    </div>
+</form>

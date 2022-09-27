@@ -1,0 +1,14 @@
+{% if ratings|length %}
+    <section class="rating-clinic _container">
+        <div class="rating-clinic__title h2">Рейтинг клиники в независимых источниках</div>
+        <div class="rating-clinic__wrap">
+            <div class="rating-clinic__slider _swiper swiper-bild">
+                <ul class="swiper-wrapper">
+                    {% for rating in ratings %}
+                        {% include 'clinic_rating/_card.html.twig' %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endif %}

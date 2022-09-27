@@ -1,0 +1,12 @@
+# pack-refs with: peeled fully-peeled sorted 
+1d7d2f074e8dfb7d5f1dbb53c1719bfc4d50e5da refs/remotes/origin/disease_category
+cd34ba5d92b6a81752513e8eac4f81553ee22f2e refs/remotes/origin/elasticsearch
+013a5612e0df79326e43ac1bc5d2a18cd8d5d6df refs/remotes/origin/fix
+18cfdb7373d6b8df6bdf922a658b149b7071689e refs/remotes/origin/incomplete-1
+7eab78c987042d9ceba282506a4ce7be3fecaf3a refs/remotes/origin/incomplete_shulzhenko
+4f99da14089c9186338b3870ed105edcb029e97b refs/remotes/origin/page-blocks
+aa2285a5aa60716385a0ab503a94d3e604a40206 refs/remotes/origin/task-162657
+982e1e42b3bd70c5abd6779c250e7fa4141a8582 refs/remotes/origin/task-169129
+53657f78871074796e0ca3770de9e26e5ff1da20 refs/remotes/origin/task-169917
+a4d126d64c51ebcdbb1181c34f2a54239e297441 refs/remotes/origin/task-169930
+3ebf9398cbd6b4000af525125a8bea5a1a12e383 refs/remotes/origin/task-171953

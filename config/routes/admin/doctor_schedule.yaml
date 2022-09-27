@@ -1,0 +1,16 @@
+doctor_schedule:
+  path: /doctor_schedule
+  controller: \App\Controller\Admin\DoctorScheduleController::index
+  methods: GET
+doctor_schedule.create:
+  path: /doctor_schedule/create
+  controller: \App\Controller\Admin\DoctorScheduleController::create
+  methods: GET|POST
+doctor_schedule.edit:
+  path: /doctor_schedule/edit/{id}
+  controller: \App\Controller\Admin\DoctorScheduleController::edit
+  methods: GET|POST
+doctor_schedule.delete:
+  path: /doctor_schedule/delete/{id}
+  controller: \App\Controller\Admin\DoctorScheduleController::delete
+  methods: POST

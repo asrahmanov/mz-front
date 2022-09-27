@@ -1,0 +1,16 @@
+treatment:
+    path: /treatment
+    controller: '\App\Controller\Admin\TreatmentController::index'
+    methods: GET
+treatment.create:
+    path: /treatment/create
+    controller: '\App\Controller\Admin\TreatmentController::create'
+    methods: GET|POST
+treatment.edit:
+    path: '/treatment/edit/{id}'
+    controller: '\App\Controller\Admin\TreatmentController::edit'
+    methods: GET|POST
+treatment.delete:
+    path: '/treatment/delete/{id}'
+    controller: '\App\Controller\Admin\TreatmentController::delete'
+    methods: POST

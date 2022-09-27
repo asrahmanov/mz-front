@@ -1,0 +1,11 @@
+{% macro get_youtube_preview_url(code) %}
+    https://img.youtube.com/vi/{{ code }}/hqdefault.jpg
+{% endmacro %}
+{% macro image(image, params = {}) %}
+    <img
+            {% if params.classes is defined and params.classes is iterable %}
+                class="{{ params.classes|join(' ') }}"
+            {% endif %}
+            src="{{ image.url|default(asset('/img/no_photo.png')) }}" alt="{{ image.name|default }}"
+    >
+{% endmacro %}

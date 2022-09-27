@@ -1,0 +1,16 @@
+service:
+    path: /service
+    controller: '\App\Controller\Admin\ServiceController::index'
+    methods: GET
+service.create:
+    path: /service/create
+    controller: '\App\Controller\Admin\ServiceController::create'
+    methods: GET|POST
+service.edit:
+    path: '/service/edit/{id}'
+    controller: '\App\Controller\Admin\ServiceController::edit'
+    methods: GET|POST
+service.delete:
+    path: '/service/delete/{id}'
+    controller: '\App\Controller\Admin\ServiceController::delete'
+    methods: POST

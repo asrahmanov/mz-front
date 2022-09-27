@@ -1,0 +1,16 @@
+service_q_a:
+    path: /service_q_a
+    controller: '\App\Controller\Admin\ServiceQAController::index'
+    methods: GET
+service_q_a.create:
+    path: /service_q_a/create
+    controller: '\App\Controller\Admin\ServiceQAController::create'
+    methods: GET|POST
+service_q_a.edit:
+    path: '/service_q_a/edit/{id}'
+    controller: '\App\Controller\Admin\ServiceQAController::edit'
+    methods: GET|POST
+service_q_a.delete:
+    path: '/service_q_a/delete/{id}'
+    controller: '\App\Controller\Admin\ServiceQAController::delete'
+    methods: POST

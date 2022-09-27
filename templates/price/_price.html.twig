@@ -1,0 +1,7 @@
+{% for category in price %}
+    {% if category.categories|length %}
+        {% include 'price/_group_2lvl.html.twig' with { category } %}
+    {% else %}
+        {% include 'price/_group_1lvl.html.twig' with { category } %}
+    {% endif %}
+{% endfor %}

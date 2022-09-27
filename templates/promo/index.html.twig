@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import image %}
+
+{% block title %}{{ seo.title|default('Акции') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_actions">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Акции</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Акции клиники «Мастерская Здоровья»") }}</h1>
+        </div>
+        <section class="first-screen _container">
+            {{ render(controller('App\\Controller\\MainSliderController::show')) }}
+        </section>
+        <section class="actions _container">
+            <div class="actions__header h2">Все акции</div>
+            <div class="actions__filter">
+                <span class="label label_action">все акции</span>
+                <span class="label label_consult">Онлайн-консультация</span>
+                <span class="label label_price">специальная цена</span>
+            </div>
+            <div class="actions__items _row">
+                {% for promo in promos %}
+                    <div class="actions__wrap _col_12">
+                        <div class="action-branch action-branch_nohover">
+                            <div class="action-branch__img _ibg">{{ image(promo.image) }}</div>
+                            <div class="action-branch__content">
+                                <div class="action-branch__labels">
+                                    {% if promo.promo %}
+                                        <span class="label label_action">акция</span>
+                                    {% endif %}
+                                    {% if promo.new %}
+                                        <span class="label label_spec">новинки</span>
+                                    {% endif %}
+                                    {% if promo.specialPrice %}
+                                        <span class="label label_price">специальная цена</span>
+                                    {% endif %}
+                                </div>
+                                <div class="action-branch__header">
+                                    <a href="{{ path('promo.show', {slug: promo.slug}) }}" class="action-branch__title">{{ promo.name }}</a>
+                                    <div class="action-branch__info">
+                                        {% if promo.activeUntil %}
+                                            <div class="action-branch__date">до {{ promo.activeUntil|date('d.m.Y') }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="action-branch__body">
+                                    <div class="action-branch__text _wysiwyg">
+                                        {{ promo.excerpt|raw }}
+                                    </div>
+                                </div>
+                                <div class="action-branch__footer">
+                                    <a href="{{ path('promo.show', {slug: promo.slug}) }}" class="action-branch__link btn btn_sec btn_m">подробнее</a>
+                                    {% if promo.clinics.count %}
+                                        <div class="action-branch__locations">
+                                            Действует в в клиниках:<br>
+                                            {% for clinic in promo.clinics %}
+                                                <a href="" class="action-branch__location action-branch__location_{{ clinic.color }}">{{ clinic }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="actions__items _row" style="margin-bottom: 50px">
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {
+                template: '_form/_callback_request2.html.twig',
+            })) }}
+            </div>
+        </section>
+    </main>
+{% endblock %}

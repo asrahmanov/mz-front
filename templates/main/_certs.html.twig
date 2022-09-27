@@ -1,0 +1,22 @@
+{% if certs|length %}
+    <section class="license _container">
+        <div class="license__content">
+            <h2 class="license__title h2">Лицензии</h2>
+            <div class="license__wrap">
+                <div class="license__slider _swiper swiper-bild _gallery">
+                    <ul class="swiper-wrapper">
+                        {% for cert in certs %}
+                            <li class="license__item swiper-slide">
+                                <a href="{{ cert.image.url }}" class="license__img _icon-zoom _ibg"><img
+                                            src="{{ cert.image.url }}" alt="{{ cert.image.name|default }}"></a>
+                                <div class="license__caption">{{ cert.name }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <button class="license__btn license__btn_prev swiper-button swiper-button_l swiper-button_prev"></button>
+                <button class="license__btn license__btn_next swiper-button swiper-button_l swiper-button_next"></button>
+            </div>
+        </div>
+    </section>
+{% endif %}

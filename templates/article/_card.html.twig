@@ -1,0 +1,36 @@
+<div class="main-blog__item item-main-blog item-main-blog_box _f-blog-2 _active">
+    <div class="item-main-blog__row">
+        <div class="item-main-blog__img _ibg"><img src="{{ article.image.url|default(asset('/img/no_photo.png')) }}" alt="{{ article.image.name|default }}"></div>
+        <div class="item-main-blog__body">
+            <div class="item-main-blog__meta">
+                <span class="item-main-blog__date">{{ article.createdAt|date }}</span>
+                <span class="item-main-blog__read  _icon-glasses">{{ (article.readingSeconds / 60) |round(0, 'ceil') }} мин.</span>
+                <span class="item-main-blog__comments _icon-comment">{{ article.viewsNum }}</span>
+                <span class="item-main-blog__rating rating-output" data-stars="{{ article.rating }}">{{ article.rating }}</span>
+            </div>
+            <a href="{{ path('article.show', {slug: article.slug}) }}" class="item-main-blog__title">{{ article.name }}</a>
+            <div class="item-main-blog__text">{{ article.excerpt }}</div>
+            <div class="item-main-blog__author author-main-blog">
+                <div class="author-main-blog__row">
+                    <div class="author-main-blog__col">
+                        <div class="author-main-blog__img">
+                            <div class="_ibg">
+                                <img src="{{ article.author.photo.url|default(asset('/img/no_photo.png')) }}" alt="{{ article.author.photo.name|default }}">
+                            </div>
+                        </div>
+                    </div>
+                    {% if article.author %}
+                        <div class="author-main-blog__col">
+                            <div class="author-main-blog__name">
+                                <span class="b">Автор:</span>
+                                <a href="{{ path('doctor.show', {slug: article.author.slug}) }}" class="link link_main">{{ article.author }}</a>
+                            </div>
+                            <div class="author-main-blog__text">{{ article.author.specialties|join(' / ') }}<br>
+                               {% if article.author.experience %} Стаж: {{ 'years'|trans({years: article.author.experience}) }}{% endif %}</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

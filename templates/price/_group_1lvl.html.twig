@@ -1,0 +1,17 @@
+<li class="pricelist__group">
+    <a class="pricelist__title _spoller {{ loop.first ? '_active' }}">
+        <div class="pricelist__col">{{ category }}</div>
+        <div class="pricelist__col pricelist__col_labels">
+            <span class="pricelist__label pricelist__label_action">{{ category.hasPromo ? 'Акция'}}</span>
+            <span class="pricelist__label pricelist__label_new">{{ category.hasNew ? 'Новинка'}}</span>
+        </div>
+    </a>
+    <div class="pricelist__body">
+        <div class="pricelist__items" data-simplebar data-simplebar-auto-hide="false"
+             data-simplebar-scrollbar-max-size="128">
+            {% for priceItem in category.priceItems %}
+                {% include 'price/_price_item.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+</li>

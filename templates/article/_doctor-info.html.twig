@@ -1,0 +1,7 @@
+<a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="intro-article__name link">{{ doctor }}</a>
+<div class="intro-article__text">
+    {{ doctor.specialties|join(' / ') }}<br>
+    {% if doctor.experience %}
+        Стаж: {{ 'years'|trans({years: doctor.experience}) }}
+    {% endif %}
+</div>

@@ -1,0 +1,413 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import get_youtube_preview_url %}
+
+{% block title %}{{ treatment }}{% endblock %}
+
+{% block content %}
+    <main class="page page_methods">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item"><a href="{{ path('treatments') }}" class="breadcrumbs__link">Методы
+                        лечения</a></li>
+                <li class="breadcrumbs__item">{{ treatment }}</li>
+            </ul>
+            <h1 class="page__header h1">{{ treatment }}</h1>
+        </div>
+        <div class="branch-profile branch-profile_methods _container">
+            <div class="branch-profile__row">
+                <div class="branch-profile__col branch-profile__col_2x">
+                    <div class="branch-profile__info">
+                        <div class="branch-profile__img _ibg"><img src="{{ treatment.image.url }}"
+                                                                   alt="{{ treatment.image.name }}"></div>
+                        <div class="branch-profile__body">
+                            <div class="branch-profile__text _wysiwyg">
+                                {{ treatment.excerpt|raw }}
+                            </div>
+                            <div class="branch-profile__bottom">
+                                {% if treatment.video %}
+                                    <a href="#video" data-video="{{ treatment.video }}"
+                                       class="_popup-link branch-profile__video videopresentation videopresentation_line">
+                                        <div class="videopresentation__poster _ibg">
+                                            <img src="{{ get_youtube_preview_url(treatment.video) }}" alt="">
+                                        </div>
+                                        <div class="videopresentation__play">
+                                            <span class="videopresentation__icon"></span>
+                                            <span class="videopresentation__text">Смотреть видеопрезентацию</span>
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <div class="branch-profile__advantages advantages _scr-item">
+                                        <ul class="advantages__row">
+                                            <li class="advantages__col">
+                                                <div class="item-advantages item-advantages_row">
+                                                    <div class="item-advantages__head">
+                                                        <svg class="item-advantages__icon svg" width="74" height="73"
+                                                             viewBox="0 0 75 75" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M5.03393 0.388428H50.3393C53.1194 0.388428 55.3732 2.59211 55.3732 5.31049V44L52.8562 43.3249V5.31049C52.8562 3.9513 51.7293 2.84946 50.3393 2.84946H5.03393C3.64385 2.84946 2.51696 3.9513 2.51696 5.31049V66.8363C2.51696 68.1954 3.64385 69.2973 5.03393 69.2973H50.3393C51.2988 69.2973 52.133 68.7723 52.5576 68L54.5 69.6076C53.5937 70.906 52.0683 71.7583 50.3393 71.7583H5.03393C2.25377 71.7583 0 69.5546 0 66.8363V5.31049C0 2.59211 2.25377 0.388428 5.03393 0.388428Z"
+                                                                  fill="#29A285"></path>
+                                                            <path class="svg__anim svg__anim_beat" fill-rule="evenodd"
+                                                                  clip-rule="evenodd"
+                                                                  d="M70.1084 45.0508C66.4394 41.4744 60.7162 41.0923 56.6043 44.1491C56.1232 43.7915 55.1001 43.2191 55.1001 43.2191L52.0946 42.2328C48.9082 41.7042 45.5486 42.6663 43.102 45.0508C43.0482 45.1035 42.9948 45.1567 42.9421 45.2107C39.0545 49.1866 39.1261 55.5613 43.102 59.449L51.9837 68.1924L54.1805 70.355L55.5509 71.7041C55.8316 71.9801 56.2093 72.1349 56.6029 72.1354C56.9966 72.1349 57.3743 71.9801 57.6549 71.7041L70.1085 59.4489C70.1623 59.3962 70.2157 59.3429 70.2684 59.289C74.1559 55.3132 74.0843 48.9384 70.1084 45.0508ZM56.4993 69L67.8722 57.5154C70.6595 54.7274 70.7157 50.1494 67.9978 47.2904C67.9564 47.247 67.9145 47.204 67.8722 47.1616C65.0027 44.286 60.4201 44.286 57.5506 47.1616C56.9675 47.7481 56.0342 47.7481 55.4509 47.1616C54.0738 45.7715 52.2177 44.9948 50.2856 45C48.3569 44.9936 46.5036 45.7675 45.1278 47.1538C42.3405 49.9418 42.2843 54.5198 45.0022 57.3789C45.0436 57.4223 45.0855 57.4653 45.1278 57.5077L56.4993 69Z"
+                                                                  fill="#29A285"></path>
+                                                            <path d="M37.0666 21.0411H32.5583V16.5327C32.5583 15.7028 31.8854 15.0299 31.0554 15.0299H25.0443C24.2143 15.0299 23.5414 15.7028 23.5414 16.5327V21.0411H19.0331C18.2031 21.0411 17.5303 21.714 17.5303 22.5439V28.5551C17.5303 29.385 18.2031 30.0579 19.0331 30.0579H23.5414V34.5663C23.5414 35.3962 24.2143 36.0691 25.0443 36.0691H31.0554C31.8854 36.0691 32.5583 35.3962 32.5583 34.5663V30.0579H37.0666C37.8966 30.0579 38.5694 29.385 38.5694 28.5551V22.5439C38.5694 21.7138 37.8966 21.0411 37.0666 21.0411ZM35.5638 27.0521H31.0554C30.2255 27.0521 29.5526 27.725 29.5526 28.5549V33.0633H26.5471V28.5549C26.5471 27.725 25.8742 27.0521 25.0443 27.0521H20.5359V24.0466H25.0443C25.8742 24.0466 26.5471 23.3737 26.5471 22.5438V18.0354H29.5526V22.5438C29.5526 23.3737 30.2255 24.0466 31.0554 24.0466H35.5638V27.0521Z"
+                                                                  fill="#29A285"></path>
+                                                            <path d="M8.5138 6.01343C7.68384 6.01343 7.01111 6.6863 7.01111 7.51626V13.5274H10.0166V9.01908H14.525V6.01343H8.5138Z"
+                                                                  fill="#29A285"></path>
+                                                            <path d="M47.5862 6.01343H41.5752V9.01894H46.0835V13.5273H49.0891V7.51626C49.0891 6.6863 48.4162 6.01343 47.5862 6.01343Z"
+                                                                  fill="#29A285"></path>
+                                                            <path d="M38.5687 45.0847H17.5303V48.0902H38.5687V45.0847Z"
+                                                                  fill="#29A285"></path>
+                                                            <path d="M38.5687 52.5997H17.5303V55.6053H38.5687V52.5997Z"
+                                                                  fill="#29A285"></path>
+                                                            <path d="M38.5687 60.113H17.5303V63.1186H38.5687V60.113Z"
+                                                                  fill="#29A285"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="item-advantages__text"><span
+                                                                class="item-advantages__strong">Лучшая <br>частная клиника</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="advantages__col">
+                                                <div class="item-advantages item-advantages_row">
+                                                    <div class="item-advantages__head">
+                                                        <svg class="item-advantages__icon svg" width="72" height="72"
+                                                             viewBox="0 0 72 72" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <g clip-path="url(#clip0)">
+                                                                <path d="M69.8828 9.31062H29.6318C28.8861 4.19305 24.501 0.395816 19.3294 0.389404H1.48692C0.665746 0.389404 0 1.05515 0 1.87632V70.2724C0 71.0934 0.665746 71.759 1.48692 71.759H38.6587V68.7853H2.97383V3.3631H19.3294C22.9239 3.36742 25.9212 5.91944 26.6131 9.31062H11.8949V12.2843H28.2504H68.3959V24.1792H71.3698V10.7974C71.3698 9.97637 70.704 9.31062 69.8828 9.31062Z"
+                                                                      fill="#29A285"></path>
+                                                                <path d="M63.8651 43.9244C66.6235 41.7459 68.3961 38.3744 68.3961 34.5866V31.6129C68.3961 25.0436 63.0705 19.718 56.5011 19.718C49.9318 19.718 44.6061 25.0436 44.6061 31.6129V34.1495C44.562 38.0829 46.388 41.616 49.2706 43.8863C44.8705 45.1027 41.6378 49.13 41.6324 53.916V70.2715C41.6324 71.0927 42.2981 71.7584 43.1193 71.7584H69.883C70.7041 71.7584 71.3699 71.0927 71.3699 70.2715V53.916C71.3643 49.1787 68.1969 45.1846 63.8651 43.9244ZM56.501 22.6917C60.3679 22.6956 63.6582 25.1575 64.8963 28.5988C56.5929 28.264 52.8974 25.9358 52.8656 25.9152C52.3409 25.5653 51.6527 25.5844 51.1483 25.9627L48.3041 28.0959C49.6704 24.9202 52.8252 22.6953 56.501 22.6917ZM47.5798 34.1495V32.3563L52.1698 28.9141C53.9318 29.7714 58.1796 31.3933 65.4217 31.5926C65.4217 31.5994 65.4222 31.606 65.4222 31.6128V34.5865C65.4222 34.6796 65.4208 34.7727 65.418 34.8658C65.2714 39.6175 61.4349 43.3852 56.7419 43.5077H56.226C51.3051 43.2023 47.4956 39.0792 47.5798 34.1495ZM60.252 46.4817L56.501 55.8608L52.7501 46.4817H56.1308C56.2557 46.4817 56.3776 46.4817 56.501 46.4817H60.252ZM44.6061 68.7848V53.916C44.61 50.6308 46.743 47.8461 49.6987 46.8627L55.0141 60.1512V65.8111H57.9879V60.1512L63.3033 46.8627C66.2591 47.8461 68.392 50.6306 68.3959 53.916V68.7848H44.6061Z"
+                                                                      fill="#29A285"></path>
+                                                                <path d="M57.9879 36.0735C57.9879 36.8947 57.3222 37.5604 56.501 37.5604C55.6798 37.5604 55.0141 36.8947 55.0141 36.0735H52.0404C52.0404 38.537 54.0375 40.5341 56.501 40.5341C58.9645 40.5341 60.9616 38.537 60.9616 36.0735H57.9879Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p1"
+                                                                      d="M36.7627 22.5377H18.9202V25.5114H36.7627V22.5377Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p1"
+                                                                      d="M14.5108 22.5377H11.5371V25.5114H14.5108V22.5377Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p2"
+                                                                      d="M36.7627 29.9729H18.9202V32.9466H36.7627V29.9729Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p2"
+                                                                      d="M14.5108 29.9729H11.5371V32.9466H14.5108V29.9729Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p3"
+                                                                      d="M36.7627 37.407H18.9202V40.3807H36.7627V37.407Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p3"
+                                                                      d="M14.5108 37.407H11.5371V40.3807H14.5108V37.407Z"
+                                                                      fill="#29A285"></path>
+                                                                <path class="svg__anim svg__anim_opacity svg__anim_p4"
+                                                                      d="M28.2504 44.8412H13.3818C12.5607 44.8412 11.8949 45.5069 11.8949 46.3281V58.223C11.8949 59.0442 12.5607 59.7099 13.3818 59.7099H28.2506C29.0718 59.7099 29.7374 59.0442 29.7374 58.223V46.3281C29.7374 45.5069 29.0716 44.8412 28.2504 44.8412ZM26.7637 56.7362H14.8688V47.815H26.7637V56.7362Z"
+                                                                      fill="#29A285"></path>
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0">
+                                                                    <rect width="71.3699" height="71.3699" fill="white"
+                                                                          transform="translate(0 0.388428)"></rect>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="item-advantages__text">Медицинский <br>стаж врачей
+                                                        <br><span class="item-advantages__strong">более 30 лет</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="branch-profile__col">
+                    <div class="branch-profile__action">
+                        {% if treatment.clinics.count %}
+                            <div class="h3">Процедуры проводят в клинике:</div>
+                            <ul class="branch-profile__directions">
+                                {% for clinic in treatment.clinics %}
+                                    <li class="direction-link">
+                                        <a href=""
+                                           class="direction-link__metro direction-link__metro_{{ clinic.color }}">{{ clinic }}</a>
+                                        <span class="direction-link__distance">{{ clinic.distance }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <div class="branch-profile__table">
+                            <table class="table-branch">
+                                <tbody>
+                                {% if treatment.duration %}
+                                    <tr>
+                                        <td><span class="table-branch__property">Продолжительность</span></td>
+                                        <td><span class="table-branch__value _icon-time">{{ treatment.duration }}</span>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if treatment.proceduresCount %}
+                                    <tr>
+                                        <td><span class="table-branch__property">Курс лечения</span></td>
+                                        <td>
+                                            <span class="table-branch__value _icon-therapy">{{ treatment.proceduresCount }}</span>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if treatment.cost is not null %}
+                                    <tr>
+                                        <td><span class="table-branch__property">Стоимость приёма</span></td>
+                                        <td>
+                                        <span class="table-branch__value table-branch__value_money table-branch__value_free _icon-money showBank"
+                                              data-priceold="1 000"
+                                              aria-expanded="false">{{ treatment.cost ? (treatment.cost ~ ' ₽') : 'Бесплатно' }}</span>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if treatment.courseCost %}
+                                    <tr>
+                                        <td><span class="table-branch__property">Курс лечения</span></td>
+                                        <td><span class="table-branch__value table-branch__value_money _icon-money showBank"
+                                                  data-priceold="10 000"
+                                                  aria-expanded="false">{{ treatment.courseCost ? (treatment.courseCost ~ ' ₽') : 'Бесплатно' }}</span>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="branch-profile__btn branch-profile__btn_single">
+                            <button data-form="make-appointment" class="btn btn_prim btn_l _popup-link">записаться на
+                                бесплатный приём
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="anchors _container">
+            <ul class="anchors__list">
+                {% if treatment.content %}
+                    <li><a href="#_anchor-description" class="anchors__link _active _goto">описание</a></li>
+                {% endif %}
+                {% if treatment.indications %}
+                    <li><a href="#metodics__indications" class="anchors__link _goto">показания и противопоказания</a></li>
+                {% endif %}
+                {% if treatment.qAs|length %}
+                    <li><a href="#faq" class="anchors__link _goto">вопросы</a></li>
+                {% endif %}
+                {% if treatment.doctors|length %}
+                    <li><a href="#doctors" class="anchors__link _goto">врачи</a></li>
+                {% endif %}
+                {% if price %}
+                    <li><a href="#price-branch" class="anchors__link _goto">цены</a></li>
+                {% endif %}
+                {% if banners|length %}
+                    <li><a href="#actions-block" class="anchors__link _goto">акции</a></li>
+                {% endif %}
+                {% if treatment.reviews|length %}
+                    <li><a href="#reviews" class="anchors__link _goto">отзывы</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <section class="branch-article _container _wysiwyg _anchor-description">
+            {{ treatment.content|raw }}
+        </section>
+        <div class="metodics__indications indications _tabs">
+            <ul class="indications__tabs main-tabs">
+                {% if treatment.indications %}
+                    <li class="indications__tab indications__tab_green main-tabs__item _tabs-item _active">Показания</li>
+                {% endif %}
+                {% if treatment.contraindications %}
+                    <li class="indications__tab indications__tab_red main-tabs__item _tabs-item">Противопоказания</li>
+                {% endif %}
+            </ul>
+            {% if treatment.indications %}
+            <div class="indications__body _tabs-block _active _wysiwyg">
+                {{ treatment.indications|raw }}
+            </div>
+            {% endif %}
+            {% if treatment.contraindications %}
+                <div class="indications__body indications__body_red _tabs-block _wysiwyg">
+                    {{ treatment.contraindications|raw }}
+                </div>
+            {% endif %}
+        </div>
+        <section class="therapy _container">
+            <div class="_wysiwyg">
+                {{ treatment.relatedTreatmentsText|raw }}
+            </div>
+            <div class="therapy__row">
+                {% for treatment in treatment.relatedTreatments %}
+                    <div class="therapy__col">
+                        <div class="method">
+                            <a href="{{ path('treatment.show', {slug: treatment.slug}) }}"
+                               class="method__title method__title_s">{{ treatment }}</a>
+                            <div class="method__row">
+                                {% if treatment.proceduresCount %}
+                                    <div class="method__col">
+                                        <div class="method__property">Курс лечения</div>
+                                        <div class="method__value _icon-therapy">{{ treatment.proceduresCount }}
+                                            процедур
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if treatment.duration %}
+                                    <div class="method__col">
+                                        <div class="method__property">Продолжительность</div>
+                                        <div class="method__value _icon-time">{{ treatment.duration }}</div>
+                                    </div>
+                                {% endif %}
+                                {% if treatment.cost is not null %}
+                                    <div class="method__col">
+                                        <div class="method__property">Стоимость</div>
+                                        <div class="method__value _icon-money">{{ treatment.cost ? (treatment.cost ~ ' ₽') : 'Бесплатно' }} </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="therapy__col">
+                    <div class="therapy__all">
+                        <a href="{{ path('treatments') }}" class="link link_all">Смотреть все методы лечения</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% if treatment.qAs.count %}
+            <section class="faq _container">
+                <h2 class="faq__header h2">Часто задаваемые вопросы</h2>
+                <div class="faq__spollers _spollers">
+                    {% for qa in treatment.qAs %}
+                        <div class="faq__group">
+                            <div class="faq__title _spoller {{ loop.first ? '_active' }}">
+                                <span>{{ qa.questionText }}</span>
+                            </div>
+                            <div class="faq__body">
+                                <div class="faq__row">
+                                    {% if qa.answerAuthor %}
+                                        <div class="faq__ava _ibg"><img src="{{ qa.answerAuthor.photo.url }}"
+                                                                        alt="{{ qa.answerAuthor.photo.name }}"></div>
+                                    {% endif %}
+                                    <div class="faq__answer">
+                                        <div class="faq__text">{{ qa.answerText }}</div>
+                                        {% if qa.answerAuthor %}
+                                            <div class="faq__doctor">
+                                                {{ qa.answerAuthor.lastname }} {{ qa.answerAuthor.firstname|first }}. {{ qa.answerAuthor.middlename|first }}.{% if qa.answerAuthor.specialties.count %} ({{ qa.answerAuthor.specialties|join(' / ') }}){% endif %}{% if qa.answerAuthor.experience %}, стаж {{ 'years'|trans({years: qa.answerAuthor.experience}) }}{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="faq__ask ask-faq">
+                    <div class="ask-faq__row">
+                        <div class="ask-faq__img"><img src="/img/ask-faq/img.svg" alt=""></div>
+                        <div class="ask-faq__body">
+                            <div class="ask-faq__title">Не нашли ответа на свой вопрос?</div>
+                            <div class="ask-faq__text">Свяжитесь с нами, и мы предоставим необходимую информацию.</div>
+                        </div>
+                        <div class="ask-faq__btn">
+                            <button data-form="ask-question" class="btn btn_prim btn_m _popup-link">задать вопрос
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if treatment.doctors|length %}
+            <section class="doctors _container">
+                <h2 class="doctors__header h2">Врачи клиники "Мастерская Здоровья"</h2>
+                <div class="doctors__row">
+                    <div class="doctors__col doctors__col_3x">
+                        <div class="doctors__slider_4 _swiper swiper-bild swiper-container-initialized swiper-container-horizontal">
+                            <ul class="swiper-wrapper"
+                                style="transform: translate3d(-984px, 0px, 0px); transition-duration: 0ms;">
+                                {% for doctor in treatment.doctors %}
+                                    <li class="doctors__item swiper-slide _active" style="width: 328px;">
+                                        {% include 'doctor/_card1.html.twig' %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                        <div class="doctors__nav nav-doctor">
+                            <button class="nav-doctor__btn nav-doctor__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                            <div class="nav-doctor__fraction"></div>
+                            <button class="nav-doctor__btn nav-doctor__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        <section class="price-branch _container">
+            <h2 class="price-branch__header h2">Стоимость услуг</h2>
+            <ul class="price-branch__spollers pricelist _spollers">
+                {% include 'price/_price.html.twig' %}
+            </ul>
+        </section>
+        {% if banners|length %}
+            <section class="actions-block _container">
+                <h2 class="actions-block__header h2 _scroll-icon _scr-item">Акции отделения</h2>
+                <ul class="actions-block__row">
+                    <li class="actions-block__col">
+                        {{ render(controller('App\\Controller\\BannerController::show', {
+                            location: 'treatment_page_1',
+                            template: '_banner/_banner1.html.twig'
+                        })) }}
+                    </li>
+                    <li class="actions-block__col">
+                        {{ render(controller('App\\Controller\\BannerController::show', {
+                            location: 'treatment_page_2',
+                            template: '_banner/_banner1.html.twig'
+                        })) }}
+                    </li>
+                    <li class="actions-block__col">
+                        {{ render(controller('App\\Controller\\BannerController::show', {
+                            location: 'treatment_page_3',
+                            template: '_banner/_banner1.html.twig'
+                        })) }}
+                    </li>
+                </ul>
+                <a href="{{ path('promos') }}" class="actions-block__all link link_all">Смотреть все акции</a>
+            </section>
+        {% endif %}
+
+        <!--Тоже что и reviews-item4  только показано как без одного-->
+        <section class="reviews _container">
+            <h2 class="reviews__header h2 _scroll-icon _scr-item">Отзывы</h2>
+            <ul class="reviews__row">
+                {%  for review in treatment.reviews %}
+                    {% include 'review/_card.html.twig' %}
+                {% endfor %}
+                <li class="reviews__action ad-block">
+                    <div class="ad-block__content">
+                        <div class="ad-block__title ad-block__title_big">Оцените работу доктора</div>
+                        <div class="ad-block__subtitle">Мы всегда готовы развиваться
+                            и с нетерпением ждём ваших комментариев.
+                        </div>
+                        <div class="ad-block__text">Уделите несколько минут тому, чтобы оставить отзыв о лечении у
+                            доктора. Рассказав о своих впечатлениях, вы поможете нам стать лучше.
+                        </div>
+                        <button data-form="give-feedback" class="ad-block__btn btn btn_m btn_inv _popup-link">оставить
+                            отзыв
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <a href="#" class="reviews__all link link_all">Читать все отзывы</a>
+        </section>
+s
+        <div class="_container">
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request2.html.twig'})) }}
+        </div>
+    </main>
+{% endblock %}
+

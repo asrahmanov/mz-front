@@ -1,0 +1,16 @@
+user:
+  path: /user
+  controller: \App\Controller\Admin\UserController::index
+  methods: GET
+user.create:
+  path: /user/create
+  controller: \App\Controller\Admin\UserController::create
+  methods: GET|POST
+user.edit:
+  path: /user/edit/{id}
+  controller: \App\Controller\Admin\UserController::edit
+  methods: GET|POST
+user.delete:
+  path: /user/delete/{id}
+  controller: \App\Controller\Admin\UserController::delete
+  methods: POST

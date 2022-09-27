@@ -1,0 +1,594 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import get_youtube_preview_url, image %}
+
+{% block title %}{{ seo.title|default(doctor) }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_doctors-card">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item"><a href="{{ path('doctors') }}" class="breadcrumbs__link">Врачи</a></li>
+                <li class="breadcrumbs__item">{{ doctor }}</li>
+            </ul>
+        </div>
+        <div class="doc-profile _container">
+            <div class="doc-profile__info">
+                <div class="doc-profile__header">
+                    {% if doctor.leadingSpecialist %}
+                        <span class="doc-profile__subtitle subtitle">ведущий специалист</span>
+                    {% endif %}
+                    {% if doctor.rating2 %}
+                        <div class="doc-profile__rating rating-link">
+                            <div class="rating-link__top">{{ doctor.rating2.value }}</div>
+                            <div class="rating-link__bottom">
+                                <img class="rating-link__logo" src="{{ doctor.rating2.source.logo.url }}" alt="logo">
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <h1 class="doc-profile__name">{{ seo.h1|default(doctor) }}</h1>
+                <div class="doc-profile__photo _ibg">
+                    <img src="{{ doctor.photo['url'] }}" alt="{{ doctor.photo['name'] }}">
+                    <div class="doc-profile__labels">
+                        {% if doctor.promo %}
+                            <span class="label label_action">акция</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="doc-profile__position">{{ doctor.post }}</p>
+                <p class="doc-profile__type">{{ doctor.specialties|join(', ') }}</p>
+                {% if doctor.experience %}
+                    <p class="doc-profile__experience">Стаж: {{ 'years'|trans({years: doctor.experience}) }}</p>
+                {% endif %}
+                {% if doctor.appointment %}
+                    <p class="doc-profile__price">
+                        Стоимость приема:
+                        <span class="price-value showInclude"
+                                {% if doctor.appointment.oldValue %} data-priceold="{{ doctor.appointment.oldValue|number_format(0, '.', ' ') }}" {% endif %}
+                        >{{ doctor.appointment.priceIsFrom ? 'От ' }}{{ doctor.appointment.value|number_format(0, '.', ' ') }}  ₽</span>
+                    </p>
+                {% endif %}
+                {% if doctor.video %}
+                    <a href="#video" data-video="{{ doctor.video }}"
+                       class="_popup-link doc-profile__video videopresentation videopresentation_line">
+                        <div class="videopresentation__poster _ibg">
+                            <img src="{{ get_youtube_preview_url(doctor.video) }}" alt="">
+                        </div>
+                        <div class="videopresentation__play">
+                            <span class="videopresentation__icon"></span>
+                            <span class="videopresentation__text">Смотреть видеопрезентацию</span>
+                        </div>
+                    </a>
+                {% elseif doctor.excerpt %}
+                    <div class="card-doctor__text">{{ doctor.excerpt }}</div>
+                {% endif %}
+            </div>
+            {% if doctor.schedules.count %}
+                <div class="doc-profile__form">
+                    <form action="#" class="form-doc-profile">
+                        <div class="form-doc-profile__title">Запись на приём</div>
+                        <div class="form-doc-profile__direction direction-popup">
+                            <div class="direction-popup__spoller direction-popup__spoller_{{ doctor.schedules.first.clinic.color }} {{ doctor.schedules.count == 1 ? 'direction-popup__spoller_single' }}"
+                                 data-init="{{ doctor.schedules.first.clinic.slug }}"
+                                    {% for schedule in doctor.schedules %}
+                                        data-{{ schedule.clinic.slug }}="{% for date in schedule.dates %}{{ date.date|date('U000') }},{% endfor %}"
+                                    {% endfor %}
+                            >
+                                <div class="direction-link direction-link_blue">
+                                    <span class="direction-link__metro">{{ doctor.schedules.first.clinic }}</span>
+                                    <span class="direction-link__distance">{{ doctor.schedules.first.clinic.distance }}</span>
+                                </div>
+                            </div>
+                            <ul class="direction-popup__body">
+                                {% for schedule  in doctor.schedules %}
+                                    <li class="direction-popup__item direction-link"
+                                        data-clinic="{{ schedule.clinic.slug }}"
+                                        data-color="{{ schedule.clinic.color }}">
+                                        <span class="direction-link__metro direction-link__metro_{{ schedule.clinic.color }}">{{ schedule.clinic }}</span>
+                                        <span class="direction-link__distance">{{ schedule.clinic.distance }}</span>
+                                        <address class="direction-link__address">{{ schedule.clinic.address }}</address>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="form-doc-profile__calendar">
+                            <div class="form-doc-profile__input">
+                                <div class="form-doc-profile__label"><label for="form-doc-date">Выбрать дату</label>
+                                </div>
+                                <input autocomplete="off" type="text" name="form[]" id="form-doc-date"
+                                       data-value="03.12.2020" class="form-doc-profile__date input input_l _req">
+                            </div>
+                            <div class="form-doc-profile__text">Администратор перезвонит вам для подтверждения записи
+                            </div>
+                        </div>
+                        <div class="form-doc-profile__buttons">
+                            <button data-form="registration" class="btn btn_m btn_prim _popup-link">записаться</button>
+                            <button data-form="ask-question" class="btn btn_m btn_sec _popup-link">задать вопрос
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+        <div class="anchors _container">
+            <ul class="anchors__list">
+                {% if doctor.education|length %}
+                    <li><a href="#education" class="anchors__link _active _goto">образование</a></li>
+                {% endif %}
+                {# TODO: Куда должна вести ссылка?
+                <li><a href="#no-problems" class="anchors__link _goto">Услуги</a></li>
+                #}
+                {% if doctor.achievements|length %}
+                    <li><a href="#achievements" class="anchors__link _goto">Достижения</a></li>
+                {% endif %}
+                {% if price|length %}
+                    <li><a href="#price-doctor" class="anchors__link _goto">Цены</a></li>
+                {% endif %}
+                <li><a href="#actions-block" class="anchors__link anchors__link_mark _goto">Акции</a></li>
+                {% if doctor.certs|length %}
+                    <li><a href="#license" class="anchors__link _goto">дипломы/сертификаты</a></li>
+                {% endif %}
+                {% if doctor.publishedQAs|length %}
+                    <li><a href="#q-and-a" class="anchors__link _goto">вопрос-ответ</a></li>
+                {% endif %}
+                {% if doctor.reviews|length %}
+                    <li><a href="#reviews" class="anchors__link anchors__link_comments _goto"
+                           data-count="{{ doctor.reviews.count }}">отзывы</a></li>
+                {% endif %}
+                {% if doctor.articles|length %}
+                    <li><a href="#blog" class="anchors__link _goto">статьи</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% if doctor.education|length %}
+            <section class="education _container">
+                <h2 class="education__header h2">Образование</h2>
+                <div class="education__row education__row_hr">
+                    <p class="education__title">Основное образование:</p>
+                    <ul class="education__items">
+                        {% for edu in doctor.education %}
+                            <li class="education__item item-education">
+                                <time class="item-education__year" datetime="{{ edu['year']|default }}">
+                                    {{ edu['year'] ? edu['year'] ~ 'г.' }}
+                                </time>
+                                <div class="item-education__body">
+                                    <div class="item-education__university">{{ edu['institution']|default }}</div>
+                                    <div class="item-education__spec">{{ edu['specialization']|default }}</div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if doctor.additionalEducation|length %}
+                    <div class="education__row">
+                        <p class="education__title">Дополнительное образование:</p>
+                        <ul class="education__items">
+                            {% for edu in doctor.additionalEducation %}
+                                <li class="education__item item-education">
+                                    <time class="item-education__year" datetime="{{ edu['year'] }}">
+                                        {{ edu['year'] ? edu['year'] ~ 'г.' }}
+                                    </time>
+                                    <div class="item-education__body">
+                                        <div class="item-education__university">{{ edu['institution'] }}
+                                        </div>
+                                        <div class="item-education__spec">{{ edu['specialization'] }}</div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </section>
+        {% endif %}
+        {#
+        TODO: Нет информации как должны группироваться проблемы
+    <section class="solutions _container">
+
+        <h2 class="solutions__header h2">Какие проблемы решит доктор</h2>
+
+        <ul class="solutions__spollers solutions-list _spollers">
+            <li class="solutions-list__group">
+                <a class="solutions-list__title _spoller _active">Диагностика и лечение хронической суставной боли
+                    <br>(артриты, артрозы и др)
+                </a>
+                <div class="solutions-list__body">
+                    <div class="solutions-list__row">
+                        <div class="solutions-list__col">
+                            <a href="" class="solutions-list__link link">Межпозвонковые грыжи</a>
+                            <a href="" class="solutions-list__link link">Шейно-плечевой синдром</a>
+                            <a href="" class="solutions-list__link link">Плече-лопаточный периартрит</a>
+                            <a href="" class="solutions-list__link link">Остеохондроз</a>
+                            <a href="" class="solutions-list__link link">Спондилез</a>
+                            <a href="" class="solutions-list__link link">Спондилоартроз</a>
+                        </div>
+                        <div class="solutions-list__col">
+                            <a href="" class="solutions-list__link link">Периартроз</a>
+                            <a href="" class="solutions-list__link link">Артрозы и артриты мелких и крупных
+                                суставов</a>
+                            <a href="" class="solutions-list__link link">Пяточная шпора</a>
+                            <a href="" class="solutions-list__link link">Патологии плечевых и коленных суставов</a>
+                            <a href="" class="solutions-list__link link">Патологии кисти</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="solutions-list__group">
+                <a class="solutions-list__title _spoller">Диагностика и лечение хронической боли</a>
+                <div class="solutions-list__body">
+                    <div class="solutions-list__row">
+                        <div class="solutions-list__col">
+                            <a href="" class="solutions-list__link link">Межпозвонковые грыжи</a>
+                            <a href="" class="solutions-list__link link">Шейно-плечевой синдром</a>
+                            <a href="" class="solutions-list__link link">Плече-лопаточный периартрит</a>
+                            <a href="" class="solutions-list__link link">Остеохондроз</a>
+                            <a href="" class="solutions-list__link link">Спондилез</a>
+                            <a href="" class="solutions-list__link link">Спондилоартроз</a>
+                        </div>
+                        <div class="solutions-list__col">
+                            <a href="" class="solutions-list__link link">Периартроз</a>
+                            <a href="" class="solutions-list__link link">Артрозы и артриты мелких и крупных
+                                суставов</a>
+                            <a href="" class="solutions-list__link link">Пяточная шпора</a>
+                            <a href="" class="solutions-list__link link">Патологии плечевых и коленных суставов</a>
+                            <a href="" class="solutions-list__link link">Патологии кисти</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+        #}
+        {% if doctor.achievements %}
+            <section class="achievements _container">
+                <h2 class="achievements__header h2">Достижения</h2>
+                <div class="achievements__row">
+                    <div class="achievements{% if doctor.gallery|length %}__col"{% endif %}>
+                        <ul class="achievements__items">
+                            {% for achievement in doctor.achievements %}
+                                <li class="achievements__item item-advantages item-advantages_line">
+                                    <div class="item-advantages__head">
+                                        {# <svg class="item-advantages__icon svg" width="74" height="73" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.03393 0.388428H50.3393C53.1194 0.388428 55.3732 2.59211 55.3732 5.31049V44L52.8562 43.3249V5.31049C52.8562 3.9513 51.7293 2.84946 50.3393 2.84946H5.03393C3.64385 2.84946 2.51696 3.9513 2.51696 5.31049V66.8363C2.51696 68.1954 3.64385 69.2973 5.03393 69.2973H50.3393C51.2988 69.2973 52.133 68.7723 52.5576 68L54.5 69.6076C53.5937 70.906 52.0683 71.7583 50.3393 71.7583H5.03393C2.25377 71.7583 0 69.5546 0 66.8363V5.31049C0 2.59211 2.25377 0.388428 5.03393 0.388428Z" fill="#29A285"/>
+                                        <path class="svg__anim svg__anim_beat" fill-rule="evenodd" clip-rule="evenodd" d="M70.1084 45.0508C66.4394 41.4744 60.7162 41.0923 56.6043 44.1491C56.1232 43.7915 55.1001 43.2191 55.1001 43.2191L52.0946 42.2328C48.9082 41.7042 45.5486 42.6663 43.102 45.0508C43.0482 45.1035 42.9948 45.1567 42.9421 45.2107C39.0545 49.1866 39.1261 55.5613 43.102 59.449L51.9837 68.1924L54.1805 70.355L55.5509 71.7041C55.8316 71.9801 56.2093 72.1349 56.6029 72.1354C56.9966 72.1349 57.3743 71.9801 57.6549 71.7041L70.1085 59.4489C70.1623 59.3962 70.2157 59.3429 70.2684 59.289C74.1559 55.3132 74.0843 48.9384 70.1084 45.0508ZM56.4993 69L67.8722 57.5154C70.6595 54.7274 70.7157 50.1494 67.9978 47.2904C67.9564 47.247 67.9145 47.204 67.8722 47.1616C65.0027 44.286 60.4201 44.286 57.5506 47.1616C56.9675 47.7481 56.0342 47.7481 55.4509 47.1616C54.0738 45.7715 52.2177 44.9948 50.2856 45C48.3569 44.9936 46.5036 45.7675 45.1278 47.1538C42.3405 49.9418 42.2843 54.5198 45.0022 57.3789C45.0436 57.4223 45.0855 57.4653 45.1278 57.5077L56.4993 69Z" fill="#29A285"/>
+                                        <path d="M37.0666 21.0411H32.5583V16.5327C32.5583 15.7028 31.8854 15.0299 31.0554 15.0299H25.0443C24.2143 15.0299 23.5414 15.7028 23.5414 16.5327V21.0411H19.0331C18.2031 21.0411 17.5303 21.714 17.5303 22.5439V28.5551C17.5303 29.385 18.2031 30.0579 19.0331 30.0579H23.5414V34.5663C23.5414 35.3962 24.2143 36.0691 25.0443 36.0691H31.0554C31.8854 36.0691 32.5583 35.3962 32.5583 34.5663V30.0579H37.0666C37.8966 30.0579 38.5694 29.385 38.5694 28.5551V22.5439C38.5694 21.7138 37.8966 21.0411 37.0666 21.0411ZM35.5638 27.0521H31.0554C30.2255 27.0521 29.5526 27.725 29.5526 28.5549V33.0633H26.5471V28.5549C26.5471 27.725 25.8742 27.0521 25.0443 27.0521H20.5359V24.0466H25.0443C25.8742 24.0466 26.5471 23.3737 26.5471 22.5438V18.0354H29.5526V22.5438C29.5526 23.3737 30.2255 24.0466 31.0554 24.0466H35.5638V27.0521Z" fill="#29A285"/>
+                                        <path d="M8.5138 6.01343C7.68384 6.01343 7.01111 6.6863 7.01111 7.51626V13.5274H10.0166V9.01908H14.525V6.01343H8.5138Z" fill="#29A285"/>
+                                        <path d="M47.5862 6.01343H41.5752V9.01894H46.0835V13.5273H49.0891V7.51626C49.0891 6.6863 48.4162 6.01343 47.5862 6.01343Z" fill="#29A285"/>
+                                        <path d="M38.5687 45.0847H17.5303V48.0902H38.5687V45.0847Z" fill="#29A285"/>
+                                        <path d="M38.5687 52.5997H17.5303V55.6053H38.5687V52.5997Z" fill="#29A285"/>
+                                        <path d="M38.5687 60.113H17.5303V63.1186H38.5687V60.113Z" fill="#29A285"/>
+                                    </svg> #}
+                                        <img src="{{ achievement.image.url|default(asset('/img/item-advantages/icon.svg')) }}">
+                                    </div>
+                                    <div class="item-advantages__text">{{ achievement['text'] }}</div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="achievements__btn">
+                            <button data-form="registration" class="btn btn_m btn_prim _popup-link">записаться</button>
+                            <button data-form="ask-question" class="btn btn_m btn_sec _popup-link">задать вопрос
+                            </button>
+                        </div>
+                    </div>
+                    {% if doctor.gallery|length %}
+                        <div class="achievements__col">
+                            <div class="achievements__gallery">
+                                <div class="achievements__slider _swiper swiper-bild">
+                                    <div class="swiper-wrapper">
+                                        {% for image in doctor.gallery %}
+                                            <div class="swiper-slide {{ loop.first ? '_active' }}">
+                                                {{ image(image) }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="achievements__pagination swiper-pagination"></div>
+                                <div class="achievements__arrow achievements__arrow_next"></div>
+                                <div class="achievements__arrow achievements__arrow_prev"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+        {% endif %}
+        {% if price|length %}
+            <section class="price-doctor _container">
+                <h2 class="price-doctor__header h2">Стоимость услуг</h2>
+                <ul class="price-doctor__spollers pricelist _spollers">
+                    {% include 'price/_price.html.twig' %}
+                </ul>
+            </section>
+        {% endif %}
+        {# TODO: прикрутить акции #}
+        <section class="actions-block _container">
+            <h2 class="actions-block__header h2">Акции с участием врача</h2>
+            <ul class="actions-block__row">
+                <li class="actions-block__col">
+                    {{ render(controller('App\\Controller\\BannerController::show', {
+                        location: 'doctor_page_1',
+                        template: '_banner/_banner1.html.twig'
+                    })) }}
+                </li>
+                <li class="actions-block__col">
+                    {{ render(controller('App\\Controller\\BannerController::show', {
+                        location: 'doctor_page_2',
+                        template: '_banner/_banner1.html.twig'
+                    })) }}
+                </li>
+                <li class="actions-block__col">
+                    {{ render(controller('App\\Controller\\BannerController::show', {
+                        location: 'doctor_page_3',
+                        template: '_banner/_banner1.html.twig'
+                    })) }}
+                </li>
+
+            </ul>
+            <a href="{{ path('promos') }}" class="actions-block__all link link_all">Смотреть все акции</a>
+        </section>
+        {% if doctor.certs|length %}
+            <section class="license _container">
+                <div class="license__content">
+                    <h2 class="license__title h2">Дипломы/Сертификаты</h2>
+                    <div class="license__wrap">
+                        <div class="license__slider _swiper swiper-bild _gallery">
+                            <ul class="swiper-wrapper">
+                                {% for cert in doctor.certs %}
+                                    <li class="license__item swiper-slide">
+                                        <a href="{{ asset(cert.image.url|default('no_photo.png')) }}"
+                                           class="license__img _icon-zoom _ibg"><img
+                                                    src="{{ asset(cert.image.url|default('no_photo.png')) }}"
+                                                    alt=""></a>
+                                        <div class="license__caption">{{ cert.name|default }}</div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <button class="license__btn license__btn_prev swiper-button swiper-button_l swiper-button_prev"></button>
+                        <button class="license__btn license__btn_next swiper-button swiper-button_l swiper-button_next"></button>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if doctor.publishedQAs|length %}
+            <section class="q-and-a _container">
+                <h2 class="q-and-a__header h2">Вопросы и ответы</h2>
+                {% for qa in doctor.publishedQAs %}
+                    <div class="q-and-a__row">
+                        {% include 'doctor/_qa.html.twig' %}
+                    </div>
+                {% endfor %}
+                <div class="q-and-a__btn">
+                    <button data-form="ask-question" class="btn btn_prim btn_m _popup-link">задать вопрос</button>
+                </div>
+            </section>
+        {% endif %}
+
+        {% if doctor.reviews|length %}
+            {% include 'review/_list.html.twig' with {reviews: doctor.reviews} %}
+        {% endif %}
+
+        {% if doctor.articles|length %}
+            <section class="blog _container">
+                <div class="blog__row">
+                    <div class="blog__col blog__col_main">
+                        <h2 class="blog__header h2">Статьи</h2>
+                        <div class="blog__main main-blog">
+                            <div class="main-blog__items">
+                                {% for article in doctor.articles %}
+                                    {% include 'article/_card.html.twig' %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog__col blog__col_aside pop-blog">
+                        <div class="pop-blog__title pop-blog__title_h2">Популярные статьи</div>
+                        <div class="pop-blog__items">
+                            {% for article in popularArticles %}
+                                {% include 'article/_popular-card.html.twig' %}
+                            {% endfor %}
+                            <div class="pop-blog__item item-pop-blog">
+                                <div class="item-pop-blog__row">
+                                    <div class="item-pop-blog__img _ibg"><img src="/img/pop-blog/02.png" alt=""></div>
+                                    <div class="item-pop-blog__body">
+                                        <div class="item-pop-blog__meta">
+                                            <span class="item-pop-blog__date">02.11.2020</span>
+                                            <span class="item-pop-blog__read _icon-glasses">3 мин.</span>
+                                            <span class="item-pop-blog__comments _icon-comment">12</span>
+                                        </div>
+                                        <a href="" class="item-pop-blog__title">Какой образ жизни вести, чтобы в
+                                            старости не
+                                            скакало давление?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pop-blog__title">Смотреть статьи по теме:</div>
+                        <div class="pop-blog__links links-blog links-blog_green">
+                            {% for tag in articleTags %}
+                                <a href="{{ path('articles', {'tagSlug': tag.slug}) }}"
+                                   class="links-blog__item">{{ tag.name }} ({{ tag.articles.count }})</a>
+                            {% endfor %}
+                        </div>
+                        <a href="{{ path('articles') }}" class="pop-blog__all link link_all">Читать все статьи</a>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        <section class="signup-consult _container">
+            <div class="signup-consult__borders">
+                <h2 class="signup-consult__header h2">Запись на консультацию</h2>
+                <div class="signup-consult__row signup-consult__row_hr">
+                    <div class="signup-consult__col">
+                        <div class="signup-consult__card card-signup-consult">
+                            <div class="card-signup-consult__row card-signup-consult__row_hr-big">
+                                <div class="card-signup-consult__col">
+                                    <div class="card-signup-consult__photo _ibg">
+                                        {{ image(doctor.photo) }}
+                                    </div>
+                                </div>
+                                <div class="card-signup-consult__col card-signup-consult__col_big">
+                                    <div class="card-signup-consult__header">
+                                        {% if doctor.leadingSpecialist %}
+                                            <span class="card-signup-consult__subtitle subtitle">ведущий специалист</span>
+                                        {% endif %}
+                                        {% if doctor.rating2 %}
+                                            <div class="card-signup-consult__rating rating-link">
+                                                <div class="rating-link__top">{{ doctor.rating2.value }}</div>
+                                                <div class="rating-link__bottom">
+                                                    <img class="rating-link__logo"
+                                                         src="{{ doctor.rating2.source.logo.url }}" alt="logo">
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-signup-consult__name">{{ doctor }}</div>
+                                    <div class="card-signup-consult__position">{{ doctor.post }}</div>
+                                    <div class="card-signup-consult__type">{{ doctor.specialties|join(', ') }}</div>
+                                    <div class="card-signup-consult__experience">Стаж:
+                                        <span class="b">{{ 'years'|trans({years: doctor.experience}) }}</span></div>
+                                </div>
+                            </div>
+                            {% if doctor.appointment is not null %}
+                                <div class="card-signup-consult__row card-signup-consult__row_hr-small">
+                                    <div class="card-signup-consult__col">
+                                        <div class="card-signup-consult__caption">Стоимость приема:</div>
+                                    </div>
+                                    <div class="card-signup-consult__col card-signup-consult__col_big">
+                                        <div class="card-signup-consult__price showBank"
+                                                {% if doctor.appointment.oldValue %} data-priceold="{{ doctor.appointment.oldValue|number_format(0, '.', ' ') }}" {% endif %}
+                                        >
+                                            {% if doctor.appointment.value > 0 %}
+                                                {{ doctor.appointment.value|number_format(0, '.', ' ') }} ₽
+                                            {% else %}
+                                                Беспланто
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="card-signup-consult__row">
+                                <div class="card-signup-consult__col">
+                                    <div class="card-signup-consult__caption">В стоимость входит:</div>
+                                </div>
+                                <div class="card-signup-consult__col card-signup-consult__col_big">
+                                    <ul class="card-signup-consult__list">
+                                        <li>
+                                            <span class="card-signup-consult__service">Консультация по телефону</span>
+                                            <span class="card-signup-consult__time _icon-time">10-15 мин</span>
+                                        </li>
+                                        <li><span class="card-signup-consult__service">Приём врача</span>
+                                            <span class="card-signup-consult__time _icon-time">30-40 мин</span>
+                                        </li>
+                                        <li>
+                                            <span class="card-signup-consult__service">Направления на диагностику и лечение</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signup-consult__col">
+                        {{ render(controller('App\\Controller\\FormController::appointment', {
+                            doctor: doctor,
+                            template: '_form/_appointment.html.twig'
+                        })) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="doctors _container">
+            <h2 class="doctors__header h2">Другие врачи</h2>
+            <div class="doctors__row">
+                <div class="doctors__col doctors__col_3x">
+                    <div class="doctors__slider_4 _swiper swiper-bild">
+                        <ul class="swiper-wrapper">
+                            {% for doctor in doctors %}
+                                <li class="doctors__item swiper-slide _active">
+                                    {% include 'doctor/_card1.html.twig' %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="doctors__nav nav-doctor">
+                        <button class="nav-doctor__btn nav-doctor__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                        <div class="nav-doctor__fraction"></div>
+                        <button class="nav-doctor__btn nav-doctor__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+{% block popups %}
+    {{ parent() }}
+    <div class="popup popup_form popup_registration">
+        <div class="popup__content">
+            <div class="popup__body">
+                {{ render(controller('\\App\\Controller\\FormController::appointment', {doctor: doctor, template: '_form/_appointment2.html.twig'})) }}
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tooltip-include" style="display: none;">
+        <div class="tooltip-include__content">
+            <div class="tooltip-include__caption">В стоимость входит:</div>
+            <ul class="tooltip-include__list">
+                <li><span class="tooltip-include__service">Консультация по телефону</span> <span
+                            class="tooltip-include__time _icon-time">10-15 мин</span></li>
+                <li><span class="tooltip-include__service">Приём врача</span> <span
+                            class="tooltip-include__time _icon-time">30-40 мин</span></li>
+                <li><span class="tooltip-include__service">Направления на диагностику и лечение</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tooltip-bank" style="display: none;">
+        <div class="tooltip-bank__content">
+            <div class="tooltip-bank__head">
+                <span class="tooltip-bank__price">1 500 ₽</span> – cтоимость услуги без скидок и акций
+            </div>
+            <div class="tooltip-bank__body">
+                <div class="tooltip-bank__credit">Рассрочка</div>
+                <div class="tooltip-bank__text">На эту услугу действует рассрочка, чтобы не откладывать лечение на потом
+                </div>
+                <a href="" class="tooltip-bank__link link">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    <div class="popup popup_docpopup docpopup">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="docpopup__title h2">Приём ведут</div>
+                <div class="docpopup__slider _swiper swiper-bild">
+                    <div class="swiper-wrapper">
+                        {% for category in price %}
+                            {% for doctor in category.doctors %}
+                                <div class="docpopup__card swiper-slide" id="{{ doctor.slug }}">
+                                    {% include 'price/_doctor.html.twig' with { doctor } %}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="docpopup__pagination swiper-pagination"></div>
+                <div class="docpopup__btn docpopup__btn_prev swiper-button swiper-button_prev swiper-button_m"></div>
+                <div class="docpopup__btn docpopup__btn_next swiper-button swiper-button_next swiper-button_m"></div>
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <div class="popup popup_video">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close popup__close_video"></div>
+                <div class="popup__video _video"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

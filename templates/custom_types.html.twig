@@ -1,0 +1,19 @@
+{% use "form_div_layout.html.twig" %}
+
+{% block entity_radio_widget %}
+    <ul class="search-form__list search-form__list_clinics">
+        {% for entry in form %}
+            <li class="search-form__clinic radio">
+                {{ form_widget(entry, {attr: {class: 'radio__input'}}) }}
+                <label for="{{ entry.vars.id }}" class="radio__text">{{ entry.vars.label }}</label>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block custom_checkbox_widget %}
+    <div class="search-form__checkbox checkbox">
+        {{ form_widget(form, {attr: attr|merge({class: 'checkbox__input'})}) }}
+        <label for="{{ form.vars.id }}" class="checkbox__text {{ form.vars.label_attr.class|default }}">{{ form.vars.label }}</label>
+    </div>
+{% endblock %}

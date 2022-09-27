@@ -1,0 +1,284 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default("Контакты") }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_contacts">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="{{ asset('/') }}" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Контакты</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Контакты") }}</h1>
+        </div>
+        <section class="placement _container _tabs">
+            <h2 class="placement__header h2 _scroll-icon _scr-item">Выберите удобное расположение клиники</h2>
+            <ul class="placement__tabs tabs-placement _row">
+                {% for clinic in clinics %}
+                    <li class="tabs-placement__item _col_4 _tabs-item{{ loop.first ? ' _active' }}" data-id="{{ clinic.slug }}">
+                        <div class="tabs-placement__img _ibg"><img src="img/map-footer/01.jpg" alt=""></div>
+                        <div class="tabs-placement__title">{{ clinic.name }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% for clinic in clinics %}
+                <div class="_tabs-block{{ loop.first ? ' _active' }}" id="{{ clinic.slug }}">
+                    <h2 class="placement__header h2">{{ clinic.name }}</h2>
+                    <div class="placement__row">
+                        <div class="placement__anchors anchors">
+                            <ul class="anchors__list">
+                                <li class="anchors__link _active" data-filter="map">Карта</li>
+                                <li class="anchors__link" data-filter="afoot">Пешком</li>
+                                <li class="anchors__link" data-filter="transport">Наземным траспортом</li>
+                                <li class="anchors__link" data-filter="car">На машине</li>
+                                <li class="anchors__link" data-filter="car">Где припарковаться?</li>
+                            </ul>
+                        </div>
+                        <div class="placement__ymap" id="mapLesnaya"></div>
+                        <div class="placement__info">
+                            <div class="placement__filter">
+                                <div class="placement__img _ibg _f-item _f-map-map _f-map-transport _active">
+                                    <img src="img/map-footer/01.jpg" alt="">
+                                </div>
+                                <ul class="map-footer__text _f-item _f-map-transport">
+                                    <li class="map-footer__text">
+                                        Остановка: <br>
+                                        <span class="b">«Новолитовская улица»</span>
+                                    </li>
+                                    <li class="map-footer__text">
+                                        Автобусы:<br>
+                                        <span class="b">№33</span>
+                                    </li>
+                                    <li class="map-footer__text">
+                                        Маршрутные такси:<br>
+                                        <span class="b">К-17, К-95</span>
+                                    </li>
+                                </ul>
+                                <address class="_f-item _f-map-map _active">
+                                    <p class="map-footer__title">Адрес</p>
+                                    <p class="map-footer__text">Полюстровский проспект, дом 68А</p>
+                                    <p class="map-footer__title">Время работы</p>
+                                    <ul class="map-footer__text">
+                                        <li>с <span>9:00</span> до <span>20:00</span>, без выходных</li>
+                                        <li><span class="b">МРТ</span>: Вт, Чт, Сб с <span>22:00</span> до <span>8:00</span></li>
+                                    </ul>
+                                    <p class="map-footer__title">
+                                        Колл-центр: <a href="tel:+78124217036" class="map-footer__phone"><span>+7 (812) 421-70-36</span></a>
+                                    </p>
+                                    <p class="map-footer__text">с <span>9:00</span> до <span>20:00</span>, без выходных</p>
+                                </address>
+                                <p class="map-footer__text _f-item _f-map-afoot">
+                                    Как пройти в клинику <br>
+                                    «Мастерская здоровья» на Лесной?
+                                </p>
+                                <a href="#video" data-video="_78iF6_EK6I" class="_popup-link placement__video videopresentation _f-item _f-map-afoot">
+                                    <div class="videopresentation__poster _ibg">
+                                        <img src="img/map-footer/01.jpg" alt="">
+                                    </div>
+                                    <div class="videopresentation__play">
+                                        <span class="videopresentation__icon videopresentation__icon_l"></span>
+                                        <span class="videopresentation__text">Смотреть видео</span>
+                                    </div>
+                                </a>
+                                <div class="map-footer__text _f-item _f-map-car">
+                                    <p>
+                                        Заезд со стороны <br>
+                                        Полюстровского пр-та
+                                    </p>
+                                    <p>При себе иметь следующие документы</p>
+                                    <ul>
+                                        <li class="b">паспорт или пропуск</li>
+                                        <li class="b">паспорт или пропуск</li>
+                                        <li class="b">паспорт или пропуск</li>
+                                    </ul>
+                                    <p>В экстренных ситуациях звоните</p>
+                                </div>
+                            </div>
+                            <ul class="map-footer__links">
+                                <li><a href="https://yandex.ru/maps/-/CVb-iSoj" class="map-footer__link" target="blank">Яндекс.Карты</a></li>
+                                <li><a href="https://goo.gl/maps/vaQb7" class="map-footer__link" target="blank">Google.Maps</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+        <section class="tour _container">
+            <h2 class="tour__header h2">3D тур по клинике</h2>
+            <div class="_row">
+                <div class="_col_8">
+                    <div class="tour__video">
+                        <a href="#video" data-video="_78iF6_EK6I" class="_popup-link videopresentation videopresentation_tour">
+                            <div class="videopresentation__poster _ibg">
+                                <img src="../img/tour/video.png" alt="">
+                            </div>
+                            <div class="videopresentation__play">
+                                <span class="videopresentation__icon videopresentation__icon_l"></span>
+                                <span class="videopresentation__text">Совершите виртуальную прогулку по нашей клинике</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="_col_4">
+                    <div class="tour__title">Мы в соцсетях:</div>
+                    <div class="socials">
+                        <div class="socials__links">
+                            <a href="https://vk.com/#" class="socials__link _icon-vk"></a>
+                            <a href="https://www.facebook.com/#" class="socials__link _icon-facebook"></a>
+                            <a href="https://www.youtube.com/channel/#" class="socials__link _icon-youtube"></a>
+                            <a href="https://www.instagram.com/#/" class="socials__link"><img src="img/icons/instagram.png" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="tour__title">Наш телеграм-бот:</div>
+                    <a href="https://t.me/#" class="tour__link _icon-telegram">mz-clinic_bot</a>
+                </div>
+            </div>
+        </section>
+        <section class="gallery _container">
+            <h2 class="gallery__header h2">Галерея</h2>
+            <div class="gallery__items _gallery _scr-item _scroll-icon">
+                <a href="img/gallery/01.png" class="gallery__item _ibg"><img src="img/gallery/01.png" alt=""></a>
+                <a href="img/gallery/02.png" class="gallery__item _ibg"><img src="img/gallery/02.png" alt=""></a>
+                <a href="img/gallery/03.png" class="gallery__item _ibg"><img src="img/gallery/03.png" alt=""></a>
+                <a href="img/gallery/04.png" class="gallery__item _ibg"><img src="img/gallery/04.png" alt=""></a>
+                <a href="img/gallery/05.png" class="gallery__item _ibg"><img src="img/gallery/05.png" alt=""></a>
+            </div>
+        </section>
+        <section class="license _container">
+            <div class="license__content">
+                <h2 class="license__title h2">Лицензии клиники на Лесной</h2>
+                <div class="license__wrap">
+                    <div class="license__slider _swiper swiper-bild _gallery">
+                        <ul class="swiper-wrapper">
+                            <li class="license__item swiper-slide">
+                                <a href="img/license/01.png" class="license__img _icon-zoom _ibg"><img src="img/license/01.png" alt=""></a>
+                                <div class="license__caption">ООО «МЦ «РЕЛАКСМЕДИКА» (клиника на Московской): Свидетельство о внесении в ЕГРЮЛ</div>
+                            </li>
+                            <li class="license__item swiper-slide">
+                                <a href="img/license/02.png" class="license__img _icon-zoom _ibg"><img src="img/license/02.png" alt=""></a>
+                                <div class="license__caption">ООО «МЦ «РЕЛАКСМЕДИКА» (клиника на Московской): Свидетельство о внесении в ЕГРЮЛ</div>
+                            </li>
+                            <li class="license__item swiper-slide">
+                                <a href="img/license/03.png" class="license__img _icon-zoom _ibg"><img src="img/license/03.png" alt=""></a>
+                                <div class="license__caption">ООО «МЦ «РЕЛАКСМЕДИКА» (клиника на Московской): Свидетельство о внесении в ЕГРЮЛ</div>
+                            </li>
+                            <li class="license__item swiper-slide">
+                                <a href="img/license/04.png" class="license__img _icon-zoom _ibg"><img src="img/license/04.png" alt=""></a>
+                                <div class="license__caption">ООО «МЦ «РЕЛАКСМЕДИКА» (клиника на Московской): Свидетельство о внесении в ЕГРЮЛ</div>
+                            </li>
+                            <li class="license__item swiper-slide">
+                                <a href="img/license/05.png" class="license__img _icon-zoom _ibg"><img src="img/license/05.png" alt=""></a>
+                                <div class="license__caption">ООО «МЦ «РЕЛАКСМЕДИКА» (клиника на Московской): Свидетельство о внесении в ЕГРЮЛ</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="license__btn license__btn_prev swiper-button swiper-button_l swiper-button_prev"></button>
+                    <button class="license__btn license__btn_next swiper-button swiper-button_l swiper-button_next"></button>
+                </div>
+            </div>
+        </section>
+        <section class="requisites _container">
+            <div class="requisites__header h2">Реквизиты клиники на Лесной</div>
+            <div class="_row">
+                <div class="_col_8">
+                    <div class="requisites__head">
+                        <div class="_row">
+                            <div class="_col_9">
+                                <div class="requisites__title">ООО «Клиника лечения позвоночника»</div>
+                            </div>
+                            <div class="_col_3">
+                                <a href="" class="requisites__link _icon-download">Скачать реквизиты</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="requisites__body ">
+                        <div class="_row">
+                            <div class="_col_5">
+                                <address>
+                                    <spab class="b">Адрес:</spab><br>
+                                    195197, Российская Федерация, <br>
+                                    г. Санкт-Петербург, <br>
+                                    Полюстровский пр-кт, д. 68А, литер Б<br>
+                                    тел.: +7 (812) 333-30-81
+                                </address>
+                                <p>
+                                    <span class="b">Генеральный директор:</span><br>
+                                    Медведева Александра Викторовна
+                                </p>
+                                <p>
+                                    <span class="b">Главный бухгалтер: </span><br>
+                                    Медведева Александра Викторовна
+                                </p>
+                            </div>
+                            <div class="_col_4">
+                                <p>
+                                    <span class="b">ИНН</span> 7802853334, КПП 780201001<br>
+                                    Северо-Западный Филиал <br>
+                                    ПАО РОСБАНК<br>
+                                    <span class="b">р/с</span> 40702810794510001586<br>
+                                    <span class="b">к/с</span> 30101810100000000778<br>
+                                    <span class="b">БИК</span> 044030778
+                                </p>
+                            </div>
+                            <div class="_col_3">
+                                <p>
+                                    ОГРН 1147847083592, <br>
+                                    выдан 07.03.2014 г.<br>
+                                    ОКПО 34387335<br>
+                                    ОКВЭД 86.21<br>
+                                    ОКОГУ4210014<br>
+                                    ОКАТО 40265000000<br>
+                                    ОКТМО 40314000000<br>
+                                    ОКФС 16<br>
+                                    ОКОПФ 12300
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="_col_4">
+                    <div class="requisites__title">Мы принимаем карты:</div>
+                    <div class="requisites__cards">
+                        <img src="img/pay-online/visa.png" alt="">
+                        <img src="img/pay-online/mastercard.png" alt="">
+                        <img src="img/pay-online/paypal.png" alt="">
+                        <img src="img/pay-online/americanexpress.png" alt="">
+                    </div>
+                    <div class="requisites__title">Вы можете оплатить услуги на сайте с помощью онлайн-оплаты</div>
+                    <div class="requisites__btn">
+                        <button class="btn btn_prim btn_l btn_icon _icon-online-payments">Оплатить онлайн</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="feedback _container">
+            <div class="feedback__header h2">Нам важно ваше мнение!</div>
+            <div class="feedback__box">
+                <div class="_row">
+                    <div class="_col_5">
+                        <div class="feedback__top">
+                            <div class="feedback__img _ibg"><img src="img/feedback/ava.png" alt=""></div>
+                            <div class="feedback__person">
+                                <div class="feedback__name">Медведева Александра Викторовна</div>
+                                <div class="feedback__position">Генеральный директор клиники</div>
+                            </div>
+                        </div>
+                        <div class="feedback__bottom">
+                            <div class="feedback__title">Напишите письмо директору</div>
+                            <div class="feedback__text">Мы открыты для общения!<br>
+                                Директор лично читает все письма и принимает решения по ним.</div>
+                        </div>
+                    </div>
+                    <div class="_col_7">
+                        {{ render(controller('App\\Controller\\FormController::letterToDirector', {
+                            template: '_form/_letter_to_director.html.twig',
+                        })) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,26 @@
+<form action="{{ form.vars.action }}" class="feedback__form form-appointment form-appointment_bg-clear ajax">
+    {{ form_widget(form._token) }}
+    <div class="_row">
+        <div class="_col_6">
+            <div class="form-appointment__input">
+                <div class="form-appointment__label"><label for="send-feedback-name">Имя</label></div>
+                <input autocomplete="off" type="text" name="{{ form.authorName.vars.full_name }}" id="send-feedback-name" data-value="Иванов Иван" class="input input_m _req">
+            </div>
+        </div>
+        <div class="_col_6">
+            <div class="form-appointment__input">
+                <div class="form-appointment__label"><label for="send-feedback-phone">Телефон</label></div>
+                <input autocomplete="off" type="text" name="{{ form.authorTel.vars.full_name }}" id="send-feedback-phone" data-value="+7(___) ___ __ __" class="input input_m _req _phone _mask" inputmode="text">
+            </div>
+        </div>
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="send-feedback-text">Что вам понравилось или не понравилось?</label></div>
+        <textarea name="{{ form.text.vars.full_name }}" id="send-feedback-text" data-value="..." class="input _req"></textarea>
+    </div>
+    <div class="form-appointment__checkbox checkbox">
+        <input type="checkbox" class="checkbox__input" id="send-feedback-agreement" checked="">
+        <label for="send-feedback-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих <a href="">персональных данных</a>.</label>
+    </div>
+    <button type="submit" class="form-appointment__btn btn btn_l btn_prim">Отправить</button>
+</form>

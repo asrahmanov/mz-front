@@ -1,0 +1,89 @@
+{% extends 'admin/layout/layout1.html.twig' %}
+
+    {% macro get_property(object, field) %}
+        {% set propertyName = field.property ?? field.name %}
+        {% set data = attribute(object, propertyName) %}
+        {% if data is of_type('date')  %}
+            {{ data|date('d.m.Y H:i:s') }}
+        {% elseif data is of_type('bool') %}
+            {{ data ? 'Да' : 'Нет' }}
+        {% else %}
+            {{ data }}
+        {% endif %}
+    {% endmacro %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{# 'plural_name' | trans | capitalize #}</h3>
+                        <div class="card-tools d-inline-block">
+                            {% block actions %}
+                                <div class="input-group input-group-sm d-inline">
+                                    <a href="{{ path('admin.' ~ slug ~ '.create') }}"
+                                       class="btn btn-success float-right mr-2 me-2"><i class="fas fa-plus pr-1"></i> Создать</a>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        {% if entities | length %}
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    {% if fields|length %}
+                                        {% for field in fields %}
+                                            <th>{{ field.label }}</th>
+                                        {% endfor %}
+                                    {% else %}
+                                        <th>#</th>
+                                        <th>Название</th>
+                                    {% endif %}
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        {% if fields|length %}
+                                            {% for field in fields %}
+                                                <td>{{ _self.get_property(entity, field) }}</td>
+                                            {% endfor %}
+                                        {% else %}
+                                            <td>{{ entity.id }}</td>
+                                            <td>{{ entity }}</td>
+                                        {% endif %}
+                                        <td class="text-right">
+                                            <a href="{{ path('admin.' ~ slug ~ '.edit', { id: entity.id }) }}"
+                                               class="btn btn-sm btn-outline-info">Редактировать</a>
+                                            <form class="d-inline-block"
+                                                  action="{{ path('admin.' ~ slug ~ '.delete', { id: entity.id }) }}"
+                                                  method="post">
+                                                <input type="submit" value="Удалить"
+                                                       class="btn btn-sm btn-outline-danger ml-2">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="container-fluid">
+                                <div class="alert my-2">
+                                    <h5><i class="icon fas fa-info"></i>Список пуст.</h5>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ knp_pagination_render(entities) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

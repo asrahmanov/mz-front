@@ -1,0 +1,327 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default('Цены') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_price">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Цены</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Цены") }}</h1>
+        </div>
+        <section class="price-main _container">
+            <h2 class="price-main__header h2">Быстрый поиск по ценам и услугам</h2>
+            <form action="#" class="price-main__search">
+                <div class="price-main__input search-input">
+                    <input autocomplete="off" type="text" name="form[]" data-value="Начните вводить название услуги"
+                           class="search-input__input input input_l _req">
+                    <button type="submit" class="search-input__btn btn btn_l btn_prim">найти</button>
+                </div>
+            </form>
+            <div class="price-main__filter anchors">
+                <ul class="anchors__list">
+                    <li class="anchors__link _active" data-filter="1">все услуги</li>
+                    {% for tag in tags %}
+                        <li class="anchors__link" data-filter="{{ tag.id }}">{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="price-main__spollers pricelist _spollers">
+                {% include 'price/_price.html.twig' %}
+            </div>
+
+            <ul class="price-main__links">
+                <li><a href="" class="link _icon-download"><span>Скачать весь прайс-лист</span></a></li>
+                <li><a href="" class="link _icon-online-payments"><span>Онлайн-оплата</span></a></li>
+                <li><a href="" class="link _icon-online-payments"><span>Рассрочка</span></a></li>
+            </ul>
+            <div class="price-main__restrictions">Обращаем ваше внимание что вся информация, включая цены, предоставлена
+                для ознакомления и не является публичной офертой (ст.435 ГК РФ, ст. 437 ГК РФ).
+            </div>
+            <div class="price-main__moreinfo">
+                Для получения более детальной информации обращайтесь в колл-центр по телефону:<br>
+                <a href="tel:+78124217036" class="link link_icon _icon-tel">+7 (812) 421-70-36</a>
+                <span>(ежедневно с 9:00 до 20:00)</span>
+            </div>
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request.html.twig'})) }}
+        </section>
+        <section class="first-screen _container">
+            {{ render(controller('App\\Controller\\MainSliderController::show')) }}
+        </section>
+        <section class="credit _container">
+            <div class="credit__header h1">Рассрочка 0%</div>
+            <div class="credit__subheader">Лечение в рассрочку без переплаты!<br> Оформите рассрочку без переплаты, не
+                выходя из клиники, и начните лечение уже сегодня!
+            </div>
+            <div class="credit__slider _swiper swiper-bild">
+                <div class="swiper-wrapper">
+                    <div class="credit__item bank-offer swiper-slide _active">
+                        <div class="bank-offer__logo"><img src="img/bank-offer/01.png" alt=""></div>
+                        <div class="bank-offer__title">Лечение в рассрочку от нашего партнера «Ренессанс Кредит»</div>
+                        <div class="bank-offer__items" data-simplebar data-simplebar-auto-hide="false"
+                             data-simplebar-scrollbar-max-size="140">
+                            <div class="bank-offer__item offer-item">
+                                <div class="offer-item__title">Рассрочка «10-0-18»</div>
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">Первоначальный взнос:</td>
+                                        <td class="offer-item__value">10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Переплата:</td>
+                                        <td class="offer-item__value">0 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Срок кредитования:</td>
+                                        <td class="offer-item__value">18 мес.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="bank-offer__item offer-item">
+                                <div class="offer-item__title">Рассрочка «20-0-24»</div>
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">Первоначальный взнос:</td>
+                                        <td class="offer-item__value">20%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Переплата:</td>
+                                        <td class="offer-item__value">0 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Срок кредитования:</td>
+                                        <td class="offer-item__value">24 мес.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="bank-offer__item offer-item">
+                                <div class="offer-item__title">Рассрочка «20-0-24»</div>
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">Первоначальный взнос:</td>
+                                        <td class="offer-item__value">20%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Переплата:</td>
+                                        <td class="offer-item__value">0 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Срок кредитования:</td>
+                                        <td class="offer-item__value">24 мес.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bank-offer__more">
+                            <a href="" class="link">Подробнее об условиях</a>
+                        </div>
+                    </div>
+                    <div class="credit__item bank-offer swiper-slide">
+                        <div class="bank-offer__logo"><img src="img/bank-offer/02.png" alt=""></div>
+                        <div class="bank-offer__title">Лечение в рассрочку от нашего партнера «Тинькофф Банк»</div>
+                        <div class="bank-offer__items" data-simplebar data-simplebar-auto-hide="false"
+                             data-simplebar-scrollbar-max-size="140">
+                            <div class="bank-offer__item offer-item">
+                                <div class="offer-item__title">Рассрочка «0-0-6»»</div>
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">Первоначальный взнос:</td>
+                                        <td class="offer-item__value">0 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Переплата:</td>
+                                        <td class="offer-item__value">0 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Срок кредитования:</td>
+                                        <td class="offer-item__value">6 мес.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="bank-offer__item offer-item">
+                                <div class="offer-item__title">Рассрочка «20-0-24»</div>
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">Первоначальный взнос:</td>
+                                        <td class="offer-item__value">20%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Переплата:</td>
+                                        <td class="offer-item__value">0 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="offer-item__property">Срок кредитования:</td>
+                                        <td class="offer-item__value">24 мес.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bank-offer__more">
+                            <a href="" class="link">Подробнее об условиях</a>
+                        </div>
+                    </div>
+                    <div class="credit__item bank-offer swiper-slide">
+                        <div class="bank-offer__logo"><img src="img/bank-offer/03.png" alt=""></div>
+                        <div class="bank-offer__title">Для оплаты лечения в рассрочку<br> Вы можете воспользоваться<br>
+                            картой «Халва»
+                        </div>
+                        <div class="bank-offer__items" data-simplebar data-simplebar-auto-hide="false"
+                             data-simplebar-scrollbar-max-size="140">
+                            <div class="bank-offer__item offer-item">
+                                <div class="offer-item__title">В зависимости от суммы курса пациенту предоставляется
+                                    следующие порядок рассрочки:
+                                </div>
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">до 20 000 рублей</td>
+                                        <td class="offer-item__value">4 месяца</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="bank-offer__item offer-item">
+                                <table class="offer-item__table">
+                                    <tr>
+                                        <td class="offer-item__property">свыше 20 000 рублей</td>
+                                        <td class="offer-item__value">6 месяцев</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bank-offer__more">
+                            <a href="" class="link">Подробнее об условиях</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="credit__pagination swiper-pagination"></div>
+        </section>
+        <section class="discount _container">
+            <div class="discount__box">
+                <div class="discount__row">
+                    <div class="discount__col">
+                        <div class="discount__banner">
+                            <div class="discount__caption">
+                                <p>Скидка</p>
+                                <p>5%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="discount__col discount__col_2x">
+                        <div class="discount__body">
+                            <div class="discount__title">Пациенту предоставляется скидка на весь курс лечения в размере
+                                5% при соблюдении следующих условий:
+                            </div>
+                            <div class="discount__text">
+                                <p>Стоимость курса лечения должна быть выше 35 000 рублей.</p>
+                                <p>Предоплате в размере 15 000 рублей с помощью карты "Халва" – единовременно. Частичная
+                                    оплата не допускается.</p>
+                                <p>Остаток курса может быть оплачен любым способом (по-процедурно, частично,
+                                    полностью).</p>
+                            </div>
+                            <a href="" class="discount__link link">Подробнее об условиях</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="pay-online _container">
+            <div class="pay-online__box">
+                <div class="pay-online__row">
+                    <div class="pay-online__col">
+                        <div class="pay-online__body">
+                            <div class="pay-online__title">Оплатите лечение online</div>
+                            <div class="pay-online__text">Для удобства наших пациентов на нашем сайте доступна
+                                онлайн-оплата через платежный шлюз Сбербанка России.
+                            </div>
+                            <div class="pay-online__caption">Мы принимаем карты:</div>
+                            <div class="pay-online__cards">
+                                <img src="img/pay-online/visa.png" alt="">
+                                <img src="img/pay-online/mastercard.png" alt="">
+                                <img src="img/pay-online/paypal.png" alt="">
+                                <img src="img/pay-online/americanexpress.png" alt="">
+                            </div>
+                            <div class="pay-online__btn">
+                                <a href="" class="btn btn_prim btn_l btn_icon _icon-online-payments">Оплатить онлайн</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pay-online__col">
+                        <div class="pay-online__img _ibg"><img src="img/pay-online/01.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block popups %}
+    {{ parent() }}
+    <div class="tooltip-include" style="display: none;">
+        <div class="tooltip-include__content">
+            <div class="tooltip-include__caption">В стоимость входит:</div>
+            <ul class="tooltip-include__list">
+                <li><span class="tooltip-include__service">Консультация по телефону</span> <span
+                            class="tooltip-include__time _icon-time">10-15 мин</span></li>
+                <li><span class="tooltip-include__service">Приём врача</span> <span
+                            class="tooltip-include__time _icon-time">30-40 мин</span></li>
+                <li><span class="tooltip-include__service">Направления на диагностику и лечение</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tooltip-bank" style="display: none;">
+        <div class="tooltip-bank__content">
+            <div class="tooltip-bank__head">
+                <span class="tooltip-bank__price">1 500 ₽</span> – cтоимость услуги без скидок и акций
+            </div>
+            <div class="tooltip-bank__body">
+                <div class="tooltip-bank__credit">Рассрочка</div>
+                <div class="tooltip-bank__text">На эту услугу действует рассрочка, чтобы не откладывать лечение на потом
+                </div>
+                <a href="" class="tooltip-bank__link link">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <div class="popup popup_docpopup docpopup">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="docpopup__title h2">Приём ведут</div>
+                <div class="docpopup__slider _swiper swiper-bild">
+                    <div class="swiper-wrapper">
+                        {% for category in price %}
+                            {% for doctor in category.doctors %}
+                                <div class="docpopup__card swiper-slide" id="{{ doctor.slug }}">
+                                    {% include 'price/_doctor.html.twig' with { doctor } %}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="docpopup__pagination swiper-pagination"></div>
+                <div class="docpopup__btn docpopup__btn_prev swiper-button swiper-button_prev swiper-button_m"></div>
+                <div class="docpopup__btn docpopup__btn_next swiper-button swiper-button_next swiper-button_m"></div>
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <div class="popup popup_video">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close popup__close_video"></div>
+                <div class="popup__video _video"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

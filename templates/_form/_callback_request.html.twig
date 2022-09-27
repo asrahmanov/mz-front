@@ -1,0 +1,27 @@
+<form action="{{ form.vars.action }}" name="{{ form.vars.full_name }}" class="form-appointment form-appointment_bg-clear ajax">
+    {{ form_widget(form._token) }}
+    <div class="form-appointment__header">Заказать звонок</div>
+    <div class="form-appointment__text form-appointment__text_small">Оставьте свой телефон и наш специалист перезвонит вам в течение 15 минут</div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="rc-appointment-name">Имя</label></div>
+        <input autocomplete="off" type="text" name="{{ form.clientName.vars.full_name }}" id="rc-appointment-name" data-value="Иванов Иван" class="input input_m _req">
+    </div>
+    <div class="form-appointment__input">
+        <div class="form-appointment__label"><label for="rc-appointment-phone">Телефон</label></div>
+        <input autocomplete="off" type="text" name="{{ form.clientTel.vars.full_name }}" id="rc-appointment-phone" data-value="+7(___) ___ __ __" class="input input_m _req _phone">
+    </div>
+    <div class="form-appointment__input">
+        <button type="submit" class="form-appointment__btn btn btn_m btn_prim">Отправить</button>
+    </div>
+    <div class="form-appointment__checkbox checkbox">
+        <input type="checkbox" class="checkbox__input _req" name="form[]" id="rc-appointment-agreement" checked>
+        <label for="rc-appointment-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих <a href="">персональных данных</a>.</label>
+    </div>
+    <div class="form-appointment__text form-appointment__text_small">Или вы можете позвонить нам самостоятельно</div>
+    <div class="form-appointment__phone header-info">
+        <div class="header-info__title">
+            <a href="tel:+78124217036" class="header-info__link link link_icon _icon-tel">+7 (812) 421-70-36</a>
+        </div>
+        <div class="header-info__text">Ежедневно с 9:00 до 20:00</div>
+    </div>
+</form>

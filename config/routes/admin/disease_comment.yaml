@@ -1,0 +1,16 @@
+disease_comment:
+    path: /disease_comment
+    controller: '\App\Controller\Admin\DiseaseCommentController::index'
+    methods: GET
+disease_comment.create:
+    path: /disease_comment/create
+    controller: '\App\Controller\Admin\DiseaseCommentController::create'
+    methods: GET|POST
+disease_comment.edit:
+    path: '/disease_comment/edit/{id}'
+    controller: '\App\Controller\Admin\DiseaseCommentController::edit'
+    methods: GET|POST
+disease_comment.delete:
+    path: '/disease_comment/delete/{id}'
+    controller: '\App\Controller\Admin\DiseaseCommentController::delete'
+    methods: POST

@@ -1,0 +1,13 @@
+<section class="reviews _container">
+    <h2 class="reviews__header h2">Отзывы</h2>
+    <ul class="reviews__row">
+        {% include 'review/_review-form.html.twig' %}
+        {% for review in reviews %}
+            {% include 'review/_card.html.twig' %}
+        {% else %}
+            <li class="reviews__item"></li>
+        {% endfor %}
+    </ul>
+    {# TODO: Страницы со списком отзывов нет #}
+    {# <a href="#" class="reviews__all link link_all">Читать все отзывы</a> #}
+</section>

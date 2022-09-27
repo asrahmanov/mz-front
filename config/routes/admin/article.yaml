@@ -1,0 +1,16 @@
+article:
+    path: /article
+    controller: '\App\Controller\Admin\ArticleController::index'
+    methods: GET
+article.create:
+    path: /article/create
+    controller: '\App\Controller\Admin\ArticleController::create'
+    methods: GET|POST
+article.edit:
+    path: '/article/{id}/edit'
+    controller: '\App\Controller\Admin\ArticleController::edit'
+    methods: GET|POST
+article.delete:
+    path: '/article/{id}/delete'
+    controller: '\App\Controller\Admin\ArticleController::delete'
+    methods: POST

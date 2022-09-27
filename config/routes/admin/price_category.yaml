@@ -1,0 +1,16 @@
+price_category:
+    path: /price_category
+    controller: '\App\Controller\Admin\PriceCategoryController::index'
+    methods: GET
+price_category.create:
+    path: /price_category/create
+    controller: '\App\Controller\Admin\PriceCategoryController::create'
+    methods: GET|POST
+price_category.edit:
+    path: '/price_category/edit/{id}'
+    controller: '\App\Controller\Admin\PriceCategoryController::edit'
+    methods: GET|POST
+price_category.delete:
+    path: '/price_category/delete/{id}'
+    controller: '\App\Controller\Admin\PriceCategoryController::delete'
+    methods: POST

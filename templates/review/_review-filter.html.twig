@@ -1,0 +1,15 @@
+{{ form_start(reviewFilterForm, {'action': path('reviews'), 'attr': {'class': 'doctors-main__search'}}) }}
+            {{ form_widget(reviewFilterForm._token) }}
+<div class="search-form__select">
+    {{ form_widget(reviewFilterForm.specialty, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'По специальности'}}) }}
+</div>
+<div class="search-form__select">
+    {{ form_widget(reviewFilterForm.doctor, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'По фио'}}) }}
+</div>
+<div class="search-form__select">
+    {{ form_widget(reviewFilterForm.clinic, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'По клиникам'}}) }}
+</div>
+<div class="search-form__reset">
+    <a href="{{ path('reviews') }}" type="reset" class="_icon-refresh">Сбросить фильтры</a>
+</div>
+{{ form_end(reviewFilterForm, {render_rest: false}) }}

@@ -1,0 +1,16 @@
+callback_request:
+    path: /callback_request
+    controller: '\App\Controller\Admin\CallbackRequestController::index'
+    methods: GET
+callback_request.create:
+    path: /callback_request/create
+    controller: '\App\Controller\Admin\CallbackRequestController::create'
+    methods: GET|POST
+callback_request.edit:
+    path: '/callback_request/edit/{id}'
+    controller: '\App\Controller\Admin\CallbackRequestController::edit'
+    methods: GET|POST
+callback_request.delete:
+    path: '/callback_request/delete/{id}'
+    controller: '\App\Controller\Admin\CallbackRequestController::delete'
+    methods: POST

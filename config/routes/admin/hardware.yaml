@@ -1,0 +1,16 @@
+hardware:
+    path: /hardware
+    controller: '\App\Controller\Admin\HardwareController::index'
+    methods: GET
+hardware.create:
+    path: /hardware/create
+    controller: '\App\Controller\Admin\HardwareController::create'
+    methods: GET|POST
+hardware.edit:
+    path: '/hardware/edit/{id}'
+    controller: '\App\Controller\Admin\HardwareController::edit'
+    methods: GET|POST
+hardware.delete:
+    path: '/hardware/delete/{id}'
+    controller: '\App\Controller\Admin\HardwareController::delete'
+    methods: POST

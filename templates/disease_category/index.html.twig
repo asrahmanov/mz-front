@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default('Заболевания') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+<main class="page page_doctors">
+    <div class="_container">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Главная</a></li>
+            <li class="breadcrumbs__item">Заболевания</li>
+        </ul>
+        <h1 class="page__header h1">{{ seo.h1|default("Заболевания") }}</h1>
+        <div class="branches _container">
+            <div class="branches__row">
+                {% for category in categories %}
+                    {% include 'disease_category/_card.html.twig' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="_container" style="margin-bottom: 40px">
+        {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request2.html.twig'})) }}
+    </div>
+</main>
+{% endblock %}

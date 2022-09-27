@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    {% block styles %}
+        <link rel="stylesheet" href="{{ asset('/css/style.min.css') }}">
+        {{ encore_entry_link_tags('main') }}
+    {% endblock %}
+    <link rel="canonical" href="{% block canonical %}{% endblock %}"/>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <link rel="shortcut icon" href="favicon.ico">
+    {% block robots %}{% endblock %}
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="wrapper">
+    {% include '_header.html.twig' %}
+    {% block content %}{% endblock %}
+    {% include '_footer.html.twig' %}
+</div>
+{% block popups %}
+    {#
+    <div class="tooltip-bank tooltip-bank_credit">
+        <div class="tooltip-bank__content">
+            <div class="tooltip-bank__body">
+                <div class="tooltip-bank__credit">Рассрочка</div>
+                <div class="tooltip-bank__text">На эту услугу действует рассрочка, чтобы не откладывать лечение на потом</div>
+                <a href="" class="tooltip-bank__link link">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    <div class="tooltip-bank tooltip-bank_oldPrice">
+        <div class="tooltip-bank__content">
+            <div class="tooltip-bank__head">
+                <span class="tooltip-bank__oldPrice">1 500 ₽</span> – cтоимость услуги без скидок и акций
+            </div>
+        </div>
+    </div>
+    <div class="tooltip-bank tooltip-bank_promo">
+
+        <div class="tooltip-bank__content">
+            <div class="tooltip-bank__head">
+                <span class="tooltip-bank__oldPrice">1 500 ₽</span> – cтоимость услуги без скидок и акций
+            </div>
+            <div class="tooltip-bank__body">
+                <div class="tooltip-bank__credit">Рассрочка</div>
+                <div class="tooltip-bank__text">На эту услугу действует рассрочка, чтобы не откладывать лечение на потом</div>
+                <a href="" class="tooltip-bank__link link">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    #}
+    <!--Заказать звонок-->
+    <div class="popup popup_form popup_request-call">
+        <div class="popup__content">
+            <div class="popup__body">
+                {{ render(controller('App\\Controller\\FormController::callbackRequest')) }}
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <!--Записаться на прием-->
+    <div class="popup popup_form popup_make-appointment">
+        <div class="popup__content">
+            <div class="popup__body">
+                {{ render(path('callback_request', {template: '_form/_callback_request2.html.twig'})) }}
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <!--Обращение директору-->
+    <div class="popup popup_form popup_to-director">
+        <div class="popup__content">
+            <div class="popup__body">
+                <form action="#" class="form-appointment form-appointment_bg-clear">
+                    <div class="form-appointment__header">Напишите письмо директору</div>
+                    <div class="form-appointment__text form-appointment__text_small">Мы открыты для общения! Директор лично читает все письма и принимает решения по ним.</div>
+                    <div class="form-appointment__director feedback__top">
+                        <div class="feedback__img _ibg"><img src="img/feedback/ava.png" alt=""></div>
+                        <div class="feedback__person">
+                            <div class="feedback__name">Медведева Александра Викторовна</div>
+                            <div class="feedback__position">Генеральный директор клиники</div>
+                        </div>
+                    </div>
+                    <div class="form-appointment__input">
+                        <div class="form-appointment__label"><label for="td-appointment-name">Имя</label></div>
+                        <input autocomplete="off" type="text" name="form[]" id="td-appointment-name" data-value="Иванов Иван" class="input input_m _req">
+                    </div>
+                    <div class="form-appointment__input">
+                        <div class="form-appointment__label"><label for="td-appointment-phone">Телефон</label></div>
+                        <input autocomplete="off" type="text" name="form[]" id="td-appointment-phone" data-value="+7(___) ___ __ __" class="input input_m _req _phone">
+                    </div>
+                    <div class="form-appointment__input">
+                        <div class="form-appointment__label"><label for="td-send-comment-text">Что вам понравилось или не понравилось?</label></div>
+                        <textarea name="form[]" id="td-send-comment-text" data-value="..." class="input _req"></textarea>
+                    </div>
+                    <div class="form-appointment__input">
+                        <button type="submit" class="form-appointment__btn btn btn_m btn_prim">Отправить</button>
+                    </div>
+                    <div class="form-appointment__checkbox checkbox">
+                        <input type="checkbox" class="checkbox__input _req" name="form[]" id="td-appointment-agreement" checked>
+                        <label for="td-appointment-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих <a href="">персональных данных</a>.</label>
+                    </div>
+                </form>
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--Задать вопрос-->
+            {{ render(path('doctor_q_a_form')) }}
+    <!--Оставить отзыв-->
+    <div class="popup popup_form popup_give-feedback">
+        <div class="popup__content">
+            <div class="popup__body">
+                {{ render(controller('App\\Controller\\FormController::review')) }}
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Сообщение об отправке формы-->
+    <div class="popup popup_form popup_success">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="form-answer">
+                    <div class="form-answer__icon"></div>
+                    <div class="form-answer__message">
+                        Спасибо за ваше сообщение, мы обязательно свяжемся с вами в ближайшее время и ответим на все вопросы
+                    </div>
+                </div>
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% include '_js.html.twig' %}
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% set doctors = [] %}
+{% for category in price %}
+    {% for doctor in category.doctors %}
+        {% set doctors = doctors|merge({(doctor.id): doctor}) %}
+    {% endfor %}
+{% endfor %}
+<div class="popup popup_docpopup docpopup">
+    <div class="popup__content">
+        <div class="popup__body">
+            <div class="docpopup__title h2">Приём ведут</div>
+            <div class="docpopup__slider _swiper swiper-bild">
+                <div class="swiper-wrapper">
+                    {% for doctor in doctors %}
+                        <div class="docpopup__card swiper-slide" id="{{ doctor.slug }}">
+                            {% include 'price/_doctor.html.twig' %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="docpopup__pagination swiper-pagination"></div>
+            <div class="docpopup__btn docpopup__btn_prev swiper-button swiper-button_prev swiper-button_m"></div>
+            <div class="docpopup__btn docpopup__btn_next swiper-button swiper-button_next swiper-button_m"></div>
+            <div class="popup__close"></div>
+        </div>
+    </div>
+</div>

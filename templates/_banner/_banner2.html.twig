@@ -1,0 +1,28 @@
+{% if banner.promo %}
+    <li class="doctors-main__col doctors-main__col_2x">
+        <div class="doctors-main__action action-block">
+            <div class="action-block__content"
+                    {% if banner.image.url %} style="background-image: url('{{ banner.image.url }}')"{% endif %}>
+                <div class="action-block__row">
+                    <div class="action-block__labels">
+                        {% if banner.promo.promo|default(false) %}
+                            <span class="label">акция</span>
+                        {% endif %}
+                        {% if banner.promo.special_price|default(false) %}
+                            <span class="label label_price">специальная цена</span>
+                        {% endif %}
+                        {% if banner.promo.new|default(false) %}
+                            <span class="label label_spec">новинки</span>
+                        {% endif %}
+                    </div>
+                    <div class="action-block__title">{{ banner.promo.name|default }}</div>
+                    <div class="action-block__text">{{ banner.promo.excerpt|default|raw }}</div>
+                    <div class="action-block__footnote">*Подробности акции уточняйте у консультантов клиник или по тел.
+                        (812) 333-30-73
+                    </div>
+                    <a href="{{ path('promos') }}" class="action-block__btn btn btn_prim btn_l">все акции</a>
+                </div>
+            </div>
+        </div>
+    </li>
+{% endif %}

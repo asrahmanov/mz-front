@@ -1,0 +1,27 @@
+{% extends 'admin/layout/layout1.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{# 'plural_name' | trans | capitalize #}</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm">
+                                <a href="{{ path('admin.' ~ slug ~ '.create') }}"
+                                   class="btn btn-success float-right"><i class="fas fa-plus pr-1"></i> Создать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 entity-list  table-responsive">
+                        <entity-list
+                                slug="{{ slug }}"
+                                :fields="{{ fields|json_encode }}">
+                        </entity-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

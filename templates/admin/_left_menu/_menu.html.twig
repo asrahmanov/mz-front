@@ -1,0 +1,67 @@
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Клиники', items: [
+            {label: 'Список клиник', route: 'admin.clinic'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Врачи', items: [
+            {label: 'Список врачей', route: 'admin.doctor'},
+            {label: 'Специальности', route: 'admin.specialty'},
+            {label: 'Расписания', route: 'admin.doctor_schedule'},
+            {label: 'Вопросы и ответы', route: 'admin.q_a'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Заболевания', items: [
+            {label: 'Список заболеваний', route: 'admin.disease'},
+            {label: 'Категории', route: 'admin.disease_category'},
+            {label: 'Комментарии', route: 'admin.disease_comment'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Методы лечения', items: [
+            {label: 'Список методов', route: 'admin.treatment'},
+            {label: 'Вопросы', route: 'admin.treatment_q_a'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Отделения', items: [
+            {label: 'Список отделений', route: 'admin.branch'},
+            {label: 'Симптомы', route: 'admin.symptom'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Услуги', items: [
+            {label: 'Список услуг', route: 'admin.service'},
+            {label: 'Вопросы', route: 'admin.service_q_a'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Цены', items: [
+            {label: 'Позиции прайса', route: 'admin.price_item'},
+            {label: 'Категории', route: 'admin.price_category'},
+            {label: 'Теги', route: 'admin.price_tag'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Акции', items: [
+            {label: 'Список акций', route: 'admin.promo'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Отзывы', items: [
+            {label: 'Список отзывов', route: 'admin.review'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Блог', items: [
+            {label: 'Статьи', route: 'admin.article'},
+            {label: 'Теги', route: 'admin.article_tag'},
+            {label: 'Комментарии', route: 'admin.article_comment'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Рейтинги', items: [
+            {label: 'Список источников', route: 'admin.review_source'},
+            {label: 'Рейтинги клиники', route: 'admin.clinic_rating'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Оборудование', items: [
+            {label: 'Список оборудования', route: 'admin.hardware'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Заявки', items: [
+            {label: 'Запись к врачу', route: 'admin.doctor_appointment'},
+            {label: 'Обратный звонок', route: 'admin.callback_request'},
+            {label: 'Письмо директору', route: 'admin.letter_to_director'},
+        ]} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Главная страница', items: [
+            {label: 'Слайдер', route: 'admin.main_slider_slide'},
+        ]} %}
+        {% include 'admin/_left_menu/_item.html.twig' with {label: 'Баннеры', route: 'admin.banner'} %}
+        {% include 'admin/_left_menu/_item.html.twig' with {label: 'SEO', route: 'admin.seo_rule'} %}
+        {% include 'admin/_left_menu/_item.html.twig' with {label: 'Меню', route: 'admin.menu'} %}
+        {% include 'admin/_left_menu/_submenu.html.twig' with {label: 'Администрирование', items: [
+            {label: 'Пользователи', route: 'admin.user', icon: 'fas fa-user-cog'},
+        ]} %}
+    </ul>
+</nav>

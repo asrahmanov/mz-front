@@ -1,0 +1,16 @@
+article_tag:
+    path: /article_tag
+    controller: '\App\Controller\Admin\ArticleTagController::index'
+    methods: GET
+article_tag.create:
+    path: /article_tag/create
+    controller: '\App\Controller\Admin\ArticleTagController::create'
+    methods: GET|POST
+article_tag.edit:
+    path: '/article_tag/edit/{id}'
+    controller: '\App\Controller\Admin\ArticleTagController::edit'
+    methods: GET|POST
+article_tag.delete:
+    path: '/article_tag/delete/{id}'
+    controller: '\App\Controller\Admin\ArticleTagController::delete'
+    methods: POST

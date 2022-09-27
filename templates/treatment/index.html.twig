@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Методы лечения в клиниках «Мастерская Здоровья»{% endblock %}
+{% block content %}
+    <main class="page">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Методы лечения</li>
+            </ul>
+            <h1 class="page__header h1">Методы лечения</h1>
+        </div>
+        <section class="_container">
+            <p>Мы придерживаемся консервативного, или безоперационного, лечения. Это физиотерапия, массаж и лечебная
+                физкультура, гирудотерапия и другие процедуры. Они быстро снимают боль, воспаление, отёк, эффективно
+                лечат болезни позвоночника и суставов, и оздоравливают организм в целом. Наши врачи используют больше
+                двадцати консервативных методов лечения.</p>
+            <br>
+        </section>
+        <section class="_container">
+            <div class="branches__row">
+                {% for treatment in treatments %}
+                    {% include 'treatment/_card.html.twig' %}
+                {% endfor %}
+            </div>
+        </section>
+        <section class="_container">
+            <p>Даже самые эффективные медикаменты — это химические вещества. Они часто имеют много побочных и
+                нежелательных воздействий на организм, а в некоторых случаях даже могут являться ядами.<br><br>В лечении
+                мы, специалисты клиник «Мастерская Здоровья», используем преимущественно безлекарственную терапию,
+                которая веками помогала людям. Гарантия качества и безопасности — все методы лечения признаны
+                официальной медициной, а врачи, использующие их, имеют соответствующие сертификаты.</p><br>
+            <h2 class="h2">Достоинства наших методов</h2>
+            <br>
+            <p>
+                - Быстрое и эффективное избавление от любой боли <br>
+                - Пробуждение собственных исцеляющих сил в организме пациента.<br>
+                - Долговременный лечебный эффект.<br>
+                - Восстановление и поддержание общего тонуса организма.<br>
+                - Никакого «шаманства» и БАДов — только результат!<br>
+            </p>
+            <br>
+        </section>
+        <div class="how-to _container">
+            <div class="how-to__content">
+                <div class="how-to__title">Как проходит лечение в нашей клинике</div>
+                <ul class="how-to__row">
+                    <li class="how-to__col">
+                        <div class="how-to__item item-step">
+                            <div class="item-step__row">
+                                <div class="item-step__col item-step__col_left">
+                                    <div class="item-step__img">
+                                        <div class="_ibg">
+                                            <img src="img/how-to/01.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="item-step__caption">1 шаг</span>
+                                </div>
+                                <div class="item-step__col item-step__col_right">
+                                    <div class="item-step__title">Консультация<br> по телефону</div>
+                                    <div class="item-step__text">Медицинский консультант расспросит о симптомах,
+                                        подберет подходящего врача, расскажет про стоимость процедур и запишет на
+                                        первичный приём.
+                                    </div>
+                                    <div class="item-step__tags">
+                                        <span class="item-step__tag _icon-time">10-15 мин.</span>
+                                        <span class="item-step__tag _icon-money">Бесплатно</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="how-to__col">
+                        <div class="how-to__item item-step">
+                            <div class="item-step__row">
+                                <div class="item-step__col item-step__col_left">
+                                    <div class="item-step__img">
+                                        <div class="_ibg">
+                                            <img src="img/how-to/02.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="item-step__caption">2 шаг</span>
+                                </div>
+                                <div class="item-step__col item-step__col_right">
+                                    <div class="item-step__title">Прием невролога<br> или ортопеда</div>
+                                    <div class="item-step__text">Врач проведет полноценный осмотр, соберет анамнез,
+                                        изучит результаты исследования или назначит диагностику, и поставит
+                                        предварительный диагноз.
+                                    </div>
+                                    <div class="item-step__tags">
+                                        <span class="item-step__tag _icon-time">30-40 мин.</span>
+                                        <span class="item-step__tag _icon-money">Бесплатно</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="how-to__col">
+                        <div class="how-to__item item-step">
+                            <div class="item-step__row">
+                                <div class="item-step__col item-step__col_left">
+                                    <div class="item-step__img">
+                                        <div class="_ibg">
+                                            <img src="img/how-to/03.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="item-step__caption">3 шаг</span>
+                                </div>
+                                <div class="item-step__col item-step__col_right">
+                                    <div class="item-step__title">Диагностика и лечение<br> в один день</div>
+                                    <div class="item-step__text">В один день можно пройти несколько процедур из курса
+                                        лечения. Комплексный подход обеспечивает быстрый результат и максимальную
+                                        безопасность для пациента.
+                                    </div>
+                                    <div class="item-step__tags">
+                                        <span class="item-step__tag _icon-time">3-4 часа</span>
+                                        <span class="item-step__tag _icon-money">от 470 ₽</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="how-to__col">
+                        <div class="how-to__item item-step">
+                            <div class="item-step__row">
+                                <div class="item-step__col item-step__col_left">
+                                    <div class="item-step__img">
+                                        <div class="_ibg">
+                                            <img src="img/how-to/04.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="item-step__caption">4 шаг</span>
+                                </div>
+                                <div class="item-step__col item-step__col_right">
+                                    <div class="item-step__title">Снимем острую<br> боль</div>
+                                    <div class="item-step__text">После обследования врач проведет процедуры по снятию
+                                        острой боли. Вы почувствуете значительное облегчение в день обращения в клинику.
+                                    </div>
+                                    <div class="item-step__tags">
+                                        <span class="item-step__tag _icon-time">30 мин.</span>
+                                        <span class="item-step__tag _icon-money">от 680 ₽</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="how-to__col">
+                        <div class="how-to__item item-step">
+                            <div class="item-step__row">
+                                <div class="item-step__col item-step__col_left">
+                                    <div class="item-step__img">
+                                        <div class="_ibg">
+                                            <img src="img/how-to/03.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="item-step__caption">5 шаг</span>
+                                </div>
+                                <div class="item-step__col item-step__col_right">
+                                    <div class="item-step__title">Диагностика и лечение<br> в один день</div>
+                                    <div class="item-step__text">В один день можно пройти несколько процедур из курса
+                                        лечения. Комплексный подход обеспечивает быстрый результат и максимальную
+                                        безопасность для пациента.
+                                    </div>
+                                    <div class="item-step__tags">
+                                        <span class="item-step__tag _icon-time">3-4 часа</span>
+                                        <span class="item-step__tag _icon-money">от 470 ₽</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="how-to__col">
+                        <div class="how-to__item item-step">
+                            <div class="item-step__row">
+                                <div class="item-step__col item-step__col_left">
+                                    <div class="item-step__img">
+                                        <div class="_ibg">
+                                            <img src="img/how-to/04.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="item-step__caption">6 шаг</span>
+                                </div>
+                                <div class="item-step__col item-step__col_right">
+                                    <div class="item-step__title">Снимем острую<br> боль</div>
+                                    <div class="item-step__text">После обследования врач проведет процедуры по снятию
+                                        острой боли. Вы почувствуете значительное облегчение в день обращения в клинику.
+                                    </div>
+                                    <div class="item-step__tags">
+                                        <span class="item-step__tag _icon-time">30 мин.</span>
+                                        <span class="item-step__tag _icon-money">от 680 ₽</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="how-to__action">
+                    <button data-form="make-appointment" class="how-to__btn btn btn_prim btn_l _popup-link">Записаться
+                        на первичный приём
+                    </button>
+                    <div class="how-to__text">Специалист перезвонит вам в течение 15 минут и ответит на все вопросы
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'main/_doctors.html.twig' %}
+        {% if reviews|length %}
+            {% include 'review/_list.html.twig' %}
+        {% endif %}
+        <div class="_container" style="margin-bottom: 40px">
+            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request2.html.twig'})) }}
+        </div>
+    </main>
+{% endblock %}

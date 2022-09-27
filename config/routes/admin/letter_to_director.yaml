@@ -1,0 +1,16 @@
+letter_to_director:
+    path: /letter_to_director
+    controller: '\App\Controller\Admin\LetterToDirectorController::index'
+    methods: GET
+letter_to_director.create:
+    path: /letter_to_director/create
+    controller: '\App\Controller\Admin\LetterToDirectorController::create'
+    methods: GET|POST
+letter_to_director.edit:
+    path: '/letter_to_director/edit/{id}'
+    controller: '\App\Controller\Admin\LetterToDirectorController::edit'
+    methods: GET|POST
+letter_to_director.delete:
+    path: '/letter_to_director/delete/{id}'
+    controller: '\App\Controller\Admin\LetterToDirectorController::delete'
+    methods: POST

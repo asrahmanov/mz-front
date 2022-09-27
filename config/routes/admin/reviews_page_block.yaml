@@ -1,0 +1,16 @@
+reviews_page_block:
+    path: /reviews_page_block
+    controller: '\App\Controller\Admin\ReviewsPageBlockController::index'
+    methods: GET
+reviews_page_block.create:
+    path: /reviews_page_block/create
+    controller: '\App\Controller\Admin\ReviewsPageBlockController::create'
+    methods: GET|POST
+reviews_page_block.edit:
+    path: '/reviews_page_block/edit/{id}'
+    controller: '\App\Controller\Admin\ReviewsPageBlockController::edit'
+    methods: GET|POST
+reviews_page_block.delete:
+    path: '/reviews_page_block/{id}'
+    controller: '\App\Controller\Admin\ReviewsPageBlockController::delete'
+    methods: POST

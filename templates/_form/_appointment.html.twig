@@ -1,0 +1,29 @@
+<form action="{{ form.vars.action }}" name="{{ form.vars.full_name }}" class="signup-consult__form form-signup ajax">
+    <input type="hidden" name="doctor_appointment2[_token]" value="{{ csrf_token(form.vars.full_name) }}">
+    <div class="form-signup__row">
+        <div class="form-signup__header">Заполните форму записи:</div>
+        <div class="form-signup__text">Специалист перезвонит вам в течение 15 минут для подтверждения записи</div>
+        <div class="form-signup__input">
+            <div class="form-signup__label"><label for="signup-name">Имя</label></div>
+            <input autocomplete="off" type="text" name="{{ form.patientName.vars.full_name }}" id="signup-name" data-value="Иванов Иван" class="input input_l _req">
+        </div>
+        <div class="form-signup__group">
+            <div class="form-signup__input">
+                <div class="form-signup__label">
+                    <label for="signup-phone">Телефон</label></div>
+                <input autocomplete="off" type="text" name="{{ form.patientTel.vars.full_name }}" id="signup-phone" data-value="+7(___) ___ __ __" class="input input_l _req _phone">
+            </div>
+            <div class="form-signup__input form-signup__input_icon _icon-calendar">
+                <div class="form-signup__label"><label for="signup-date">Дата</label>
+                </div>
+                <input autocomplete="off" type="text" name="{{ form.date.vars.full_name }}" id="signup-date" data-value="03.12.2020" class="input input_l _req _date">
+            </div>
+        </div>
+        <div class="form-signup__checkbox checkbox">
+            <input type="checkbox" class="checkbox__input _req" id="signup-agreement" checked>
+            <label for="signup-agreement" class="checkbox__text">Нажимая на кнопку, вы даете согласие на обработку своих
+                <a href="">персональных данных</a>.</label>
+        </div>
+        <button type="submit" class="form-signup__btn btn btn_l btn_prim">Записаться на бесплатный прием</button>
+    </div>
+</form>

@@ -1,0 +1,16 @@
+price_tag:
+    path: /price_tag
+    controller: '\App\Controller\Admin\PriceTagController::index'
+    methods: GET
+price_tag.create:
+    path: /price_tag/create
+    controller: '\App\Controller\Admin\PriceTagController::create'
+    methods: GET|POST
+price_tag.edit:
+    path: '/price_tag/edit/{id}'
+    controller: '\App\Controller\Admin\PriceTagController::edit'
+    methods: GET|POST
+price_tag.delete:
+    path: '/price_tag/delete/{id}'
+    controller: '\App\Controller\Admin\PriceTagController::delete'
+    methods: POST

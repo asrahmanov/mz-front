@@ -1,0 +1,22 @@
+{% from 'macroses.html.twig' import image %}
+<div class="first-screen__slider">
+    <div class="main-slider _swiper swiper-bild">
+        <ul class="swiper-wrapper">
+            {% for slide in slider %}
+                <li class="main-slider__item swiper-slide{{ loop.first ? ' _active' }} _ibg">
+                    {{ image(slide.image) }}
+                    <div class="main-slider__body">
+                        <div class="main-slider__title">{{ slide.promo.name }}</div>
+                        <div class="main-slider__text">
+                            {{ slide.promo.excerpt|raw }}
+                        </div>
+                        <a href="{{ path('promo.show', {slug: slide.promo.slug}) }}" class="main-slider__btn btn btn_prim btn_l">подробнее</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="main-slider__pagination swiper-pagination"></div>
+    <button class="main-slider__arrow main-slider__arrow_next"></button>
+    <button class="main-slider__arrow main-slider__arrow_prev"></button>
+</div>

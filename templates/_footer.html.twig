@@ -1,0 +1,98 @@
+<footer class="footer">
+	<div class="footer__top _container">
+		{{ render(controller('App\\Controller\\ContactsPageController::footerMap')) }}
+	</div>
+	<div class="footer__bottom">
+		<div class="footer__content _container">
+			{{ render(controller('App\\Controller\\MenuController::bottom')) }}
+			<ul class="footer__services footer-services">
+				<li class="footer-services__item"><a href="#" class="footer-services__link footer-services__link_eye _icon-eye">Версия для слабовидящих</a></li>
+				<li class="footer-services__item"><a href="#" class="footer-services__link footer-services__link_map _icon-site-map"><span>Карта сайта</span></a></li>
+			</ul>
+			<form action="#" class="footer__search footer-search">
+				<div class="footer-search__title">Поиск на сайте</div>
+				<div class="footer-search__input search-input">
+					<input autocomplete="off" type="text" name="form[]" data-value="например «Мигрень»" class="search-input__input input input_m _req">
+					<button type="submit" class="search-input__btn btn btn_m btn_prim">найти</button>
+				</div>
+			</form>
+			<div class="footer__qr footer-qr">
+				<div class="footer-qr__title">Уважаемые пациенты!</div>
+				<div class="footer-qr__text">
+					Отсканировав с помощью мобильного телефона данный QR-код, вы сможете ознакомиться с информацией о соблюдении клиникой «Мастерская Здоровья» стандартов ведения безопасной деятельности в период распространения коронавирусной инфекции.
+				</div>
+				<div class="footer-qr__row">
+					<div class="footer-qr__col">
+						<div class="footer-qr__item">
+							<img src="/img/footer/qr01.png" alt="" class="footer-qr__img">
+							<div class="footer-qr__caption">м. Лесная</div>
+						</div>
+					</div>
+					<div class="footer-qr__col">
+						<div class="footer-qr__item">
+							<img src="/img/footer/qr02.png" alt="" class="footer-qr__img">
+							<div class="footer-qr__caption">м. Московская</div>
+						</div>
+					</div>
+					<div class="footer-qr__col">
+						<div class="footer-qr__item">
+							<img src="/img/footer/qr03.png" alt="" class="footer-qr__img">
+							<div class="footer-qr__caption">м. Академическая</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer__payment footer-payment">
+				<a href="#" class="footer-payment__title _icon-online-payments"><span>Онлайн-оплата</span></a>
+				<ul class="footer-payment__list">
+					<li class="footer-payment__logo _icon-visa"></li>
+					<li class="footer-payment__logo _icon-mastercard"></li>
+					<li class="footer-payment__logo _icon-paypal"></li>
+					<li class="footer-payment__logo _icon-american-express"></li>
+				</ul>
+			</div>
+			<div class="footer__contacts footer-contacts">
+				<a href="/" class="footer-contacts__logo"><img src="/img/footer/logo_bg.svg" alt=""></a>
+				<div class="footer-contacts__text">Сеть специализированных клиник
+					«Мастерская здоровья»</div>
+				<div class="footer-contacts__title">Контакты</div>
+				<a href="mailto:office@mz-clinic.ru" class="footer-contacts__mail">office@mz-clinic.ru</a>
+				<address class="footer-contacts__address">
+					<p>Ежедневно с 9:00 до 20:00</p>
+					<p>г. Санкт-Петербург</p>
+				</address>
+				<div class="footer-contacts__phone">
+					<a href="tel:+78124217036" class="link link_gray link_icon _icon-tel">+7 (812) 421-70-36</a>
+				</div>
+				<button data-form="request-call" class="footer-contacts__btn btn btn_prim btn_l btn_icon _icon-whatsapp _popup-link">Заказать звонок</button>
+			</div>
+			<ul class="footer__social footer-social">
+				<li><a href="#" class="footer-social__link _icon-instagram"></a></li>
+				<li><a href="#" class="footer-social__link _icon-telegram"></a></li>
+				<li><a href="#" class="footer-social__link _icon-facebook"></a></li>
+				<li><a href="#" class="footer-social__link _icon-vk"></a></li>
+				<li><a href="#" class="footer-social__link _icon-youtube"></a></li>
+			</ul>
+			<ul class="footer__reference footer-reference">
+				<li class="footer-reference__item">
+					<a href="" class="footer-reference__link">Органы контроля</a>
+					<a href="" class="footer-reference__link">Политика конфиденциальности</a>
+				</li>
+				<li class="footer-reference__item">
+					<a href="" class="footer-reference__link"><img src="/img/footer/banner01.png" alt=""></a>
+				</li>
+				<li class="footer-reference__item">
+					<a href="" class="footer-reference__link"><img src="/img/footer/gosuslugi.png" alt=""></a>
+				</li>
+				<li class="footer-reference__item">
+					Разработка сайта:
+					<a href="" id="trinet-link" class="footer-reference__link">TRINET.Медицина</a>
+				</li>
+			</ul>
+			<div class="footer__copywrite">
+				© «Мастерская здоровья»<br>
+				Сеть частных клиник в Санкт-Петербурге <nobr>2003-2021</nobr>
+			</div>
+		</div>
+	</div>
+</footer>

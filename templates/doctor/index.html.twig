@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ seo.title|default('Врачи') }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block styles %}
+{# TODO: Перенести стиль в проект фронта#}
+    {{ parent() }}
+    <style>
+        .specialties-list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 34px 0;
+        }
+        .specialties-list__item {
+            width: 33%;
+            color: #158e71;
+            padding: 5px;
+        }
+        .specialties-list__item._active {
+            font-weight: 800;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% form_theme doctorsSearchForm 'custom_types.html.twig' %}
+    <main class="page page_doctors">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item">Врачи</li>
+            </ul>
+            <h1 class="page__header h1">{{ seo.h1|default("Врачи «Мастерской Здоровья»") }}</h1>
+        </div>
+        <section class="_container">
+            <h2 class="h2">Специализации</h2>
+            <div class="specialties-list">
+                {% for specialityChoice in doctorsSearchForm.speciality.vars.choices %}
+                    <a class="specialties-list__item{{ speciality is defined and speciality.id is same as specialityChoice.data.id ? ' _active' : '' }}" href="{{ path('doctors_by_specialty', {slug: specialityChoice.data.slug}) }}">{{ specialityChoice.label }}</a>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="doctors-main _container">
+            <h2 class="doctors-main__header h2">Быстрый поиск врача</h2>
+            {{ form_start(doctorsSearchForm, {'action': path('doctors'), 'attr': {'class': 'doctors-main__search'}}) }}
+            {{ form_widget(doctorsSearchForm._token) }}
+            <div class="search-form__input _icon-search">
+                {{ form_widget(doctorsSearchForm.name, {attr: {class: 'input input_l', 'data-value': 'ФИО врача'}}) }}
+            </div>
+            <div class="search-form__select search-form__select_doctor">
+                {{ form_widget(doctorsSearchForm.speciality, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'Выбрать врача'}}) }}
+            </div>
+            <div class="search-form__select search-form__select_category">
+                {{ form_widget(doctorsSearchForm.category, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'Выбрать категорию'}}) }}
+            </div>
+            {{ form_widget(doctorsSearchForm.clinic) }}
+            <div class="search-form__list search-form__list_options">
+                {{ form_widget(doctorsSearchForm.onlineConsultation) }}
+                {{ form_widget(doctorsSearchForm.today) }}
+                {{ form_widget(doctorsSearchForm.promo) }}
+            </div>
+            <div class="search-form__reset">
+                <a href="{{ path('doctors') }}" type="reset" class="_icon-refresh">Сбросить фильтры</a>
+            </div>
+            {{ form_end(doctorsSearchForm, {render_rest: false}) }}
+            <ul class="doctors-main__row">
+                {% set colNums = 0 %}
+                {% for doctor in doctors %}
+                    {% if doctor.leadingSpecialist %}
+                        <li class="doctors-main__col doctors-main__col_2x">
+                            {% include 'doctor/_card2.html.twig' with {doctor} %}
+                        </li>
+                        {% set colNums = colNums + 2 %}
+                    {% else %}
+                        <li class="doctors-main__col">
+                            {% include 'doctor/_card1.html.twig' with {doctor} %}
+                        </li>
+                        {% set colNums = colNums + 1 %}
+                    {% endif %}
+                    {% if colNums == 4 %}
+                        {% include 'doctor/_promo3.html.twig' %}
+                    {% endif %}
+                    {% if loop.index == leadingSpecialistsCount %}
+                        {{ render(controller('App\\Controller\\BannerController::show', {
+                            location: 'doctors_page_1',
+                            template: '_banner/_banner2.html.twig'
+                        })) }}
+                        {% set colNums = colNums + 2 %}
+                    {% endif %}
+                {% endfor %}
+                {% include 'doctor/_promo2.html.twig' %}
+            </ul>
+            {#
+                TODO: Прикрутить пагинацию
+            <a href="" class="doctors-main__more link link_main">Показать еще</a>
+            #}
+        </section>
+        <div class="ask-question _container">
+            <p class="ask-question__title">Задайте вопрос специалисту</p>
+            <div class="ask-question__text">
+                Ответим на любой вопрос, позвоните или напишите нам:<br>
+                <a href="tel:+78124217036" class="ask-question__phone link link_icon _icon-tel">+7 (812) 421-70-36</a>
+                <span class="ask-question__time">(ежедневно с 9:00 до 20:00)</span>
+            </div>
+            <ul class="ask-question__social">
+                <li class="ask-question__item">
+                    <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-instagram">Написать в
+                        Instagram</a>
+                </li>
+                <li class="ask-question__item">
+                    <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-whatsapp">Написать в
+                        Whatsapp</a>
+                </li>
+                <li class="ask-question__item">
+                    <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-jivo">Написать в Jivo Chat</a>
+                </li>
+                <li class="ask-question__item">
+                    <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-vk">Написать во Вконтакте</a>
+                </li>
+                <li class="ask-question__item">
+                    <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-facebook">Написать в
+                        Facebook</a>
+                </li>
+                <li class="ask-question__item">
+                    <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-telegram">Написать в
+                        Telegram</a>
+                </li>
+            </ul>
+        </div>
+    </main>
+{% endblock %}

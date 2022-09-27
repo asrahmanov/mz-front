@@ -1,0 +1,338 @@
+{% extends 'base.html.twig' %}
+
+{% from 'macroses.html.twig' import image %}
+
+{% block title %}{{ seo.title|default(article.name) }}{% endblock %}
+{% block description %}{{ seo.description|default("") }}{% endblock %}
+{% block robots %}{{ seo.robots|default('<meta name="robots" content="index, follow">')|raw }}{% endblock %}
+{% block canonical %}{{ seo.canonical|default(app.request.uri) }}{% endblock %}
+
+{% block content %}
+    <main class="page page_blog-card">
+        <div class="_container">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Главная</a></li>
+                <li class="breadcrumbs__item"><a href="{{ path('articles') }}" class="breadcrumbs__link">Наш блог</a>
+                </li>
+                <li class="breadcrumbs__item">{{ article.name }}</li>
+            </ul>
+        </div>
+        <article class="blog-article _container">
+            <h1 class="blog-article__header h1">{{ seo.h1|default(article.name) }}</h1>
+            <div class="blog-article__row _row">
+                <div class="blog-article__main _col_8">
+                    <div class="blog-article__intro intro-article">
+                        <div class="intro-article__top">
+                            <div class="item-main-blog item-main-blog_intro">
+                                <div class="item-main-blog__meta">
+                                    <span class="item-main-blog__date">{{ article.createdAt|date }}</span>
+                                    <span class="item-main-blog__read  _icon-glasses">{{ (article.readingSeconds / 60)|round(0, 'ceil') }} мин.</span>
+                                    <span class="item-main-blog__comments _icon-comment">{{ article.publishedComments.count }}</span>
+                                    <span class="item-main-blog__views _icon-eye">{{ article.viewsNum|number_format(0, ',', ' ') }}</span>
+                                    <span class="item-main-blog__rating rating-output" data-stars="4.5">4.6</span>
+                                </div>
+                                <div class="item-main-blog__title">{{ article.excerpt }}</div>
+                                <div class="item-main-blog__footer">
+                                    {% if article.createdAt %}
+                                        <div class="item-main-blog__timing">Дата
+                                            проверки: {{ article.checkedAt|date }}</div>
+                                    {% endif %}
+                                    {% if article.updatedAt %}
+                                        <div class="item-main-blog__timing">Дата
+                                            обновления: {{ article.updatedAt|date }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="intro-article__bottom">
+                            <div class="intro-article__staff">
+                                {% if article.author %}
+                                    <div class="intro-article__doctor">
+                                        <div class="intro-article__ava">
+                                            <div class="blog-ava blog-ava_l">{{ image(article.author.photo) }}</div>
+                                        </div>
+                                        <div class="intro-article__info">
+                                            <div class="intro-article__caption">Автор статьи:</div>
+                                            {% include 'article/_doctor-info.html.twig' with {doctor: article.author} %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if article.editor %}
+                                    <div class="intro-article__doctor">
+                                        <div class="intro-article__ava">
+                                            <div class="blog-ava blog-ava_l">{{ image(article.editor.photo) }}</div>
+                                        </div>
+                                        <div class="intro-article__info">
+                                            <div class="intro-article__caption">Редактор:</div>
+                                            {% include 'article/_doctor-info.html.twig' with {doctor: article.editor} %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if article.expert %}
+                                    <div class="intro-article__doctor">
+                                        <div class="intro-article__ava">
+                                            <div class="blog-ava blog-ava_l blog-ava_expert">
+                                                {{ image(article.expert.photo) }}
+                                            </div>
+                                        </div>
+                                        <div class="intro-article__expert">Проверено экспертом</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-article__content _wysiwyg">
+                        {{ article.content|raw }}
+                    </div>
+                    {% if article.author %}
+                        <div class="blog-article__author">
+                            <div class="author-blog">
+                                <div class="author-blog__title">Автор статьи:</div>
+                                <div class="author-blog__row">
+                                    <div class="author-blog__col">
+                                        <div class="author-blog__badge">
+                                            <div class="author-blog__header">
+                                                <div class="author-blog__ava blog-ava blog-ava_xl">
+                                                    {{ image(article.author.photo) }}
+                                                </div>
+                                                <div class="author-blog__info">
+                                                    <a href="{{ path('doctor.show', {slug: article.author.slug}) }}"
+                                                       class="author-blog__name">{{ article.author.lastname }}<br>
+                                                        {{ article.author.firstname }} {{ article.author.middlename }}
+                                                    </a>
+                                                    <div class="author-blog__text">
+                                                        {{ article.author.specialties|join(' / ') }}<br>
+                                                        Стаж: {{ 'years'|trans({years: article.author.experience}) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="author-blog__rating">
+                                                <span class="rating-link rating-link_l rating-link_sber">4.6</span>
+                                                <div class="author-blog__reviews">{{ 'reviews'|trans({reviews: article.author.reviews.count}) }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="author-blog__col">
+                                        {% if article.author.clinics.count %}
+                                            <div class="author-blog__reception">
+                                                <div class="author-blog__caption">Врач ведет прием в клинике:</div>
+                                                <div class="direction-popup">
+                                                    <div class="direction-popup__spoller direction-popup__spoller_blue">
+                                                        <div class="direction-link direction-link_{{ article.author.clinics.first.color }}">
+                                                            <span class="direction-link__metro">{{ article.author.clinics.first.name }}</span>
+                                                            <span class="direction-link__distance">{{ article.author.clinics.first.distance }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="direction-popup__body">
+                                                        {% for clinic in article.author.clinics %}
+                                                            <div class="direction-popup__item direction-link">
+                                                                <a href="javascript:void(0)"
+                                                                   class="direction-link__metro direction-link__metro_{{ clinic.color }}">{{ clinic.name }}</a>
+                                                                <span class="direction-link__distance">{{ clinic.distance }}</span>
+                                                                <address class="direction-link__address">
+                                                                    {{ clinic.address }}
+                                                                </address>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="author-blog__caption">
+                                            Стоимость приема:
+                                            <span class="price-value showInclude" data-tpl="example-tooltip01"
+                                                  aria-expanded="false">Бесплатно</span>
+                                        </div>
+                                        {% set receptionDate = doctor_schedule.getNearestDate(article.author) %}
+                                        {% if receptionDate %}
+                                            <div class="author-blog__date">Ближайший
+                                                прием: {{ receptionDate|date }} </div>
+                                        {% endif %}
+                                        <div class="author-blog__buttons">
+                                            <a href="{{ path('doctor.show', {slug: article.author.slug}) }}" class="btn btn_m btn_prim">записаться</a>
+                                            <button data-form="ask-question" class="btn btn_m btn_sec _popup-link">
+                                                задать вопрос
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="blog-article__aside _col_4">
+                    {% if article.tags.count %}
+                        <div class="blog-article__links">
+                            <div class="blog-article__title">Статья на тему:</div>
+                            <div class="links-blog links-blog_light-green">
+                                {% for tag in article.tags %}
+                                    <a href="{{ path('articles', {tagSlug: tag.slug}) }}"
+                                       class="links-blog__item">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="blog-article__contents"><!-- Заполнится автоматически --></div>
+                    {% if popularArticles|length %}
+                        <div class="blog-article__popular pop-blog">
+                            <div class="pop-blog__title">Популярные статьи</div>
+                            {% for article in popularArticles %}
+                                {% include 'article/_popular-card.html.twig' %}
+                            {% endfor %}
+                            <div class="pop-blog__links">
+                                <a href="{{ path('articles') }}" class="pop-blog__all link link_all">Посмотреть
+                                    ещё {{ 'articles4'|trans({articles: totalArticlesCount}) }}</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="blog-article__ad">
+                        {{ render(controller('App\\Controller\\BannerController::show', {
+                            location: 'article_page_1',
+                            template: '_banner/_banner1.html.twig'
+                        })) }}
+                    </div>
+                    <div class="blog-article__reward">
+                        <div class="reward">
+                            <div class="reward__img">
+                                <img src="/img/reward/01.png" alt="">
+                            </div>
+                            <div class="reward__text">
+                                <span class="reward__mark">Лучшая<br> частная клиника</span> <br>по специальности
+                                «Неврология»
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-article__appointment">
+                        <div class="form-appointment form-appointment_bg-green">
+                            <div class="form-appointment__header">Заметили у себя данные симтомы? Запишитесь на
+                                бесплатный приём!
+                            </div>
+                            <div class="form-appointment__text">Первый приём врача в клинике неврологии «Мастерская
+                                Здоровья» стоит 0 руб.
+                            </div>
+                            {{ render(controller('App\\Controller\\FormController::callbackRequest', {template: '_form/_callback_request_fields_only.html.twig'})) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-article__footer">
+                {% if article.sources|length %}
+                    <div class="h2">Источники</div>
+                {% endif %}
+                <div class="_row">
+                    <div class="_col_8">
+                        <div class="blog-article__sources">
+                            <ol>
+                                {% for source in article.sources %}
+                                    {% if source.link is defined %}
+                                        <li><a target="_blank" href="{{ source.link }}">{{ source.name }}</a></li>
+                                    {% else %}
+                                        <li>{{ source.name }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="_col_4">
+                        <div class="blog-article__caption">Оцените статью</div>
+                        <div class="blog-article__rate">
+                            <div class="star-rating">
+                                <div class="star-rating__stars">
+                                    <fieldset class="rate">
+                                        <input type="radio" id="rating10" name="rating" value="10"><label
+                                                for="rating10" title="5 из 5"></label>
+                                        <input type="radio" id="rating8" name="rating" value="8"><label
+                                                for="rating8" title="4 из 5"></label>
+                                        <input type="radio" id="rating6" name="rating" value="6"><label
+                                                for="rating6" title="3 из 5"></label>
+                                        <input type="radio" id="rating4" name="rating" value="4"><label
+                                                for="rating4" title="2 из 5"></label>
+                                        <input type="radio" id="rating2" name="rating" value="2"><label
+                                                for="rating2" title="1 из 5"></label>
+                                    </fieldset>
+                                </div>
+                                <div class="star-rating__results">
+                                    <div class="star-rating__votes">Голосов: <span class="b">13</span></div>
+                                    <div class="star-rating__score">Рейтинг: <span class="b">4,6 из 5</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-article__caption">Поделиться статьей</div>
+                        <ul class="blog-article__share">
+                            <li><a href="" class="_icon-share"></a></li>
+                            <li><a href="" class="_icon-telegram"></a></li>
+                            <li><a href="" class="_icon-facebook"></a></li>
+                            <li><a href="" class="_icon-instagram"></a></li>
+                            <li><a href="" class="_icon-vk"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% if article.publishedComments.count %}
+            <section class="comments _container">
+                <div class="comments__header h2">Комментарии <span
+                            class="comments__count _icon-comment">{{ article.publishedComments.count }}</span></div>
+                <ul class="comments__items">
+                    {% for comment in article.publishedComments %}
+                        <li class="comments__item">
+                            <article class="item-comment">
+                                <div class="item-comment__head">
+                                    <div class="item-comment__ava">
+                                        <div class="user-ava user-ava_red"
+                                             data-initials="{% for word in comment.authorName|split(' ') %}{{ word|first }}{% endfor %}"></div>
+                                    </div>
+                                    <div class="item-comment__info">
+                                        <p class="item-comment__date">{{ comment.createdAt|date }}</p>
+                                        <p class="item-comment__name">{{ comment.authorName }}</p>
+                                    </div>
+                                </div>
+                                <p class="item-comment__text">{{ comment.text }}</p>
+                            </article>
+                            {% if comment.answerText %}
+                                <article class="item-comment item-comment_reply">
+                                    {% if comment.answerAuthor %}
+                                        <div class="item-comment__head">
+                                        <div class="item-comment__ava">
+                                            <div class="blog-ava blog-ava_s">{{ image(comment.answerAuthor.photo) }}</div>
+                                        </div>
+                                        <div class="item-comment__info">
+                                            {% if comment.answerDate %}
+                                                <p class="item-comment__date">{{ comment.answerDate|date }}</p>
+                                            {% endif %}
+                                            <p class="item-comment__name">{{ comment.answerAuthor }}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <p class="item-comment__text">
+                                        {{ comment.answerText }}
+                                    </p>
+                                </article>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <a href="" class="comments__more link link_main">Показать еще</a>
+                <aside class="comment__aside">
+                    <div class="comments__send-comment">
+                        {{ render(controller('App\\Controller\\FormController::articleComment', {article: article})) }}
+                    </div>
+                    <div class="comments__popular pop-blog">
+                        <div class="pop-blog__links">
+                            <div class="pop-blog__title">Смотреть статьи по теме:</div>
+                            <div class="links-blog links-blog_green">
+                                <a href="" class="links-blog__item">неврология (18)</a>
+                                <a href="" class="links-blog__item">травматология(3)</a>
+                                <a href="" class="links-blog__item">денсинометрия (12)</a>
+                                <a href="" class="links-blog__item">профилактика (9)</a>
+                                <a href="" class="links-blog__item">ортопедия (12)</a>
+                            </div>
+                            <a href="{{ path('articles') }}" class="pop-blog__all link link_all">Читать все статьи</a>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}

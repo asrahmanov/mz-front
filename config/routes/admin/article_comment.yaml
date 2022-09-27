@@ -1,0 +1,16 @@
+article_comment:
+    path: /article_comment
+    controller: '\App\Controller\Admin\ArticleCommentController::index'
+    methods: GET
+article_comment.create:
+    path: /article_comment/create
+    controller: '\App\Controller\Admin\ArticleCommentController::create'
+    methods: GET|POST
+article_comment.edit:
+    path: '/article_comment/edit/{id}'
+    controller: '\App\Controller\Admin\ArticleCommentController::edit'
+    methods: GET|POST
+article_comment.delete:
+    path: '/article_comment/delete/{id}'
+    controller: '\App\Controller\Admin\ArticleCommentController::delete'
+    methods: POST

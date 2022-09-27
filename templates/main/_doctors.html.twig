@@ -1,0 +1,34 @@
+<section class="doctors">
+    <div class="_container">
+        <h2 class="doctors__header h2">Врачи</h2>
+        <div class="doctors__row">
+            <div class="doctors__col" data-simplebar data-simplebar-scrollbar-max-size="128" data-simplebar-auto-hide="false">
+                <div class="doctors__filter">
+                    <ul class="main-tabs main-tabs_vertical">
+                        <li data-filter="1" class="main-tabs__item _active">Все врачи</li>
+                        {% for speciality in specialities %}
+                            <li data-filter="speciality{{ speciality.id }}" class="main-tabs__item">{{ speciality.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="doctors__col doctors__col_3x">
+                <div class="doctors__slider _swiper swiper-bild">
+                    <div class="swiper-wrapper">
+                        {% for doctor in doctors %}
+                            <div class="doctors__item swiper-slide {% for speciality in doctor.specialties %} _f-doctor-speciality{{ speciality.id }}{% endfor %} _active">
+                            {{ include('doctor/_card1.html.twig') }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="doctors__nav nav-doctor">
+                    <button class="nav-doctor__btn nav-doctor__btn_prev swiper-button swiper-button_prev swiper-button_m"></button>
+                    <div class="nav-doctor__fraction"></div>
+                    <button class="nav-doctor__btn nav-doctor__btn_next swiper-button swiper-button_next swiper-button_m"></button>
+                </div>
+            </div>
+        </div>
+        <a href="{{ path('doctors') }}" class="doctors__pickup btn btn_sec btn_m">Подобрать врача</a>
+    </div>
+</section>

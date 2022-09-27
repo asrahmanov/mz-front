@@ -1,0 +1,31 @@
+{% if articles|length %}
+    <section class="blog _container">
+        <h2 class="blog__header h2">Наш блог</h2>
+        <div class="blog__row">
+            <div class="blog__col blog__col_main">
+                <div class="blog__main main-blog">
+                    <div class="main-blog__filter links-blog">
+                        {% for tag in articleTags %}
+                            <a href="{{ path('articles', {tagSlug: tag.slug}) }}"
+                               class="links-blog__item">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                    <div class="main-blog__items">
+                        {% for article in articles %}
+                            {% include 'article/_card.html.twig' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="blog__col blog__col_aside pop-blog">
+                <div class="pop-blog__title">Популярные статьи</div>
+                <div class="pop-blog__items">
+                    {% for article in popularArticles %}
+                        {% include 'article/_popular-card.html.twig' %}
+                    {% endfor %}
+                </div>
+                <a href="{{ path('articles') }}" class="pop-blog__all link link_all">Читать все статьи</a>
+            </div>
+        </div>
+    </section>
+{% endif %}

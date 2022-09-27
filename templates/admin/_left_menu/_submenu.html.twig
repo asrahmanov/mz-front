@@ -1,0 +1,15 @@
+{% set active = items|filter(v => app.request.get('_route') matches '/^' ~ v.route ~ '($|\\.create|\\.edit)/') %}
+<li class="nav-item {{ active ? ' menu-open' }}">
+    <a href="#" class="nav-link {{ active ? ' active' }}">
+        <i class="nav-icon {{ icon|default('fas fa-folder') }}"></i>
+        <p>
+            {{ label }}
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        {% for item in items %}
+            {% include 'admin/_left_menu/_item.html.twig' with {label: item.label, route: item.route, icon: item.icon|default} %}
+        {% endfor %}
+    </ul>
+</li>

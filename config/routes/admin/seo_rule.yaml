@@ -1,0 +1,20 @@
+seo_rule:
+    path: /seo_rule
+    controller: '\App\Controller\Admin\SeoRuleController::index'
+    methods: GET|POST
+seo_rule.create:
+    path: /seo_rule/create
+    controller: '\App\Controller\Admin\SeoRuleController::create'
+    methods: GET|POST
+seo_rule.edit:
+    path: '/seo_rule/edit/{id}'
+    controller: '\App\Controller\Admin\SeoRuleController::edit'
+    methods: GET|POST
+seo_rule.delete:
+    path: '/seo_rule/delete/{id}'
+    controller: '\App\Controller\Admin\SeoRuleController::delete'
+    methods: POST
+seo_rule.import:
+    path: '/seo_rule/import'
+    controller: '\App\Controller\Admin\SeoRuleController::import'
+    methods: POST

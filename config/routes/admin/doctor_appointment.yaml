@@ -1,0 +1,16 @@
+doctor_appointment:
+    path: /doctor_appointment
+    controller: '\App\Controller\Admin\DoctorAppointmentController::index'
+    methods: GET
+doctor_appointment.create:
+    path: /doctor_appointment/create
+    controller: '\App\Controller\Admin\DoctorAppointmentController::create'
+    methods: GET|POST
+doctor_appointment.edit:
+    path: '/doctor_appointment/edit/{id}'
+    controller: '\App\Controller\Admin\DoctorAppointmentController::edit'
+    methods: GET|POST
+doctor_appointment.delete:
+    path: '/doctor_appointment/delete/{id}'
+    controller: '\App\Controller\Admin\DoctorAppointmentController::delete'
+    methods: POST

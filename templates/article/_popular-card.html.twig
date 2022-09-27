@@ -1,0 +1,15 @@
+{% from 'macroses.html.twig' import image %}
+<div class="pop-blog__item item-pop-blog">
+    <div class="item-pop-blog__row">
+        <div class="item-pop-blog__img _ibg">{{ image(article.image) }}</div>
+        <div class="item-pop-blog__body">
+            <div class="item-pop-blog__meta">
+                <span class="item-pop-blog__date">{{ article.createdAt|date }}</span>
+                <span class="item-pop-blog__read _icon-glasses">{{ (article.readingSeconds / 60) |round(0, 'ceil') }} мин.</span>
+                <span class="item-pop-blog__comments _icon-comment">{{ article.publishedComments.count }}</span>
+            </div>
+            <a href="{{ path('article.show', {slug: article.slug}) }}"
+               class="item-pop-blog__title">{{ article.name }}</a>
+        </div>
+    </div>
+</div>

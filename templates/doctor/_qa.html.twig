@@ -1,0 +1,36 @@
+{% from 'macroses.html.twig' import image %}
+<div class="q-and-a__question question-q-and-a">
+    <div class="question-q-and-a__head">
+        <div class="question-q-and-a__name">{{ qa.authorName }}</div>
+        <div class="question-q-and-a__date">{{ qa.createdAt|date }}</div>
+    </div>
+    <div class="question-q-and-a__body">
+        {{ qa.questionText|nl2br }}
+    </div>
+</div>
+{% if qa.answerAuthor %}
+    <div class="q-and-a__answer answer-q-and-a">
+        <div class="answer-q-and-a__head">
+            <div class="answer-q-and-a__ava _ibg">{{ image(qa.answerAuthor.photo) }}</div>
+            <div class="answer-q-and-a__doctor">
+                <div class="answer-q-and-a__name">{{ qa.answerAuthor }}</div>
+                <div class="answer-q-and-a__position">{{ qa.answerAuthor.post }}</div>
+            </div>
+        </div>
+        <div class="answer-q-and-a__body">
+            <div class="answer-q-and-a__text">
+                {{ qa.answerText|nl2br }}
+            </div>
+            {% if qa.branches|length %}
+                <div class="answer-q-and-a__extra">Полезные разделы для вас</div>
+                <ul class="answer-q-and-a__links">
+                    {% for branch in qa.branches %}
+                        <li><a href="{{ path('branch.show', {slug: branch.slug}) }}"
+                               class="answer-q-and-a__link link link_inv">{{ branch.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+

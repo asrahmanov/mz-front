@@ -1,0 +1,20 @@
+.btn-collapse:before {
+    content: 'Скрыть ';
+}
+
+.btn-collapse.collapsed:before {
+    content: 'Показать ';
+}
+
+[data-controller=collection] [data-row-id] .close {
+    display: none;
+    position: absolute;
+    right: 12px;
+    top: 0;
+    text-shadow: white 1px 1px 0, white -1px -1px 0,
+    white -1px 1px 0, white 1px -1px 0;
+}
+
+[data-controller=collection] [data-row-id]:hover .close {
+    display: block;
+}
