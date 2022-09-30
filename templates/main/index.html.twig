@@ -235,9 +235,9 @@
             </div>
         </div>
         {% include 'main/_doctors.html.twig' %}
-{#        {% if clinics|length %}#}
-{#            {% include 'main/_ask_question.html.twig' with {clinic: clinics[0]} %}#}
-{#        {% endif %}#}
+        {% if clinics|length %}
+            {% include 'main/_ask_question.html.twig' with {clinic: clinics[0]} %}
+        {% endif %}
 {#
         <section class="reviews _container">
             <h2 class="reviews__header h2 _scroll-icon _scr-item">Отзывы</h2>
