@@ -4,13 +4,16 @@
     <div class="map-footer__tabs">
         <ul class="main-tabs">
             {% for clinic in clinics %}
+                {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
                 <li class="main-tabs__item _tabs-item{{ loop.first ? ' _active' }}" data-coords="{{ clinic.coords|join(',') }}">{{ clinic.name }}</li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
     <div class="map-footer__ymap" id="mapFooter"></div>
     <div class="map-footer__body">
         {% for clinic in clinics %}
+            {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
             <div class="map-footer__description _tabs-block {{ loop.first ? ' _active' }}">
             <div class="map-footer__row">
                 <address class="map-footer__info">
@@ -47,6 +50,7 @@
                 </div>
             </div>
         </div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
