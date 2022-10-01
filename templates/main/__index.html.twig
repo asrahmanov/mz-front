@@ -235,7 +235,184 @@
             </div>
         </div>
         {% include 'main/_doctors.html.twig' %}
-
+        {% if clinics|length %}
+            {% include 'main/_ask_question.html.twig' with {clinic: clinics[0]} %}
+        {% endif %}
+{#
+        <section class="reviews _container">
+            <h2 class="reviews__header h2 _scroll-icon _scr-item">Отзывы</h2>
+            <ul class="reviews__row">reviews _container
+                <li class="reviews__item reviews__item_big review-card review-card_big">
+                    <div class="review-card__body">
+                        <div class="review-card__header">
+                            <div class="review-card__from from-review">
+                                <div class="from-review__ava _ibg" data-initials="юа"><img
+                                            src="img/reviews/ava-review.png" alt="">
+                                </div>
+                                <div class="from-review__body">
+                                    <div class="from-review__date">02.11.2020</div>
+                                    <div class="from-review__name">Юлия Антонова</div>
+                                </div>
+                            </div>
+                            <div class="review-card__rating">
+                                <div class="rating-link">
+                                    <div class="rating-link__top">4.6</div>
+                                    <div class="rating-link__bottom">
+                                        <img class="rating-link__logo" src="/img/rating-clinic/napopravky.svg"
+                                             alt="logo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__text">Хочу выразить свою благодарность всей команде врачей, которые
+                            обеспечивали мне комплексное лечение: Егорову Владимиру Леонидовичу, Беляеву Евгению
+                            Михайловичу, Жартанову Олегу Алексеевичу, Перовой Елене Валентиновне. Спасибо за
+                            неравнодушие, высокий профессионализм и внимательность.
+                        </div>
+                        <div class="review-card__answer answer-review">
+                            <div class="answer-review__row">
+                                <div class="answer-review__ava"><img src="img/reviews/ava-answer.svg" alt=""></div>
+                                <div class="answer-review__text">Добрый день. Благодарим за отзыв и тёплые слова в адрес
+                                    нашей клиники!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__direction direction-link">
+                            <a href="" class="direction-link__metro direction-link__metro_blue">м. Московская</a>
+                            <span class="direction-link__distance">1,5 км</span>
+                        </div>
+                    </div>
+                    <div class="review-card__video">
+                        <a href="#video" data-video="PH6JUtCaykQ"
+                           class="_popup-link link-youtube link-youtube_m _icon-youtube _ibg">
+                            <img src="img/reviews/video.png" alt="">
+                        </a>
+                    </div>
+                </li>
+                <li class="reviews__action ad-block">
+                    <div class="ad-block__content">
+                        <div class="ad-block__title ad-block__title_big">Оцените работу доктора</div>
+                        <div class="ad-block__subtitle">Мы всегда готовы развиваться
+                            и с нетерпением ждём ваших комментариев.
+                        </div>
+                        <div class="ad-block__text">Уделите несколько минут тому, чтобы оставить отзыв о лечении у
+                            доктора. Рассказав о своих впечатлениях, вы поможете нам стать лучше.
+                        </div>
+                        <button data-form="give-feedback" class="ad-block__btn btn btn_m btn_inv _popup-link">оставить
+                            отзыв
+                        </button>
+                    </div>
+                </li>
+                <li class="reviews__item review-card">
+                    <div class="review-card__body">
+                        <div class="review-card__header">
+                            <div class="review-card__from from-review">
+                                <div class="from-review__ava _ibg" data-initials="юа"><img
+                                            src="img/reviews/ava-review.png" alt="">
+                                </div>
+                                <div class="from-review__body">
+                                    <div class="from-review__date">02.11.2020</div>
+                                    <div class="from-review__name">Юлия Антонова</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__text">Хочу выразить свою благодарность всей команде врачей, которые
+                            обеспечивали мне комплексное лечение: Егорову Владимиру Леонидовичу, Беляеву Евгению
+                            Михайловичу, Жартанову Олегу Алексеевичу, Перовой Елене Валентиновне. Спасибо за
+                            неравнодушие, высокий профессионализм и внимательность.
+                            <br>Евгению Михайловичу, Жартанову Олегу Алексеевичу, Перовой Елене Валентиновне. Спасибо!
+                        </div>
+                        <div class="review-card__direction direction-link">
+                            <a href="" class="direction-link__metro direction-link__metro_red">м. Лесная</a>
+                            <span class="direction-link__distance">700 м</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="reviews__item review-card">
+                    <div class="review-card__body">
+                        <div class="review-card__header">
+                            <div class="review-card__from from-review">
+                                <div class="from-review__ava _ibg" data-initials="mn"></div>
+                                <div class="from-review__body">
+                                    <div class="from-review__date">02.11.2020</div>
+                                    <div class="from-review__name">Marina Neonova</div>
+                                </div>
+                            </div>
+                            <div class="review-card__rating">
+                                <div class="rating-link">
+                                    <div class="rating-link__top">4.6</div>
+                                    <div class="rating-link__bottom">
+                                        <img class="rating-link__logo" src="/img/rating-clinic/napopravky.svg"
+                                             alt="logo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__text">
+                            Хочу выразить свою благодарность всей команде врачей, которые обеспечивали мне комплексное
+                            лечение: Егорову Владимиру Леонидовичу, Беляеву Евгению Михайловичу, Жартанову Олегу
+                            Алексеевичу, Перовой Елене Валентиновне. Спасибо за неравнодушие,
+                            Хочу выразить свою благодарность всей команде врачей, которые обеспечивали мне комплексное
+                            лечение: Егорову Владимиру Леонидовичу, Беляеву Евгению Михайловичу, Жартанову Олегу
+                            Алексеевичу, Перовой Елене Валентиновне. Спасибо за неравнодушие,
+                        </div>
+                        <div class="review-card__about about-review">
+                            <div class="about-review__title">Отзыв о:</div>
+                            <div class="about-review__item">
+                                <div class="about-review__ava _ibg"><img src="img/reviews/ava-doctor.png" alt=""></div>
+                                <div class="about-review__body">
+                                    <a href="" class="about-review__name">Хиславская Елена Владимировна</a>
+                                    <div class="about-review__position">Невролог / Вертебролог</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__direction direction-link">
+                            <a href="" class="direction-link__metro direction-link__metro_red">м. Академическая</a>
+                            <span class="direction-link__distance">700 м</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="reviews__item review-card">
+                    <div class="review-card__body">
+                        <div class="review-card__header">
+                            <div class="review-card__from from-review">
+                                <div class="from-review__ava _ibg" data-initials="юа"></div>
+                                <div class="from-review__body">
+                                    <div class="from-review__date">02.11.2020</div>
+                                    <div class="from-review__name">Юлия Антонова</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__text">Хочу выразить свою благодарность всей команде врачей, которые
+                            обеспечивали мне комплексное лечение: Егорову Владимиру Леонидовичу.
+                        </div>
+                        <div class="review-card__about about-review">
+                            <div class="about-review__title">Отзыв о:</div>
+                            <div class="about-review__item">
+                                <div class="about-review__ava _ibg"><img src="img/reviews/ava-doctor.png" alt=""></div>
+                                <div class="about-review__body">
+                                    <a href="" class="about-review__name">Хиславская Елена Владимировна</a>
+                                    <div class="about-review__position">Невролог / Вертебролог</div>
+                                </div>
+                            </div>
+                            <div class="about-review__item">
+                                <div class="about-review__ava _ibg"><img src="img/reviews/ava-doctor.png" alt=""></div>
+                                <div class="about-review__body">
+                                    <a href="" class="about-review__name">Хиславская Елена Владимировна</a>
+                                    <div class="about-review__position">Невролог / Вертебролог</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-card__direction direction-link">
+                            <a href="" class="direction-link__metro direction-link__metro_blue">м. Московская</a>
+                            <span class="direction-link__distance">1,5 км</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <a href="" class="reviews__all link link_all">Читать все отзывы</a>
+        </section>
+#}
         {% include 'review/_list.html.twig' %}
         <div class="how-to _container">
             <div class="how-to__content">
