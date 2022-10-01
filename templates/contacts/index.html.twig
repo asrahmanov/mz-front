@@ -25,6 +25,7 @@
                 {% endfor %}
             </ul>
             {% for clinic in clinics %}
+                {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
                 <div class="_tabs-block{{ loop.first ? ' _active' }}" id="{{ clinic.slug }}">
                     <h2 class="placement__header h2">{{ clinic.name }}</h2>
                     <div class="placement__row">
