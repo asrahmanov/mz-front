@@ -212,24 +212,28 @@
                             </div>
                             <div class="_tabs-block">
                                 <div class="search__input search-input" style="position: relative">
-                                    <input autocomplete="off" type="text" name="disease" data-value="Введите заболевание"
+                                    <input autocomplete="off" type="text" name="disease"
+                                           data-value="Введите заболевание"
                                            class="search-input__input input input_l _req">
                                     <button type="submit" class="search-input__btn btn btn_l btn_prim">найти</button>
                                 </div>
                             </div>
                             <div class="search__clinics">
                                 <div class="search__clinic radio">
-                                    <input type="radio" name="treatment_search_clinic[]" class="radio__input" id="treatment_search_clinic_none" checked value="">
+                                    <input type="radio" name="treatment_search_clinic[]" class="radio__input"
+                                           id="treatment_search_clinic_none" checked value="">
                                     <label for="treatment_search_clinic_none" class="radio__text">Все клиники</label>
                                 </div>
                                 {% for clinic in clinics %}
                                     {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
-                                    <div class="search__clinic radio">
-                                        <input type="radio" name="treatment_search_clinic[]" class="radio__input" id="treatment_search_clinic_{{ clinic.id }}" value="{{ clinic.id }}">
-                                        <label for="treatment_search_clinic_{{ clinic.id }}" class="radio__text">{{ clinic }}</label>
-                                    </div>
+                                        <div class="search__clinic radio">
+                                            <input type="radio" name="treatment_search_clinic[]" class="radio__input"
+                                                   id="treatment_search_clinic_{{ clinic.id }}" value="{{ clinic.id }}">
+                                            <label for="treatment_search_clinic_{{ clinic.id }}"
+                                                   class="radio__text">{{ clinic }}</label>
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
-                                {% endif %}
                             </div>
                         </form>
                     </div>
@@ -240,7 +244,7 @@
         {% if clinics|length %}
             {% include 'main/_ask_question.html.twig' with {clinic: clinics[0]} %}
         {% endif %}
-{#
+        {#
         <section class="reviews _container">
             <h2 class="reviews__header h2 _scroll-icon _scr-item">Отзывы</h2>
             <ul class="reviews__row">reviews _container
@@ -414,8 +418,8 @@
             </ul>
             <a href="" class="reviews__all link link_all">Читать все отзывы</a>
         </section>
-#}
-{#        {% include 'review/_list.html.twig' %}#}
+        #}
+        {# {% include 'review/_list.html.twig' %} #}
         <div class="how-to _container">
             <div class="how-to__content">
                 <div class="how-to__title">Как проходит лечение в нашей клинике</div>
@@ -579,77 +583,77 @@
             </div>
         </div>
         {% include 'main/_articles.html.twig' %}
-{#        <section class="news _container">#}
-{#            <h2 class="news__header h2">Новости</h2>#}
-{#            <div class="news__row">#}
-{#                <div class="news__items items-news _scr-item _scroll-icon">#}
-{#                    <div class="items-news__row">#}
-{#                        <div class="items-news__item">#}
-{#                            <div class="item-news">#}
-{#                                <div class="item-news__head">#}
-{#                                    <div class="item-news__date">02.11.2020</div>#}
-{#                                    <a href="" class="item-news__title">Важно! Меры защиты от коронавирусной инфекции в#}
-{#                                        «Мастерской Здоровья»</a>#}
-{#                                </div>#}
-{#                                <div class="item-news__body">#}
-{#                                    <p class="item-news__text">#}
-{#                                        Мы заботимся о здоровье пациентов и принимаем все необходимые меры защиты в#}
-{#                                        период эпидемии.#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="items-news__item">#}
-{#                            <div class="item-news">#}
-{#                                <div class="item-news__head">#}
-{#                                    <div class="item-news__date">02.11.2020</div>#}
-{#                                    <a href="" class="item-news__title">Приглашаем вас 16 декабря в 10.30 на занятие в#}
-{#                                        Школе Остеопороза</a>#}
-{#                                </div>#}
-{#                                <div class="item-news__body">#}
-{#                                    <p class="item-news__text">#}
-{#                                        Приглашаем вас 16 декабря в 10.30 на занятие в Школе Остеопороза#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="items-news__item">#}
-{#                            <div class="item-news">#}
-{#                                <div class="item-news__head">#}
-{#                                    <div class="item-news__date">02.11.2020</div>#}
-{#                                    <a href="" class="item-news__title">Важно! Меры защиты от коронавирусной инфекции в#}
-{#                                        «Мастерской Здоровья»</a>#}
-{#                                </div>#}
-{#                                <div class="item-news__body">#}
-{#                                    <p class="item-news__text">#}
-{#                                        Мы заботимся о здоровье пациентов и принимаем все необходимые меры защиты в#}
-{#                                        период эпидемии.#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <a href="" class="items-news__all link link_all">Читать все новости</a>#}
-{#                </div>#}
-{#                <div class="news__actions actions-news">#}
-{#                    <div class="actions-news__row">#}
-{#                        <div class="actions-news__item ad-block">#}
-{#                            <div class="ad-block__content">#}
-{#                                <div class="ad-block__labels">#}
-{#                                    <span class="label">акция</span>#}
-{#                                    <span class="label label_price">специальная цена</span>#}
-{#                                </div>#}
-{#                                <div class="ad-block__title">Консультация врача высшей категории#}
-{#                                    за 0 рублей!#}
-{#                                </div>#}
-{#                                <a href="" class="ad-block__btn btn btn_m btn_inv">подробнее</a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <a href="{{ path('promos') }}" class="actions-news__all link link_all">Смотреть все акции</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </section>#}
+        {# <section class="news _container"> #}
+        {# <h2 class="news__header h2">Новости</h2> #}
+        {# <div class="news__row"> #}
+        {# <div class="news__items items-news _scr-item _scroll-icon"> #}
+        {# <div class="items-news__row"> #}
+        {# <div class="items-news__item"> #}
+        {# <div class="item-news"> #}
+        {# <div class="item-news__head"> #}
+        {# <div class="item-news__date">02.11.2020</div> #}
+        {# <a href="" class="item-news__title">Важно! Меры защиты от коронавирусной инфекции в #}
+        {# «Мастерской Здоровья»</a> #}
+        {# </div> #}
+        {# <div class="item-news__body"> #}
+        {# <p class="item-news__text"> #}
+        {# Мы заботимся о здоровье пациентов и принимаем все необходимые меры защиты в #}
+        {# период эпидемии. #}
+        {# </p> #}
+        {# </div> #}
+        {# </div> #}
+        {# </div> #}
+        {# <div class="items-news__item"> #}
+        {# <div class="item-news"> #}
+        {# <div class="item-news__head"> #}
+        {# <div class="item-news__date">02.11.2020</div> #}
+        {# <a href="" class="item-news__title">Приглашаем вас 16 декабря в 10.30 на занятие в #}
+        {# Школе Остеопороза</a> #}
+        {# </div> #}
+        {# <div class="item-news__body"> #}
+        {# <p class="item-news__text"> #}
+        {# Приглашаем вас 16 декабря в 10.30 на занятие в Школе Остеопороза #}
+        {# </p> #}
+        {# </div> #}
+        {# </div> #}
+        {# </div> #}
+        {# <div class="items-news__item"> #}
+        {# <div class="item-news"> #}
+        {# <div class="item-news__head"> #}
+        {# <div class="item-news__date">02.11.2020</div> #}
+        {# <a href="" class="item-news__title">Важно! Меры защиты от коронавирусной инфекции в #}
+        {# «Мастерской Здоровья»</a> #}
+        {# </div> #}
+        {# <div class="item-news__body"> #}
+        {# <p class="item-news__text"> #}
+        {# Мы заботимся о здоровье пациентов и принимаем все необходимые меры защиты в #}
+        {# период эпидемии. #}
+        {# </p> #}
+        {# </div> #}
+        {# </div> #}
+        {# </div> #}
+        {# </div> #}
+        {# <a href="" class="items-news__all link link_all">Читать все новости</a> #}
+        {# </div> #}
+        {# <div class="news__actions actions-news"> #}
+        {# <div class="actions-news__row"> #}
+        {# <div class="actions-news__item ad-block"> #}
+        {# <div class="ad-block__content"> #}
+        {# <div class="ad-block__labels"> #}
+        {# <span class="label">акция</span> #}
+        {# <span class="label label_price">специальная цена</span> #}
+        {# </div> #}
+        {# <div class="ad-block__title">Консультация врача высшей категории #}
+        {# за 0 рублей! #}
+        {# </div> #}
+        {# <a href="" class="ad-block__btn btn btn_m btn_inv">подробнее</a> #}
+        {# </div> #}
+        {# </div> #}
+        {# <a href="{{ path('promos') }}" class="actions-news__all link link_all">Смотреть все акции</a> #}
+        {# </div> #}
+        {# </div> #}
+        {# </div> #}
+        {# </section> #}
         <section class="director _container">
             <div class="director__content">
                 <div class="director__row">
@@ -657,7 +661,9 @@
                         <div class="director__words words-director">
                             <div class="words-director__title h2">Обращение генерального директора</div>
                             <div class="words-director__row">
-                                <div class="words-director__photo"><img src="{{ asset('/img/director/photo.png') }}" alt=""></div>
+                                <div class="words-director__photo"><img src="{{ asset('/img/director/photo.png') }}"
+                                                                        alt="">
+                                </div>
                                 <div class="words-director__body">
                                     <div class="words-director__text">
                                         «Мастерская Здоровья» — это сеть из трёх клиник лечения позвоночника и суставов
@@ -674,23 +680,23 @@
                                 <button data-form="to-director"
                                         class="words-director__btn btn btn_prim btn_m _popup-link">написать директору
                                 </button>
-{#                                <a href="" class="words-director__btn btn btn_sec btn_m">о клинике</a>#}
+                                {# <a href="" class="words-director__btn btn btn_sec btn_m">о клинике</a> #}
                             </div>
                         </div>
                     </div>
-{#                    <div class="director__col">#}
-{#                        <div class="director__video video-director">#}
-{#                            <div class="video-director__title">Узнай о сети клиник «Мастерская Здоровья» <br>за 2 минуты#}
-{#                            </div>#}
-{#                            <a href="#video" data-video="qmNdBjKZaxg"#}
-{#                               class="video-director__link _popup-link link-youtube _icon-youtube _ibg"><img#}
-{#                                        src="{{ asset('/img/director/video.png') }}" alt=""></a>#}
-{#                        </div>#}
-{#                    </div>#}
+                    {# <div class="director__col"> #}
+                    {# <div class="director__video video-director"> #}
+                    {# <div class="video-director__title">Узнай о сети клиник «Мастерская Здоровья» <br>за 2 минуты #}
+                    {# </div> #}
+                    {# <a href="#video" data-video="qmNdBjKZaxg" #}
+                    {# class="video-director__link _popup-link link-youtube _icon-youtube _ibg"><img #}
+                    {# src="{{ asset('/img/director/video.png') }}" alt=""></a> #}
+                    {# </div> #}
+                    {# </div> #}
                 </div>
             </div>
         </section>
-{#        {% include 'clinic_rating/_section.html.twig' %}#}
+        {# {% include 'clinic_rating/_section.html.twig' %} #}
         {% include 'main/_certs.html.twig' %}
     </main>
 {% endblock %}
