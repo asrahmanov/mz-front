@@ -75,47 +75,47 @@
                 </div>
             </div>
         </section>
-        <section class="tour _container">
-            <h2 class="tour__header h2">3D тур по клинике</h2>
-            <div class="_row">
-                <div class="_col_8">
-                    <div class="tour__video">
-                        <a href="#video" data-video="_78iF6_EK6I" class="_popup-link videopresentation videopresentation_tour">
-                            <div class="videopresentation__poster _ibg">
-                                <img src="/img/tour/video.png" alt="">
-                            </div>
-                            <div class="videopresentation__play">
-                                <span class="videopresentation__icon videopresentation__icon_l"></span>
-                                <span class="videopresentation__text">Совершите виртуальную прогулку по нашей клинике</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="_col_4">
-                    <div class="tour__title">Мы в соцсетях:</div>
-                    <div class="socials">
-                        <div class="socials__links">
-                            {% if clinic.socVk %}
-                                <a href="{{ clinic.socVk }}" class="socials__link _icon-vk"></a>
-                            {% endif %}
-                            {% if clinic.socFb %}
-                                <a href="{{ clinic.socFb }}" class="socials__link _icon-facebook"></a>
-                            {% endif %}
-                            {% if clinic.socYoutube %}
-                                <a href="{{ clinic.socYoutube }}" class="socials__link _icon-youtube"></a>
-                            {% endif %}
-                            {% if clinic.socInsta %}
-                                <a href="{{ clinic.socInsta }}" class="socials__link"><img src="/img/icons/instagram.png" alt=""></a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if clinic.socTelegram %}
-                        <div class="tour__title">Наш телеграм-бот:</div>
-                        <a href="{{ clinic.socTelegram }}" class="tour__link _icon-telegram">mz-clinic_bot</a>
-                    {% endif %}
-                </div>
-            </div>
-        </section>
+{#        <section class="tour _container">#}
+{#            <h2 class="tour__header h2">3D тур по клинике</h2>#}
+{#            <div class="_row">#}
+{#                <div class="_col_8">#}
+{#                    <div class="tour__video">#}
+{#                        <a href="#video" data-video="_78iF6_EK6I" class="_popup-link videopresentation videopresentation_tour">#}
+{#                            <div class="videopresentation__poster _ibg">#}
+{#                                <img src="/img/tour/video.png" alt="">#}
+{#                            </div>#}
+{#                            <div class="videopresentation__play">#}
+{#                                <span class="videopresentation__icon videopresentation__icon_l"></span>#}
+{#                                <span class="videopresentation__text">Совершите виртуальную прогулку по нашей клинике</span>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="_col_4">#}
+{#                    <div class="tour__title">Мы в соцсетях:</div>#}
+{#                    <div class="socials">#}
+{#                        <div class="socials__links">#}
+{#                            {% if clinic.socVk %}#}
+{#                                <a href="{{ clinic.socVk }}" class="socials__link _icon-vk"></a>#}
+{#                            {% endif %}#}
+{#                            {% if clinic.socFb %}#}
+{#                                <a href="{{ clinic.socFb }}" class="socials__link _icon-facebook"></a>#}
+{#                            {% endif %}#}
+{#                            {% if clinic.socYoutube %}#}
+{#                                <a href="{{ clinic.socYoutube }}" class="socials__link _icon-youtube"></a>#}
+{#                            {% endif %}#}
+{#                            {% if clinic.socInsta %}#}
+{#                                <a href="{{ clinic.socInsta }}" class="socials__link"><img src="/img/icons/instagram.png" alt=""></a>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    {% if clinic.socTelegram %}#}
+{#                        <div class="tour__title">Наш телеграм-бот:</div>#}
+{#                        <a href="{{ clinic.socTelegram }}" class="tour__link _icon-telegram">mz-clinic_bot</a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
         {% if clinic.gallery|length %}
             <section class="gallery _container">
                 <h2 class="gallery__header h2">Галерея</h2>
