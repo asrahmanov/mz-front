@@ -81,7 +81,7 @@
                         {% set colNums = colNums + 1 %}
                     {% endif %}
                     {% if colNums == 4 %}
-                        {% include 'doctor/_promo3.html.twig' %}
+{#                        {% include 'doctor/_promo3.html.twig' %}#}
                     {% endif %}
                     {% if loop.index == leadingSpecialistsCount %}
                         {{ render(controller('App\\Controller\\BannerController::show', {
