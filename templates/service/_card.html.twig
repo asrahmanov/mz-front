@@ -31,16 +31,16 @@
                 {% endif %}
                 <a href="{{ path('service.show', {path: service.path}) }}" class="branch__show-all">Подробнее</a>
             </div>
-            <div class="branch__locations">
-                <span>Находится в клинике:</span>
-                {% if service.clinics.count == totalClinics %}
-                    <a href="{{ path('contacts') }}" class="branch__location branch__location_all">Все клиники</a>
-                {% else %}
-                    {% for clinic in service.clinics %}
-                        <a href="{{ path('contacts', {slug: clinic.slug}) }}" class="branch__location branch__location_{{ clinic.color }}">{{ clinic }}</a>
-                    {% endfor %}
-                {% endif %}
-            </div>
+{#            <div class="branch__locations">#}
+{#                <span>Находится в клинике:</span>#}
+{#                {% if service.clinics.count == totalClinics %}#}
+{#                    <a href="{{ path('contacts') }}" class="branch__location branch__location_all">Все клиники</a>#}
+{#                {% else %}#}
+{#                    {% for clinic in service.clinics %}#}
+{#                        <a href="{{ path('contacts', {slug: clinic.slug}) }}" class="branch__location branch__location_{{ clinic.color }}">{{ clinic }}</a>#}
+{#                    {% endfor %}#}
+{#                {% endif %}#}
+{#            </div>#}
         </div>
     </div>
 </div>
