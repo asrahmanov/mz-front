@@ -102,17 +102,10 @@
             <p class="ask-question__title">Задайте вопрос специалисту</p>
             <div class="ask-question__text">
                 Ответим на любой вопрос, позвоните или напишите нам:<br>
-                {#            _icon-tel#}
-                <a href="tel:{{ clinic.tel }}" class="ask-question__phone link link_icon ">{{ clinic.tel }}</a>
+                <a href="tel:+78124217036" class="ask-question__phone link link_icon _icon-tel">+7 (812) 421-70-36</a>
                 <span class="ask-question__time">(ежедневно с 9:00 до 20:00)</span>
             </div>
             <ul class="ask-question__social">
-                {% if clinic.socInsta %}
-                    <li class="ask-question__item">
-                        <a href="{{ clinic.socInsta }}" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-instagram">Написать в
-                            Instagram</a>
-                    </li>
-                {% endif %}
                 <li class="ask-question__item">
                     <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-whatsapp">Написать в
                         Whatsapp</a>
@@ -121,28 +114,9 @@
                     <a href="#" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-jivo">Написать в Jivo
                         Chat</a>
                 </li>
-
                 <li class="ask-question__item">
                     <button  data-form="request-call" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-whatsapp _popup-link">Позвонить</button>
                 </li>
-                {% if clinic.socVk %}
-                    <li class="ask-question__item">
-                        <a href="{{ clinic.socVk }}" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-vk">Написать во
-                            Вконтакте</a>
-                    </li>
-                {% endif %}
-                {% if clinic.socFb %}
-                    <li class="ask-question__item">
-                        <a href="{{ clinic.socFb }}" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-facebook">Написать в
-                            Facebook</a>
-                    </li>
-                {% endif %}
-                {% if clinic.socTelegram %}
-                    <li class="ask-question__item">
-                        <a href="{{ clinic.socTelegram }}" class="ask-question__btn btn btn_l btn_sec btn_icon _icon-telegram">Написать в
-                            Telegram</a>
-                    </li>
-                {% endif %}
             </ul>
         </div>
     </main>
