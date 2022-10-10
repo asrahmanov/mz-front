@@ -17,24 +17,24 @@
             <h1 class="page__header h1">{{ seo.h1|default('Контакты') }}</h1>
         </div>
         <section class="placement _container">
-            <h2 class="placement__header h2 _scroll-icon _scr-item">Выберите удобное расположение клиники</h2>
-            <ul class="placement__tabs tabs-placement _row">
-                {% for item in clinics %}
-                    <li class="_col_4">
-                        {% if clinic.slug == item.slug %}
-                            <div class="tabs-placement__item _active" href="{{ path('contacts', {slug: item.slug}) }}">
-                                <div class="tabs-placement__img _ibg">{{ image(item.photo) }}</div>
-                                <div class="tabs-placement__title">{{ item.name }}</div>
-                            </div>
-                        {% else %}
-                            <a class="tabs-placement__item" href="{{ path('contacts', {slug: item.slug}) }}">
-                                <div class="tabs-placement__img _ibg">{{ image(item.photo) }}</div>
-                                <div class="tabs-placement__title">{{ item.name }}</div>
-                            </a>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
+{#            <h2 class="placement__header h2 _scroll-icon _scr-item">Выберите удобное расположение клиники</h2>#}
+{#            <ul class="placement__tabs tabs-placement _row">#}
+{#                {% for item in clinics %}#}
+{#                    <li class="_col_4">#}
+{#                        {% if clinic.slug == item.slug %}#}
+{#                            <div class="tabs-placement__item _active" href="{{ path('contacts', {slug: item.slug}) }}">#}
+{#                                <div class="tabs-placement__img _ibg">{{ image(item.photo) }}</div>#}
+{#                                <div class="tabs-placement__title">{{ item.name }}</div>#}
+{#                            </div>#}
+{#                        {% else %}#}
+{#                            <a class="tabs-placement__item" href="{{ path('contacts', {slug: item.slug}) }}">#}
+{#                                <div class="tabs-placement__img _ibg">{{ image(item.photo) }}</div>#}
+{#                                <div class="tabs-placement__title">{{ item.name }}</div>#}
+{#                            </a>#}
+{#                        {% endif %}#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
             <div class="placement__content">
                 <h2 class="placement__header h2">Клиника {{ clinic.name }}</h2>
                 <div class="placement__row">
