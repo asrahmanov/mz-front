@@ -47,10 +47,10 @@ class AppFixtures extends Fixture
                     'name' => 'Врачи',
                     'link' => '/doctors',
                 ],
-                [
-                    'name' => 'Наш блог',
-                    'link' => '/articles',
-                ],
+//                [
+//                    'name' => 'Наш блог',
+//                    'link' => '/articles',
+//                ],
                 [
                     'name' => 'Отзывы',
                     'link' => '#',
