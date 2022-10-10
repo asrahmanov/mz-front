@@ -174,9 +174,11 @@
                                         {{ edu['year'] ? edu['year'] ~ 'г.' }}
                                     </time>
                                     <div class="item-education__body">
-                                        <div class="item-education__university">{{ edu['institution'] }}
+                                        <div class="item-education__university">{{ edu['institution']|default }}
                                         </div>
-                                        <div class="item-education__spec">{{ edu['specialization'] }}</div>
+                                        <div class="item-education__spec">{{ edu['specialization']|default }}
+
+                                        </div>
                                     </div>
                                 </li>
                             {% endfor %}
