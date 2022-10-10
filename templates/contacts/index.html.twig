@@ -15,17 +15,17 @@
             <h1 class="page__header h1">{{ seo.h1|default("Контакты") }}</h1>
         </div>
         <section class="placement _container _tabs">
-            <h2 class="placement__header h2 _scroll-icon _scr-item">Выберите удобное расположение клиники</h2>
-            <ul class="placement__tabs tabs-placement _row">
-                {% for clinic in clinics %}
-                    {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
-                    <li class="tabs-placement__item _col_4 _tabs-item{{ loop.first ? ' _active' }}" data-id="{{ clinic.slug }}">
-                        <div class="tabs-placement__img _ibg"><img src="img/map-footer/01.jpg" alt=""></div>
-                        <div class="tabs-placement__title">{{ clinic.name }}</div>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+{#            <h2 class="placement__header h2 _scroll-icon _scr-item">Выберите удобное расположение клиники</h2>#}
+{#            <ul class="placement__tabs tabs-placement _row">#}
+{#                {% for clinic in clinics %}#}
+{#                    {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}#}
+{#                    <li class="tabs-placement__item _col_4 _tabs-item{{ loop.first ? ' _active' }}" data-id="{{ clinic.slug }}">#}
+{#                        <div class="tabs-placement__img _ibg"><img src="img/map-footer/01.jpg" alt=""></div>#}
+{#                        <div class="tabs-placement__title">{{ clinic.name }}</div>#}
+{#                    </li>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            </ul>#}
             {% for clinic in clinics %}
                 {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
                 <div class="_tabs-block{{ loop.first ? ' _active' }}" id="{{ clinic.slug }}">
