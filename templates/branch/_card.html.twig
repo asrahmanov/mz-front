@@ -13,11 +13,11 @@
             </ul>
             <a href="{{ path('diseases') }}" class="branch__show-all">Смотреть все</a>
         </div>
-        <div class="branch__locations">
-            <span>Находится в клинике:</span>
-            {% for clinic in branch.clinics %}
-                <a href="{{ path('contacts', {slug: clinic.slug}) }}" class="branch__location branch__location_{{ clinic.color }}">{{ clinic.name }}</a>
-            {% endfor %}
-        </div>
+{#        <div class="branch__locations">#}
+{#            <span>Находится в клинике:</span>#}
+{#            {% for clinic in branch.clinics %}#}
+{#                <a href="{{ path('contacts', {slug: clinic.slug}) }}" class="branch__location branch__location_{{ clinic.color }}">{{ clinic.name }}</a>#}
+{#            {% endfor %}#}
+{#        </div>#}
     </div>
 </div>
