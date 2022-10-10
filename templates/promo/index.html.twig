@@ -58,14 +58,14 @@
                                 </div>
                                 <div class="action-branch__footer">
                                     <a href="{{ path('promo.show', {slug: promo.slug}) }}" class="action-branch__link btn btn_sec btn_m">подробнее</a>
-                                    {% if promo.clinics.count %}
-                                        <div class="action-branch__locations">
-                                            Действует в в клиниках:<br>
-                                            {% for clinic in promo.clinics %}
-                                                <a href="" class="action-branch__location action-branch__location_{{ clinic.color }}">{{ clinic }}</a>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
+{#                                    {% if promo.clinics.count %}#}
+{#                                        <div class="action-branch__locations">#}
+{#                                            Действует в в клиниках:<br>#}
+{#                                            {% for clinic in promo.clinics %}#}
+{#                                                <a href="" class="action-branch__location action-branch__location_{{ clinic.color }}">{{ clinic }}</a>#}
+{#                                            {% endfor %}#}
+{#                                        </div>#}
+{#                                    {% endif %}#}
                                 </div>
                             </div>
                         </div>
