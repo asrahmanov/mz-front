@@ -17,16 +17,16 @@
                 </div>
                 <a href="{{ path('treatment.show', {slug: treatment.slug}) }}" class="branch__show-all">Подробнее</a>
             </div>
-            <div class="branch__locations">
-                <span>Доступно в клинике:</span>
-                {% if treatment.clinics.count == totalClinics %}
-                    <a href="javascript:void(0);" class="branch__location branch__location_all">Все клиники</a>
-                {% else %}
-                    {% for clinic in treatment.clinics %}
-                        <a href="javascript:void(0);" class="branch__location branch__location_{{ clinic.color }}">{{ clinic }}</a>
-                    {% endfor %}
-                {% endif %}
-            </div>
+{#            <div class="branch__locations">#}
+{#                <span>Доступно в клинике:</span>#}
+{#                {% if treatment.clinics.count == totalClinics %}#}
+{#                    <a href="javascript:void(0);" class="branch__location branch__location_all">Все клиники</a>#}
+{#                {% else %}#}
+{#                    {% for clinic in treatment.clinics %}#}
+{#                        <a href="javascript:void(0);" class="branch__location branch__location_{{ clinic.color }}">{{ clinic }}</a>#}
+{#                    {% endfor %}#}
+{#                {% endif %}#}
+{#            </div>#}
         </div>
     </div>
 </div>
