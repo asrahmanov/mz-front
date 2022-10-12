@@ -44,28 +44,28 @@
             </div>
         </section>
         <section class="doctors-main _container">
-            <h2 class="doctors-main__header h2">Быстрый поиск врача</h2>
-            {{ form_start(doctorsSearchForm, {'action': path('doctors'), 'attr': {'class': 'doctors-main__search'}}) }}
-            {{ form_widget(doctorsSearchForm._token) }}
-            <div class="search-form__input _icon-search">
-                {{ form_widget(doctorsSearchForm.name, {attr: {class: 'input input_l', 'data-value': 'ФИО врача'}}) }}
-            </div>
-            <div class="search-form__select search-form__select_doctor">
-                {{ form_widget(doctorsSearchForm.speciality, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'Выбрать врача'}}) }}
-            </div>
-            <div class="search-form__select search-form__select_category">
-                {{ form_widget(doctorsSearchForm.category, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'Выбрать категорию'}}) }}
-            </div>
-            {{ form_widget(doctorsSearchForm.clinic) }}
-            <div class="search-form__list search-form__list_options">
-                {{ form_widget(doctorsSearchForm.onlineConsultation) }}
-                {{ form_widget(doctorsSearchForm.today) }}
-                {{ form_widget(doctorsSearchForm.promo) }}
-            </div>
-            <div class="search-form__reset">
-                <a href="{{ path('doctors') }}" type="reset" class="_icon-refresh">Сбросить фильтры</a>
-            </div>
-            {{ form_end(doctorsSearchForm, {render_rest: false}) }}
+{#            <h2 class="doctors-main__header h2">Быстрый поиск врача</h2>#}
+{#            {{ form_start(doctorsSearchForm, {'action': path('doctors'), 'attr': {'class': 'doctors-main__search'}}) }}#}
+{#            {{ form_widget(doctorsSearchForm._token) }}#}
+{#            <div class="search-form__input _icon-search">#}
+{#                {{ form_widget(doctorsSearchForm.name, {attr: {class: 'input input_l', 'data-value': 'ФИО врача'}}) }}#}
+{#            </div>#}
+{#            <div class="search-form__select search-form__select_doctor">#}
+{#                {{ form_widget(doctorsSearchForm.speciality, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'Выбрать врача'}}) }}#}
+{#            </div>#}
+{#            <div class="search-form__select search-form__select_category">#}
+{#                {{ form_widget(doctorsSearchForm.category, {attr: {'class': 'l', 'data-type': 'input', 'data-placeholder': 'Выбрать категорию'}}) }}#}
+{#            </div>#}
+{#            {{ form_widget(doctorsSearchForm.clinic) }}#}
+{#            <div class="search-form__list search-form__list_options">#}
+{#                {{ form_widget(doctorsSearchForm.onlineConsultation) }}#}
+{#                {{ form_widget(doctorsSearchForm.today) }}#}
+{#                {{ form_widget(doctorsSearchForm.promo) }}#}
+{#            </div>#}
+{#            <div class="search-form__reset">#}
+{#                <a href="{{ path('doctors') }}" type="reset" class="_icon-refresh">Сбросить фильтры</a>#}
+{#            </div>#}
+{#            {{ form_end(doctorsSearchForm, {render_rest: false}) }}#}
             <ul class="doctors-main__row">
                 {% set colNums = 0 %}
                 {% for doctor in doctors %}
