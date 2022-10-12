@@ -46,7 +46,7 @@
                 <div class="card-doctor__price">Стоимость приема: от {{ doctor.appointment.value|number_format(0, '.', ' ')  }} ₽</div>
             {% endif %}
             <a href="{{ path('doctor.show', {slug: doctor.slug}) }}" class="card-doctor__btn btn btn_l btn_prim">записаться</a>
-            <button data-form="ask-question" class="card-doctor__btn btn btn_l btn_sec _popup-link">задать вопрос</button>
+{#            <button data-form="ask-question" class="card-doctor__btn btn btn_l btn_sec _popup-link">задать вопрос</button>#}
         </div>
     </div>
 </div>
