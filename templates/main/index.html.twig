@@ -224,16 +224,16 @@
 {#                                           id="treatment_search_clinic_none" checked value="">#}
 {#                                    <label for="treatment_search_clinic_none" class="radio__text">Все клиники</label>#}
 {#                                </div>#}
-                                {% for clinic in clinics %}
-                                    {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}
-                                        <div class="search__clinic radio">
-                                            <input type="radio" name="treatment_search_clinic[]" class="radio__input"
-                                                   id="treatment_search_clinic_{{ clinic.id }}" checked value="{{ clinic.id }}">
-                                            <label for="treatment_search_clinic_{{ clinic.id }}"
-                                                   class="radio__text">{{ clinic }}</label>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
+{#                                {% for clinic in clinics %}#}
+{#                                    {% if clinic.name == "Клиника Лечения Позвоночника на Лесной" %}#}
+{#                                        <div class="search__clinic radio">#}
+{#                                            <input type="radio" name="treatment_search_clinic[]" class="radio__input"#}
+{#                                                   id="treatment_search_clinic_{{ clinic.id }}" checked value="{{ clinic.id }}">#}
+{#                                            <label for="treatment_search_clinic_{{ clinic.id }}"#}
+{#                                                   class="radio__text">{{ clinic }}</label>#}
+{#                                        </div>#}
+{#                                    {% endif %}#}
+{#                                {% endfor %}#}
                             </div>
                         </form>
                     </div>
